@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "scripts": {
         "dev": "vite --host",
-        "build": "vite build --base=/",
+        "build": "vite build --base=/divisihr-migration/vue-project/dist",
         "preview": "vite preview --port 4173"
     },
     "dependencies": {
