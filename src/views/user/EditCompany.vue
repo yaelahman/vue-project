@@ -79,7 +79,7 @@
                           oninput="setCustomValidity('')" />
                       </div>
                       <div class="example-content mt-3">
-                        <button type="submit" class="btn btn-primary" id="submit">
+                        <button type="submit" class="btn btn-primary submit">
                           <i class="material-icons">save</i>Simpan
                         </button>
                         <router-link :to="{
@@ -101,17 +101,31 @@
     <div class="modal fade" id="ModalConfirmEmail" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Foto</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Close
-            </button>
-          </div>
+          <form class="mt-3" @submit.prevent="createUserCompany()">
+            <div class="modal-header">
+              <h5 class="modal-title">Konfirmasi Email</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <small class="text-danger text-message">*Email diubah, Silahkan untuk konfirmasi Email dengan mengisi kode konfirmasi yang dikirim melalui email baru.</small>
+              <div class="form-group">
+                <label for="">Email</label>
+                <input type="text" disabled v-model="user_company.m_user_company_email" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="">Token</label>
+                <input type="text" v-model="user_company.token" required class="form-control">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary submit">
+                <i class="material-icons">save</i>Simpan
+              </button>
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -136,11 +150,11 @@ export default {
     };
   },
   mounted() {
-    $('#ModalConfirmEmail').modal('show')
+    // $('#ModalConfirmEmail').modal('show')
     this.id = this.$route.params.id;
     this.id = this.id != null ? this.id : "";
     if (this.id != "" && this.id != null) {
-      $("#submit").html("Update");
+      $(".submit").html("Update");
     }
   },
   created() {
@@ -149,25 +163,29 @@ export default {
   },
   methods: {
     createUserCompany() {
-      $("#submit").prop("disabled", true);
-      $("#submit").html("Loading...");
+      $(".submit").prop("disabled", true);
+      $(".submit").html("Loading...");
       axios
         .post(env.VITE_API_URL + "ceate-edit-user-company", {
           id: this.id,
           user_company: this.user_company,
         })
         .then((response) => {
-          if (Api.response(response.data) === Api.STATUS_SUCCESS) {
+          console.log(response.data)
+          this.errors = response.data.data;
+          if (response.data != null && response.data.data != null && response.data.data.modal) {
+
+            $('#ModalConfirmEmail').modal('show')
+          } else if (Api.response(response.data) === Api.STATUS_SUCCESS) {
             window.location.href = window.location.origin + "/detail-company-user/" + this.id
             // this.$router.push("/detail-company-user/" + this.id);
           }
-          this.errors = response.data.data;
-          $("#submit").prop("disabled", false);
-          $("#submit").html("Submit");
+          $(".submit").prop("disabled", false);
+          $(".submit").html("Submit");
         })
         .catch((e) => {
           Api.messageError(e);
-          $("#submit").prop("disabled", false);
+          $(".submit").prop("disabled", false);
         });
     },
 

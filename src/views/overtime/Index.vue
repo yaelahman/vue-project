@@ -92,7 +92,7 @@
                           <td>
                             {{ menitLembur(val) }}
                           </td>
-                          <td>
+                          <td class="text-start">
                             <div class="btn-group">
                               <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal"
                                 data-toggle="tooltip" data-placement="right" title="Lokasi awal"

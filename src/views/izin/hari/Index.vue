@@ -38,9 +38,9 @@
                                                 </select>
                                             </div>
                                             <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem;">
-                                                <button class="btn btn-primary mb-2" style="width: 120px;"
+                                                <button class="btn btn-sm text-nowrap me-2 btn-primary mb-2"
                                                     @click="filterType = 'show'">Tampilkan</button>
-                                                <button class="btn btn-primary mb-2" style="width: 120px;"
+                                                <button class="btn btn-sm text-nowrap me-2 btn-primary mb-2"
                                                     @click="filterType = 'download'">
                                                     Unduh
                                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"

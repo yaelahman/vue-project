@@ -93,7 +93,7 @@
                           <td>
                             {{ menitTerlambat(val) }}
                           </td>
-                          <td>
+                          <td class="text-start">
                             <div class="btn-group">
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Lokasi awal" data-bs-toggle="modal"

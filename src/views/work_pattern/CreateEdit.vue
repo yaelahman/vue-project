@@ -146,6 +146,7 @@ export default {
         m_work_patern_numberCycle: this.m_work_patern_numberCycle,
         work_schedule: this.work_schedule
       }).then(response => {
+        // if(response.data) 
         if (Api.response(response.data) === Api.STATUS_SUCCESS) {
           this.$router.push("/index-work-pattern")
         }

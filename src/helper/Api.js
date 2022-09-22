@@ -24,7 +24,7 @@ export function convertTime(date, format = 'hh:mm', empty = ':') {
 }
 
 export function response(data, is_dialog = true) {
-    this.finish()
+    // this.finish()
     let status = data.status
     let message = data.message
     let status_message = status == STATUS_SUCCESS ? MES_SUCESS : MES_ERROR
@@ -45,7 +45,7 @@ export function messageSuccess(icon, message) {
 }
 
 export function messageError(e) {
-    this.fail()
+    // this.fail()
     if (e.response != null && e.response.status === STATUS_LOGOUT) {
         localStorage.removeItem('token')
         window.location.href = window.location.origin
@@ -53,6 +53,13 @@ export function messageError(e) {
         return Toast.fire({
             icon: MES_ERROR,
             title: "Session telah berakhir, silahkan login kembali"
+        })
+    } 
+    if (!error.status) {
+        // network error
+        return Toast.fire({
+            icon: MES_ERROR,
+            title: "Koneksi Gagal"
         })
     }
     return Toast.fire({

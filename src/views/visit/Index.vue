@@ -88,7 +88,7 @@
                             {{ val.t_absensi_endClock }} WIB
                           </td>
                           <td v-else class="text-center">-</td>
-                          <td>
+                          <td class="text-start">
                             <div class="btn-group">
                               <button v-if="val.t_absensi_latLong != null" type="button" class="btn btn-sm btn-light" data-bs-toggle="modal"
                                 data-toggle="tooltip" data-placement="right" title="Lokasi awal"
