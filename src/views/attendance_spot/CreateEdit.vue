@@ -112,7 +112,7 @@ export default {
         lng: 107.6,
       },
       maps: {
-        ready: false,
+        ready: this.$route.params.id != null ? false : true,
         fallbackProcedure: "manually", //gps | geolocation | address | manually
         zoom: 17, //Default Zoom
         geolocation: {
@@ -206,6 +206,8 @@ export default {
                   this.attendance_spot.m_attendance_spots_address
                 );
               }, 1000)
+            } else {
+              this.maps.ready = true
             }
           })
           .catch((e) => {

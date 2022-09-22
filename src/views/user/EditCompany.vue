@@ -98,6 +98,23 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="ModalConfirmEmail" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Foto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -119,6 +136,7 @@ export default {
     };
   },
   mounted() {
+    $('#ModalConfirmEmail').modal('show')
     this.id = this.$route.params.id;
     this.id = this.id != null ? this.id : "";
     if (this.id != "" && this.id != null) {

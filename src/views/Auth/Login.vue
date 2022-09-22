@@ -29,7 +29,7 @@
                                     stroke="#B3B3B3" stroke-width="2.5" stroke-linecap="round"
                                     stroke-linejoin="round" />
                                 <path
-                                    d="M104.25 32.5833C107.472 32.5833 110.084 29.9716 110.084 26.75C110.084 23.5283 107.472 20.9166 104.25 20.9166C101.029 20.9166 98.417 23.5283 98.417 26.75C98.417 29.9716 101.029 32.5833 104.25 32.5833Z"
+                                    d="M104.25 32.5833C1dd07.472 32.5833 110.084 29.9716 110.084 26.75C110.084 23.5283 107.472 20.9166 104.25 20.9166C101.029 20.9166 98.417 23.5283 98.417 26.75C98.417 29.9716 101.029 32.5833 104.25 32.5833Z"
                                     stroke="#B3B3B3" stroke-width="2.5" stroke-linecap="round"
                                     stroke-linejoin="round" />
                                 <path
@@ -73,7 +73,7 @@
                                             <input type="email" v-model="auth.email" class="form-control"
                                                 :class="validation.email.status ? 'is-invalid' : ''" placeholder="email"
                                                 @change="validation.email.status = false" required
-                                                style="padding-left: 50px; background-image: url('http://divisihr.com/assets/images/icons/envelope.svg'); background-size: 15px; background-repeat: no-repeat; background-position-x: 3%; background-position-y: 50%;">
+                                                style="padding-left: 50px; background-image: url('http://divisihr.mifstorage.com/assets/images/icons/envelope.svg'); background-size: 15px; background-repeat: no-repeat; background-position-x: 3%; background-position-y: 50%;">
                                             <span class="invalid-feedback" v-if="validation.email.status" role="alert">
                                                 <strong>{{ validation.email.message }}</strong>
                                             </span>
@@ -85,7 +85,7 @@
                                                 @change="validation.password.status = false"
                                                 placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                                                 v-model="auth.password" required
-                                                style="padding-left: 50px; background-image: url('http://divisihr.com/assets/images/icons/lock.svg'); background-size: 15px; background-repeat: no-repeat; background-position-x: 3%; background-position-y: 50%;">
+                                                style="padding-left: 50px; background-image: url('http://divisihr.mifstorage.com/assets/images/icons/lock.svg'); background-size: 15px; background-repeat: no-repeat; background-position-x: 3%; background-position-y: 50%;">
                                             <span class="invalid-feedback" v-if="validation.password.status"
                                                 role="alert">
                                                 <strong>{{ validation.password.message }}</strong>
@@ -211,6 +211,7 @@ export default {
                     $("#submit").prop("disabled", false);
                     $("#submit").html("Masuk");
                 }).catch((err) => {
+                    console.log(err)
                     Api.response(err.response.data)
                     $("#submit").prop("disabled", false);
                     $("#submit").html("Masuk");

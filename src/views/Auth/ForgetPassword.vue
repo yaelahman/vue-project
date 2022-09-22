@@ -8,7 +8,8 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-interval="8000">
-                            <img src="http://localhost:5173/assets/images/backgrounds/default.png" class="d-block w-100" alt="..." style="height: 100vh; object-fit: cover;">
+                            <img src="http://divisihr.com/assets/images/backgrounds/default.png" class="d-block w-100"
+                                alt="..." style="height: 100vh; object-fit: cover;">
                         </div>
                     </div>
                 </div>
@@ -61,7 +62,7 @@
                                         <input type="email" v-model="auth.email" class="form-control"
                                             :class="validation.email.status ? 'is-invalid' : ''" placeholder="email"
                                             @change="validation.email.status = false" required
-                                            style="padding-left: 50px; background-image: url('http://divisihr.com/assets/images/icons/envelope.svg'); background-size: 15px; background-repeat: no-repeat; background-position-x: 3%; background-position-y: 50%;">
+                                            style="padding-left: 50px; background-image: url('http://divisihr.mifstorage.com/assets/images/icons/envelope.svg'); background-size: 15px; background-repeat: no-repeat; background-position-x: 3%; background-position-y: 50%;">
                                         <span class="invalid-feedback" v-if="validation.email.status" role="alert">
                                             <strong>{{ validation.email.message }}</strong>
                                         </span>
@@ -159,7 +160,7 @@ export default {
                 }).catch((err) => {
                     $("#submit").prop("disabled", false);
                     $("#submit").html("Kirim Link");
-                    Api.response(err.response.data)
+                    //Api.response(err.response.data)
                 })
         }
     }

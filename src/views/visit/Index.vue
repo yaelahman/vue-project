@@ -90,12 +90,12 @@
                           <td v-else class="text-center">-</td>
                           <td>
                             <div class="btn-group">
-                              <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal"
+                              <button v-if="val.t_absensi_latLong != null" type="button" class="btn btn-sm btn-light" data-bs-toggle="modal"
                                 data-toggle="tooltip" data-placement="right" title="Lokasi awal"
                                 data-bs-target="#ModalMaps" @click="Maps(val, 'start')">
                                 <i class="material-icons">place</i>
                               </button>
-                              <button v-if="val.t_absensi_endClock != null" type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                              <button v-if="val.t_absensi_latLongEnd != null" type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Lokasi akhir" data-bs-toggle="modal"
                                 data-bs-target="#ModalMaps" @click="Maps(val, 'end')">
                                 <i class="material-icons">place</i>

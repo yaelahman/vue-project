@@ -38,30 +38,30 @@
                           <td>{{ val.m_attendance_spots_address }}</td>
                           <td class="text-center">
                             <div class="btn-group">
+                              <router-link
+                              :to="{ name: 'addPersonelAttendanceSpot', params: { id: val.id_m_attendance_spots } }"
+                              class="btn-light">
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Penempatan Personel">
-                                <router-link
-                                  :to="{ name: 'addPersonelAttendanceSpot', params: { id: val.id_m_attendance_spots } }"
-                                  class="btn-light">
                                   <i class="material-icons">group_add</i>
-                                </router-link>
-                              </button>
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                </button>
+                              </router-link>
+                              <router-link
+                                :to="{ name: 'detailPersonelAttendanceSpot', params: { id: val.id_m_attendance_spots } }"
+                                class="btn-light">
+                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Detail">
-                                <router-link
-                                  :to="{ name: 'detailPersonelAttendanceSpot', params: { id: val.id_m_attendance_spots } }"
-                                  class="btn-light">
                                   <i class="material-icons">visibility</i>
-                                </router-link>
-                              </button>
+                                </button>
+                              </router-link>
+                              <router-link
+                                :to="{ name: 'editAttendanceSpot', params: { id: val.id_m_attendance_spots } }"
+                                class="btn-light">
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Edit">
-                                <router-link
-                                  :to="{ name: 'editAttendanceSpot', params: { id: val.id_m_attendance_spots } }"
-                                  class="btn-light">
                                   <i class="material-icons">edit</i>
-                                </router-link>
-                              </button>
+                                </button>
+                              </router-link>
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Hapus"
                                 @click="confirmDelete(val.id_m_attendance_spots, val.m_attendance_spots_name)">

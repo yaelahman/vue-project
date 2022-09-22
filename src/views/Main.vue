@@ -4,7 +4,7 @@
       <div class="app-sidebar">
         <div class="logo" style="background-color: #1f1f2b; height: auto;">
           <div class="w-100 text-center">
-            <img src="http://divisihr.com/landing_page/images/lg.png" width="80%" alt=""><br>
+            <img src="http://divisihr.mifstorage.com/landing_page/images/lg.png" width="80%" alt=""><br>
           </div>
           <div class="w-100 text-center mt-3">
             <label style="color: #ffffff;">{{ tanggal_sekarang }}</label>

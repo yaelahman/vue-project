@@ -8,7 +8,8 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-interval="8000">
-                            <img src="http://localhost:5173/assets/images/backgrounds/default.png" class="d-block w-100" alt="..." style="height: 100vh; object-fit: cover;">
+                            <img src="http://divisihr.com/assets/images/backgrounds/default.png" class="d-block w-100"
+                                alt="..." style="height: 100vh; object-fit: cover;">
                         </div>
                     </div>
                 </div>
@@ -31,44 +32,44 @@
                                 <p>Silahkan input password baru anda.</p>
                                 <div class="auth-credentials m-b-xxl">
                                     <label for="" class="form-label">Email</label>
-                                    <input type="email" v-model="data.email" class="form-control"
-                                        placeholder="email" readonly>
+                                    <input type="email" v-model="data.email" class="form-control" placeholder="email"
+                                        readonly>
 
                                     <div class="input-icons">
                                         <label for="signInPassword" class="form-label">Password Baru</label>
-                                        <input type="password"
-                                            class="form-control" :class="validation.password.status ? 'is-invalid' : ''"
-                                            @change="validation.password.status = false"
-                                            id="signInPassword" aria-describedby="signInPassword"
+                                        <input type="password" class="form-control"
+                                            :class="validation.password.status ? 'is-invalid' : ''"
+                                            @change="validation.password.status = false" id="signInPassword"
+                                            aria-describedby="signInPassword"
                                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                                             v-model="data.password" required
                                             style="padding-left: 50px; background-image: url('http://localhost:5173/assets/images/icons/lock.svg'); background-size: 15px; background-repeat: no-repeat; background-position-x: 3%; background-position-y: 50%;">
-                                            <span class="invalid-feedback" v-if="validation.password.status" role="alert">
-                                                <strong>{{ validation.password.message }}</strong>
-                                            </span>
+                                        <span class="invalid-feedback" v-if="validation.password.status" role="alert">
+                                            <strong>{{ validation.password.message }}</strong>
+                                        </span>
                                         <div
                                             style="float: right; position: relative; margin-top: -30px; margin-right: 20px;">
-                                            <img src="http://localhost:5173/assets/images/icons/eye.svg" alt="" width="15px"
-                                                height="auto" style="cursor: pointer" class="showPassword">
+                                            <img src="http://localhost:5173/assets/images/icons/eye.svg" alt=""
+                                                width="15px" height="auto" style="cursor: pointer" class="showPassword">
                                         </div>
                                     </div>
                                     <div class="input-icons">
                                         <label for="" class="form-label">Konfirmasi Password Baru</label>
-                                        <input type="password"
-                                            
-                                            class="form-control" :class="validation.password_confirmation.status ? 'is-invalid' : ''"
+                                        <input type="password" class="form-control"
+                                            :class="validation.password_confirmation.status ? 'is-invalid' : ''"
                                             @change="validation.password_confirmation.status = false"
                                             id="signInPasswordConfirmation" aria-describedby="signInPassword"
                                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                                             v-model="data.password_confirmation" required
                                             style="padding-left: 50px; background-image: url('http://localhost:5173/assets/images/icons/lock.svg'); background-size: 15px; background-repeat: no-repeat; background-position-x: 3%; background-position-y: 50%;">
-                                            <span class="invalid-feedback" v-if="validation.password_confirmation.status" role="alert">
-                                                <strong>{{ validation.password_confirmation.message }}</strong>
-                                            </span>
+                                        <span class="invalid-feedback" v-if="validation.password_confirmation.status"
+                                            role="alert">
+                                            <strong>{{ validation.password_confirmation.message }}</strong>
+                                        </span>
                                         <div
                                             style="float: right; position: relative; margin-top: -30px; margin-right: 20px;">
-                                            <img src="http://localhost:5173/assets/images/icons/eye.svg" alt="" width="15px"
-                                                height="auto" style="cursor: pointer" class="showPassword">
+                                            <img src="http://localhost:5173/assets/images/icons/eye.svg" alt=""
+                                                width="15px" height="auto" style="cursor: pointer" class="showPassword">
                                         </div>
                                     </div>
                                 </div>
@@ -91,28 +92,28 @@
     </main>
 </template>
 <script>
-    import axios from 'axios';
-    import * as Api from '../../helper/Api.js'
-    export default {
-        data() {
-            return {
-                data: {
-                    email: this.$route.query.email,
-                    token: this.$route.params.token
+import axios from 'axios';
+import * as Api from '../../helper/Api.js'
+export default {
+    data() {
+        return {
+            data: {
+                email: this.$route.query.email,
+                token: this.$route.params.token
+            },
+            validation: {
+                password: {
+                    status: false,
+                    message: ''
                 },
-                validation: {
-                    password: {
-                        status: false,
-                        message: ''
-                    },
-                    password_confirmation: {
-                        status: false,
-                        message: ''
-                    },
+                password_confirmation: {
+                    status: false,
+                    message: ''
                 },
-            }
-        },
-        methods: {
+            },
+        }
+    },
+    methods: {
         validator(key, data) {
             this.validation[key] = data
         },
@@ -146,7 +147,7 @@
                     $("#submit").prop("disabled", false);
                     $("#submit").html("Kirim Link");
                 })
-            }
         }
     }
+}
 </script>
