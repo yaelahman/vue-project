@@ -24,17 +24,43 @@
                       <div class="text-uppercase">
                         <h5 class="bg-light rounded p-3">Absensi</h5>
                         <div class="card-body pt-0">
-                          <div class="form-check form-switch" style="margin-left: 10px">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked v-model="
-                              device_settings.m_device_settings_absensiCamera
-                            " />
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Camera</label>
+                          <div
+                            class="form-check form-switch"
+                            style="margin-left: 10px"
+                          >
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="flexSwitchCheckChecked"
+                              checked
+                              v-model="
+                                device_settings.m_device_settings_absensiCamera
+                              "
+                            />
+                            <label
+                              class="form-check-label"
+                              for="flexSwitchCheckChecked"
+                              >Camera</label
+                            >
                           </div>
-                          <div class="form-check form-switch" style="margin-left: 10px">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked v-model="
-                              device_settings.m_device_settings_absensiFaceRecognition
-                            " />
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Face Recognition</label>
+                          <div
+                            class="form-check form-switch"
+                            style="margin-left: 10px"
+                          >
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="flexSwitchCheckChecked"
+                              checked
+                              v-model="
+                                device_settings.m_device_settings_absensiFaceRecognition
+                              "
+                            />
+                            <label
+                              class="form-check-label"
+                              for="flexSwitchCheckChecked"
+                              >Face Recognition</label
+                            >
                           </div>
                         </div>
                       </div>
@@ -43,17 +69,43 @@
                       <div class="text-uppercase">
                         <h5 class="bg-light rounded p-3">Visit Client</h5>
                         <div class="card-body pt-0">
-                          <div class="form-check form-switch" style="margin-left: 10px">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked v-model="
-                              device_settings.m_device_settings_visitCamera
-                            " />
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Camera</label>
+                          <div
+                            class="form-check form-switch"
+                            style="margin-left: 10px"
+                          >
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="flexSwitchCheckChecked"
+                              checked
+                              v-model="
+                                device_settings.m_device_settings_visitCamera
+                              "
+                            />
+                            <label
+                              class="form-check-label"
+                              for="flexSwitchCheckChecked"
+                              >Camera</label
+                            >
                           </div>
-                          <div class="form-check form-switch" style="margin-left: 10px">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked v-model="
-                              device_settings.m_device_settings_visitFaceRecognition
-                            " />
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Face Recognition</label>
+                          <div
+                            class="form-check form-switch"
+                            style="margin-left: 10px"
+                          >
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="flexSwitchCheckChecked"
+                              checked
+                              v-model="
+                                device_settings.m_device_settings_visitFaceRecognition
+                              "
+                            />
+                            <label
+                              class="form-check-label"
+                              for="flexSwitchCheckChecked"
+                              >Face Recognition</label
+                            >
                           </div>
                         </div>
                       </div>
@@ -62,17 +114,43 @@
                       <div class="text-uppercase">
                         <h5 class="bg-light rounded p-3">Overtime</h5>
                         <div class="card-body pt-0">
-                          <div class="form-check form-switch" style="margin-left: 10px">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked v-model="
-                              device_settings.m_device_settings_overtimeCamera
-                            " />
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Camera</label>
+                          <div
+                            class="form-check form-switch"
+                            style="margin-left: 10px"
+                          >
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="flexSwitchCheckChecked"
+                              checked
+                              v-model="
+                                device_settings.m_device_settings_overtimeCamera
+                              "
+                            />
+                            <label
+                              class="form-check-label"
+                              for="flexSwitchCheckChecked"
+                              >Camera</label
+                            >
                           </div>
-                          <div class="form-check form-switch" style="margin-left: 10px">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked v-model="
-                              device_settings.m_device_settings_overtimeFaceRecognition
-                            " />
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Face Recognition</label>
+                          <div
+                            class="form-check form-switch"
+                            style="margin-left: 10px"
+                          >
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="flexSwitchCheckChecked"
+                              checked
+                              v-model="
+                                device_settings.m_device_settings_overtimeFaceRecognition
+                              "
+                            />
+                            <label
+                              class="form-check-label"
+                              for="flexSwitchCheckChecked"
+                              >Face Recognition</label
+                            >
                           </div>
                         </div>
                       </div>
@@ -111,12 +189,12 @@ export default {
   created() {
     this.loadDeviceSettings();
   },
-  mounted() { },
+  mounted() {},
   methods: {
     loadDeviceSettings() {
       this.$Progress.start();
       axios
-        .get(env.VITE_API_URL + "detail-device-settings/")
+        .get(env.VITE_API_URL + "detail-device-settings")
         .then((response) => {
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
             this.$Progress.finish();

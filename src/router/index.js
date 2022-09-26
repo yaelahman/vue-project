@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 
 import Login from '../views/Auth/Login.vue'
 import Register from '../views/Auth/Register.vue'
@@ -73,114 +73,113 @@ const config = {
 }
 
 const router = createRouter({
-    history: createWebHistory(
-        import.meta.env.BASE_URL),
+    history: createWebHashHistory(),
     routes: [{
-            path: '/login',
-            name: 'login',
-            component: Login,
-        },
-        {
-            path: '/register',
-            name: 'register',
-            component: Register,
-        },
-        {
-            path: '/forget-password',
-            name: 'forget-password',
-            component: ForgetPassword,
-        },
-        {
-            path: '/password-reset/:token',
-            name: 'password-reset',
-            component: ResetPassword,
-        },
-        // LOGGED IN AREA
-        {
-            path: '/home',
-            name: 'home',
-            component: HomeView,
-            ...config
-        },
+        path: '/login',
+        name: 'login',
+        component: Login,
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: Register,
+    },
+    {
+        path: '/forget-password',
+        name: 'forget-password',
+        component: ForgetPassword,
+    },
+    {
+        path: '/password-reset/:token',
+        name: 'password-reset',
+        component: ResetPassword,
+    },
+    // LOGGED IN AREA
+    {
+        path: '/home',
+        name: 'home',
+        component: HomeView,
+        ...config
+    },
 
-        //Dashboard
-        { path: "/test", component: TestIndex, ...config },
+    //Dashboard
+    { path: "/test", component: TestIndex, ...config },
 
-        //Dashboard
-        { path: "/", component: Dashboard, ...config },
-        { path: "/detail-company-user/:id", component: DetailCompanyUser, name: "detailCompanyUser", ...config },
-        { path: "/edit-company-user/:id", component: EditCompanyUser, name: "editCompanyUser", ...config },
+    //Dashboard
+    { path: "/", component: Dashboard, ...config },
+    { path: "/detail-company-user/:id", component: DetailCompanyUser, name: "detailCompanyUser", ...config },
+    { path: "/edit-company-user/:id", component: EditCompanyUser, name: "editCompanyUser", ...config },
 
 
-        //Company Industri
-        { path: "/index-company-industri", component: IndexCompanyIndustri, ...config },
-        { path: "/create-company-industri", component: CreateEditCompanyIndustri, ...config },
-        { path: "/update-company-industri/:id", component: CreateEditCompanyIndustri, name: "editCompanyIndustri", ...config },
+    //Company Industri
+    { path: "/index-company-industri", component: IndexCompanyIndustri, ...config },
+    { path: "/create-company-industri", component: CreateEditCompanyIndustri, ...config },
+    { path: "/update-company-industri/:id", component: CreateEditCompanyIndustri, name: "editCompanyIndustri", ...config },
 
-        //Departemen
-        { path: "/index-departemen", component: IndexDepartemen, ...config },
-        { path: "/create-departemen", component: CreateEditDepartemen, ...config },
-        { path: "/update-departemen/:id", component: CreateEditDepartemen, name: "editDepartemen", ...config },
+    //Departemen
+    { path: "/index-departemen", component: IndexDepartemen, ...config },
+    { path: "/create-departemen", component: CreateEditDepartemen, ...config },
+    { path: "/update-departemen/:id", component: CreateEditDepartemen, name: "editDepartemen", ...config },
 
-        //Company
-        { path: "/index-user-company", component: IndexUserCompany, ...config },
-        { path: "/create-user-company", component: CreateEditUserCompany, ...config },
-        { path: "/update-user-company/:id", component: CreateEditUserCompany, name: "editUserCompany", ...config },
+    //Company
+    { path: "/index-user-company", component: IndexUserCompany, ...config },
+    { path: "/create-user-company", component: CreateEditUserCompany, ...config },
+    { path: "/update-user-company/:id", component: CreateEditUserCompany, name: "editUserCompany", ...config },
 
-        { path: "/detail-device-settings", component: DetailDeviceSettings, name: "detailDeviceSettings", ...config },
+    { path: "/detail-device-settings", component: DetailDeviceSettings, name: "detailDeviceSettings", ...config },
 
-        //Work Pattern
-        { path: "/index-work-pattern", component: IndexWorkPattern, ...config },
-        { path: "/create-work-pattern", component: CreateEditWorkPattern, ...config },
-        { path: "/update-work-pattern/:id", component: CreateEditWorkPattern, name: "editWorkPattern", ...config },
-        { path: "/detail-work-pattern/:id", component: ViewWorkPattern, name: "detailWorkPattern", ...config },
+    //Work Pattern
+    { path: "/index-work-pattern", component: IndexWorkPattern, ...config },
+    { path: "/create-work-pattern", component: CreateEditWorkPattern, ...config },
+    { path: "/update-work-pattern/:id", component: CreateEditWorkPattern, name: "editWorkPattern", ...config },
+    { path: "/detail-work-pattern/:id", component: ViewWorkPattern, name: "detailWorkPattern", ...config },
 
-        //Data Personel
-        { path: "/index-data-personel", component: IndexDataPersonel, ...config },
-        { path: "/create-data-personel", component: CreateEditDataPersonel, ...config },
-        { path: "/edit-data-personel/:id", component: CreateEditDataPersonel, name: "editDataPersonel", ...config },
-        { path: "/show-data-personel/:id", component: ShowDataPersonel, name: "showDataPersonel", ...config },
+    //Data Personel
+    { path: "/index-data-personel", component: IndexDataPersonel, ...config },
+    { path: "/create-data-personel", component: CreateEditDataPersonel, ...config },
+    { path: "/edit-data-personel/:id", component: CreateEditDataPersonel, name: "editDataPersonel", ...config },
+    { path: "/show-data-personel/:id", component: ShowDataPersonel, name: "showDataPersonel", ...config },
 
-        //Jadwal Karyawan
-        { path: "/index-personel-time-work", component: IndexPersonelTimeWork, ...config },
-        { path: "/create-personel-time-work", component: CreateEditPersonelTimeWork, ...config },
-        { path: "/update-personel-time-work/:id", component: CreateEditPersonelTimeWork, name: "editPersonelTimeWork", ...config },
+    //Jadwal Karyawan
+    { path: "/index-personel-time-work", component: IndexPersonelTimeWork, ...config },
+    { path: "/create-personel-time-work", component: CreateEditPersonelTimeWork, ...config },
+    { path: "/update-personel-time-work/:id", component: CreateEditPersonelTimeWork, name: "editPersonelTimeWork", ...config },
 
-        // Attendance Spot
-        { path: '/attendance-spot', component: IndexAttendanceSpot, ...config },
-        { path: '/attendance-spot/create', component: CreateEditAttendanceSpot, ...config },
-        { path: '/attendance-spot/edit/:id', component: CreateEditAttendanceSpot, name: 'editAttendanceSpot', ...config },
-        { path: '/attendance-spot/add-personel/:id', component: AddPersonelAttendanceSpot, name: 'addPersonelAttendanceSpot', ...config },
-        { path: '/attendance-spot/detail-personel/:id', component: DetailPersonelAttendanceSpot, name: 'detailPersonelAttendanceSpot', ...config },
+    // Attendance Spot
+    { path: '/attendance-spot', component: IndexAttendanceSpot, ...config },
+    { path: '/attendance-spot/create', component: CreateEditAttendanceSpot, ...config },
+    { path: '/attendance-spot/edit/:id', component: CreateEditAttendanceSpot, name: 'editAttendanceSpot', ...config },
+    { path: '/attendance-spot/add-personel/:id', component: AddPersonelAttendanceSpot, name: 'addPersonelAttendanceSpot', ...config },
+    { path: '/attendance-spot/detail-personel/:id', component: DetailPersonelAttendanceSpot, name: 'detailPersonelAttendanceSpot', ...config },
 
-        // Daily Attendance
-        { path: '/daily-attendance', component: IndexDailyAttendance, ...config },
-        { path: '/attendance-summary', component: IndexAttendanceSummary, ...config },
+    // Daily Attendance
+    { path: '/daily-attendance', component: IndexDailyAttendance, ...config },
+    { path: '/attendance-summary', component: IndexAttendanceSummary, ...config },
 
-        // Overtime
-        { path: '/overtime', component: IndexOvertime, ...config },
+    // Overtime
+    { path: '/overtime', component: IndexOvertime, ...config },
 
-        // Visit
-        { path: '/visit', component: IndexVisit, ...config },
+    // Visit
+    { path: '/visit', component: IndexVisit, ...config },
 
-        // route user
-        { path: "/user", component: User, ...config },
-        { path: "/user-edit/:id", component: UserEdit, name: "editUser", ...config },
-        { path: "/user-password-reset", component: UserPasswordReset, name: "passwordResetUser", ...config },
+    // route user
+    { path: "/user", component: User, ...config },
+    { path: "/user-edit/:id", component: UserEdit, name: "editUser", ...config },
+    { path: "/user-password-reset", component: UserPasswordReset, name: "passwordResetUser", ...config },
 
-        // route role
-        { path: "/role", component: Role, ...config },
-        { path: "/permission", component: Permission, ...config },
-        { path: "/role-permission/:id", component: RolePermission, name: "rolePermission", ...config },
+    // route role
+    { path: "/role", component: Role, ...config },
+    { path: "/permission", component: Permission, ...config },
+    { path: "/role-permission/:id", component: RolePermission, name: "rolePermission", ...config },
 
-        { path: "/izin-hari", component: IndexIzinHari, ...config },
-        { path: "/izin-hari/detail/:id", component: DetailIzinHari, name: "detailIzin", ...config },
+    { path: "/izin-hari", component: IndexIzinHari, ...config },
+    { path: "/izin-hari/detail/:id", component: DetailIzinHari, name: "detailIzin", ...config },
 
-        { path: "/izin-cuti", component: IndexIzinCuti, ...config },
-        { path: "/izin-cuti/detail/:id", component: DetailIzinCuti, name: "detailIzinCuti", ...config },
+    { path: "/izin-cuti", component: IndexIzinCuti, ...config },
+    { path: "/izin-cuti/detail/:id", component: DetailIzinCuti, name: "detailIzinCuti", ...config },
 
-        { path: "/izin-jam", component: IndexIzinjam, ...config },
-        { path: "/izin-jam/detail/:id", component: DetailIzinjam, name: "detailIzinjam", ...config },
+    { path: "/izin-jam", component: IndexIzinjam, ...config },
+    { path: "/izin-jam/detail/:id", component: DetailIzinjam, name: "detailIzinjam", ...config },
     ]
 })
 

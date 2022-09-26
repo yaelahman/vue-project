@@ -10,9 +10,6 @@
               </div>
             </div>
           </div>
-          <div class="alert alert-danger" role="alert" v-if="errors.email != null">
-            {{ errors.email }}
-          </div>
           <div class="row">
             <div class="row">
               <div class="col">
@@ -21,48 +18,84 @@
                     <form class="mt-3" @submit.prevent="createUserCompany()">
                       <div class="example-content">
                         <label class="form-label">Nama Perusahaan</label>
-                        <input type="text" class="form-control" v-model="user_company.m_user_company_name" required
+                        <input
+                          type="text"
+                          class="form-control"
+                          v-model="user_company.m_user_company_name"
+                          required
                           placeholder="Nama Perusahaan"
                           oninvalid="this.setCustomValidity('Nama Perusahaan harus diisi')"
-                          oninput="setCustomValidity('')" />
+                          oninput="setCustomValidity('')"
+                        />
                       </div>
                       <div class="example-content">
                         <label class="form-label">Bidang Usaha</label>
-                        <select class="form-select" v-model="user_company.id_m_company_industri" required
-                          placeholder="Bidang Usaha" oninvalid="this.setCustomValidity('Bidang Usaha harus diisi')"
-                          oninput="setCustomValidity('')">
+                        <select
+                          class="form-select"
+                          v-model="user_company.id_m_company_industri"
+                          required
+                          placeholder="Bidang Usaha"
+                          oninvalid="this.setCustomValidity('Bidang Usaha harus diisi')"
+                          oninput="setCustomValidity('')"
+                        >
                           <option value="" disabled>
                             -- Pilih Bidang Usaha --
                           </option>
-                          <option v-for="val in company_industris" :key="val.id"
-                            v-bind:value="val.id_m_company_industri">
+                          <option
+                            v-for="val in company_industris"
+                            :key="val.id"
+                            v-bind:value="val.id_m_company_industri"
+                          >
                             {{ val.m_company_industriFields }}
                           </option>
                         </select>
                       </div>
                       <div class="example-content">
                         <label class="form-label">Nomor Telepon</label>
-                        <input type="number" min="0" class="form-control" v-model="user_company.m_user_company_phone"
-                          placeholder="Nomor Telp" required oninvalid="this.setCustomValidity('Nomor Telp harus diisi')"
-                          oninput="setCustomValidity('')" />
+                        <input
+                          type="number"
+                          min="0"
+                          class="form-control"
+                          v-model="user_company.m_user_company_phone"
+                          placeholder="Nomor Telp"
+                          required
+                          oninvalid="this.setCustomValidity('Nomor Telp harus diisi')"
+                          oninput="setCustomValidity('')"
+                        />
                       </div>
                       <div class="example-content">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" v-model="user_company.m_user_company_email"
-                          placeholder="Email" oninvalid="this.setCustomValidity('Email harus diisi')"
-                          oninput="setCustomValidity('')" />
+                        <input
+                          type="email"
+                          class="form-control"
+                          v-model="user_company.m_user_company_email"
+                          placeholder="Email"
+                          oninvalid="this.setCustomValidity('Email harus diisi')"
+                          oninput="setCustomValidity('')"
+                        />
                       </div>
                       <div class="example-content">
                         <label class="form-label">Total Anggota</label>
-                        <input type="number" min="1" class="form-control"
-                          v-model="user_company.m_user_company_total_personel" placeholder="Total Anggota" required
+                        <input
+                          type="number"
+                          min="1"
+                          class="form-control"
+                          v-model="user_company.m_user_company_total_personel"
+                          placeholder="Total Anggota"
+                          required
                           oninvalid="this.setCustomValidity('Total Anggota harus diisi')"
-                          oninput="setCustomValidity('')" />
+                          oninput="setCustomValidity('')"
+                        />
                       </div>
                       <div class="example-content">
                         <label class="form-label">Time Zone</label>
-                        <select class="form-select" v-model="user_company.m_user_company_timeZone" required
-                          oninvalid="this.setCustomValidity('Time Zone harus diisi')" oninput="setCustomValidity('')">
+                        <select
+                          class="form-select"
+                          v-model="user_company.m_user_company_timeZone"
+                          required
+                          oninvalid="this.setCustomValidity('Time Zone harus diisi')"
+                          oninput="setCustomValidity('')"
+                        >
                           <option value="" disabled>
                             -- Pilih Time Zone --
                           </option>
@@ -73,19 +106,27 @@
                       </div>
                       <div class="example-content">
                         <label class="form-label">Tanggal Bergabung</label>
-                        <input type="date" class="form-control" v-model="user_company.m_user_company_joinDate"
-                          placeholder="Tanggal Bergabung" required
+                        <input
+                          type="date"
+                          class="form-control"
+                          v-model="user_company.m_user_company_joinDate"
+                          placeholder="Tanggal Bergabung"
+                          required
                           oninvalid="this.setCustomValidity('Tanggal Bergabung harus diisi')"
-                          oninput="setCustomValidity('')" />
+                          oninput="setCustomValidity('')"
+                        />
                       </div>
                       <div class="example-content mt-3">
                         <button type="submit" class="btn btn-primary submit">
                           <i class="material-icons">save</i>Simpan
                         </button>
-                        <router-link :to="{
-                          name: 'detailCompanyUser',
-                          params: { id: id },
-                        }" class="btn btn-light">
+                        <router-link
+                          :to="{
+                            name: 'detailCompanyUser',
+                            params: { id: id },
+                          }"
+                          class="btn btn-light"
+                        >
                           <i class="material-icons">arrow_back</i>Kembali
                         </router-link>
                       </div>
@@ -98,30 +139,58 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="ModalConfirmEmail" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="ModalConfirmEmail"
+      tabindex="-1"
+      aria-labelledby="ModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <form class="mt-3" @submit.prevent="createUserCompany()">
             <div class="modal-header">
               <h5 class="modal-title">Konfirmasi Email</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div class="modal-body">
-              <small class="text-danger text-message">*Email diubah, Silahkan untuk konfirmasi Email dengan mengisi kode konfirmasi yang dikirim melalui email baru.</small>
+              <small class="text-danger text-message"
+                >*Email diubah, Silahkan untuk konfirmasi Email dengan mengisi
+                kode konfirmasi yang dikirim melalui email baru.</small
+              >
               <div class="form-group">
                 <label for="">Email</label>
-                <input type="text" disabled v-model="user_company.m_user_company_email" class="form-control">
+                <input
+                  type="text"
+                  disabled
+                  v-model="user_company.m_user_company_email"
+                  class="form-control"
+                />
               </div>
               <div class="form-group">
                 <label for="">Token</label>
-                <input type="text" v-model="user_company.token" required class="form-control">
+                <input
+                  type="text"
+                  v-model="user_company.token"
+                  required
+                  class="form-control"
+                />
               </div>
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary submit">
                 <i class="material-icons">save</i>Simpan
               </button>
-              <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+              <button
+                type="button"
+                class="btn btn-light"
+                data-bs-dismiss="modal"
+              >
                 Close
               </button>
             </div>
@@ -171,13 +240,17 @@ export default {
           user_company: this.user_company,
         })
         .then((response) => {
-          console.log(response.data)
+          console.log(response.data);
           this.errors = response.data.data;
-          if (response.data != null && response.data.data != null && response.data.data.modal) {
-
-            $('#ModalConfirmEmail').modal('show')
+          if (
+            response.data != null &&
+            response.data.data != null &&
+            response.data.data.modal
+          ) {
+            $("#ModalConfirmEmail").modal("show");
           } else if (Api.response(response.data) === Api.STATUS_SUCCESS) {
-            window.location.href = window.location.origin + "/detail-company-user/" + this.id
+            window.location.href =
+              window.location.origin + "/#/detail-company-user/" + this.id;
             // this.$router.push("/detail-company-user/" + this.id);
           }
           $(".submit").prop("disabled", false);
