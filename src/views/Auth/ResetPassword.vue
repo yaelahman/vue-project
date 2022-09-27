@@ -76,7 +76,7 @@
 
                                 <div class="auth-submit row d-flex justify-content-between">
                                     <div class=" col-lg-4 col-sm-12 ">
-                                        <a href="{{ route('login') }}">Kembali</a>
+                                        <router-link to="/login">Kembali</router-link>
                                     </div>
                                     <div class="col-lg-8 col-sm-12">
                                         <button type="submit" id="submit" class="btn btn-primary w-100"

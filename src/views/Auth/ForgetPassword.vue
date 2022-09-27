@@ -65,7 +65,7 @@
 
               <div class="auth-submit row d-flex justify-content-between">
                 <div class="col-lg-12 col-sm-12 pt-3">
-                  <router-link to="/forget-password" style="color: #34b1e8"
+                  <router-link to="/login" style="color: #34b1e8"
                     >Kembali</router-link
                   >
                 </div>
@@ -144,7 +144,7 @@
                       class="btn btn-primary w-100"
                       style="border-radius: 30px"
                     >
-                      Kirim link
+                      Reset Password
                     </button>
                   </div>
                 </div>
@@ -226,11 +226,11 @@ export default {
             }
           }
           $("#submit").prop("disabled", false);
-          $("#submit").html("Kirim Link");
+          $("#submit").html("Reset Password");
         })
         .catch((err) => {
           $("#submit").prop("disabled", false);
-          $("#submit").html("Kirim Link");
+          $("#submit").html("Reset Password");
           //Api.response(err.response.data)
         });
     },

@@ -91,7 +91,7 @@
                                     </router-link>
                                 </li>
                                 <li @click="activate(13)" v-if="$can('admin')" style="padding-bottom: 5px;">
-                                    <router-link to="/visit" :class="{ 'active-': active_el == 13 }">
+                                    <router-link to="/visit" :class="{ 'active': active_el == 13 }">
                                         <i style="padding-right: 10px;"><svg width="22" height="22" viewBox="0 0 24 24"
                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -348,7 +348,7 @@
                                     </li>
                                     <li class="nav-item dropdown dd-parent" @click="Dropdown">
                                         <a class="nav-link dropdown-toggle d-flex justify-content-end"
-                                            data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                                            data-toggle="dropdown" @click="(e) => e.preventDefault()" role="button" aria-haspopup="false"
                                             aria-expanded="false">
                                             <span style="color: black;">{{ auth.user.name }}</span>
                                             <img class="rounded"
@@ -356,7 +356,7 @@
                                                 style="margin-left: 0.5rem; width: 30px; height: 30px;" />
                                         </a>
                                         <div class="dropdown-menu dd-menu">
-                                    <li class="dropdown" @click="activate(11)"
+                                    <li class="dropdown dropdown-child-parent" @click="activate(11)"
                                         :class="{ 'active-page': active_el == 11 }">
                                         <router-link :to="{
                                             name: 'detailCompanyUser',
@@ -365,7 +365,7 @@
                                             Perusahaan
                                         </router-link>
                                     </li>
-                                    <li class="dropdown" @click="activate(99)"
+                                    <li class="dropdown dropdown-child-parent" @click="activate(99)"
                                         :class="{ 'active-page': active_el == 99 }">
                                         <router-link :to="'/user-password-reset'">
                                             Ubah Kata Sandi
@@ -396,6 +396,7 @@
 import moment from "moment";
 import { mapGetters } from "vuex";
 import * as Api from "./helper/Api.js";
+// import 'https://momentjs.com/downloads/moment-with-locales.js'
 // import "datatables.net";
 // import "datatables.net-bs5";
 // import "datatables.net-responsive";
@@ -417,7 +418,7 @@ export default {
     created() {
         this.isLoggedIn = this.$store.getters.isLoggedIn
         moment.locale('id')
-        this.tanggal_sekarang = moment().format('dddd, Do MMMM YYYY')
+        this.tanggal_sekarang = this.tanggalIndo(moment().format('d D M YYYY'))
         // alert(window.location.origin)
         if (this.isLoggedIn) {
             this.loadUser();
@@ -425,7 +426,16 @@ export default {
         }
     },
     mounted() {
+        $(document).on('click', '.dropdown-child-parent', function(){
+            
+            $('.dd-parent').removeClass('show')
+            $('.dd-menu').removeClass('show')
+            // this.dropdown = false
+        })
 
+        $(document).on('click', '.nav-link', function(event){
+            event.preventDefault()
+        })
     },
     computed: {
         ...mapGetters({
@@ -433,7 +443,61 @@ export default {
         }),
     },
     methods: {
+        tanggalIndo(tanggal){
+            let indo = tanggal.split(' ')
+            return `${this.hari(indo[0])}, ${indo[1]} ${this.bulan(indo[2])} ${indo[3]}`
+
+        },
+        hari(val){
+            switch (parseInt(val)) {
+                case 1:
+                    return "Senin"
+                case 2:
+                    return "Selasa"
+                case 3:
+                    return "Rabu"
+                case 4:
+                    return "Kamis"
+                case 5:
+                    return "Jum'at"
+                case 6:
+                    return "Sabtu"
+                default:
+                    return "Minggu"
+            }
+        },
+        bulan(bulan) {
+            switch (parseInt(bulan)) {
+                case 1:
+                    return "Januari"
+                case 2:
+                    return "Februari"
+                case 3:
+                    return "Maret"
+                case 4:
+                    return "April"
+                case 5:
+                    return "Mei"
+                case 6:
+                    return "Juni"
+                case 7:
+                    return "Juli"
+                case 8:
+                    return "Agustus"
+                case 9:
+                    return "September"
+                case 10:
+                    return "Oktober"
+                case 11:
+                    return "November"
+                default:
+                    return "Desember"
+            }
+        },
         activate: function (el) {
+            $('.dd-parent').removeClass('show')
+            $('.dd-menu').removeClass('show')
+            this.dropdown = false
             this.active_el = el;
         },
         DropdownSidebar(number) {
