@@ -165,7 +165,7 @@
                     <label for="" class="form-label">No. Telp</label>
                     <input
                       type="tel"
-                      pattern="[0-9]{12}"
+                      pattern="[0-9]{12-13}"
                       min="0"
                       v-model="data.no_telp"
                       :class="validation.no_telp.status ? 'is-invalid' : ''"

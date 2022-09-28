@@ -10,7 +10,7 @@ import VueApexCharts from "vue3-apexcharts";
 // import VueGoogleMaps from '@fawmi/vue-google-maps'
 // import VueSimpleAlert from "vue-simple-alert";
 // import lodash from "lodash"
-// import jQuery from 'jquery'
+import jQuery from 'jquery'
 // import popperJS from "popper.js"
 import VueGeolocation from "vue3-geolocation";
 import GMaps from "vuejs3-google-maps";
@@ -22,7 +22,7 @@ window.env =
 
 window.axios = axios
 window.Swal = Swal
-    // window.$ = window.jQuery = jQuery
+window.$ = window.jQuery = jQuery
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {

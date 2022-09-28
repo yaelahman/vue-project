@@ -53,7 +53,8 @@
                       <div class="example-content">
                         <label class="form-label">Nomor Telepon</label>
                         <input
-                          type="number"
+                          type="tel"
+                          pattern="[0-9]{12-13}"
                           min="0"
                           class="form-control"
                           v-model="user_company.m_user_company_phone"

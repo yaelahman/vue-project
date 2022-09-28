@@ -247,13 +247,13 @@
                 <label class="mb-2">Mulai</label>
                 <img v-bind:src="
                   modal.photo
-                " alt="" width="100%" />
+                " alt="" style="width:100%" />
               </div>
               <div class="col-sm-6">
                 <label class="mb-2">Selesai</label>
                 <img v-bind:src="
   modal.photo2
-                " alt="" width="100%" />
+                " alt="" style="width:100%" />
               </div>
             </div>
           </div>
