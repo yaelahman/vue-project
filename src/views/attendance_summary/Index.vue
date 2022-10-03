@@ -75,7 +75,9 @@ export default {
     this.loadAttendanceSummary();
   },
   mounted() {
-    this.table = $("#dt-attendancesummary").DataTable();
+    setTimeout(() => {
+      this.table = $("#dt-attendancesummary").DataTable();
+      }, 2000)
   },
   methods: {
     loadAttendanceSummary() {

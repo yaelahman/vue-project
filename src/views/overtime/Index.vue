@@ -491,7 +491,9 @@ export default {
   },
   mounted() {
     // this.geolocate();
-    this.table = $("#dt-overtime").DataTable({ autoWidth: false });
+    setTimeout(() => {
+      this.table = $("#dt-overtime").DataTable({ autoWidth: false });
+      }, 2000)
   },
   methods: {
     getDateNow() {

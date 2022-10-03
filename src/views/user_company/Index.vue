@@ -96,7 +96,9 @@ export default {
     this.loadUserCompany();
   },
   mounted() {
-    this.table = $("#dt-company").DataTable();
+    setTimeout(() => {
+      this.table = $("#dt-company").DataTable();
+    }, 2000)
     this.loadUserCompany();
   },
   methods: {

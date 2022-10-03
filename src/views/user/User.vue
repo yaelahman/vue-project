@@ -77,7 +77,9 @@ export default {
     };
   },
   mounted() {
-    this.table = $("#dt-user").DataTable();
+    setTimeout(() => {
+      this.table = $("#dt-user").DataTable();
+    }, 2000)
     this.loadUser();
   },
   watch: {

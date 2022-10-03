@@ -690,7 +690,9 @@ export default {
         });
     },
     async checkPersonelBelumAbsen() {
+      setTimeout(() => {
       this.table = $("#dt-dashboard").DataTable();
+      }, 2000)
       this.$Progress.start();
       await axios
         .get(env.VITE_API_URL + "checkPersonelBelumAbsen")

@@ -108,7 +108,9 @@ export default {
   },
   mounted() {
     // // console.log($)
-    this.table = $("#dt-personel").DataTable({ autoWidth: false });
+    setTimeout(() => {
+      this.table = $("#dt-personel").DataTable({ autoWidth: false });
+      }, 2000)
     this.loadPersonel();
   },
   methods: {

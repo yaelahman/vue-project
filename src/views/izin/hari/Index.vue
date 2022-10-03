@@ -297,10 +297,12 @@ export default {
     // this.getDateNow();
   },
   mounted() {
-    this.table = $("#dt-hari").DataTable({
-      autoWidth: false,
-      destroy: true,
-    });
+    setTimeout(() => {
+      this.table = $("#dt-hari").DataTable({
+        autoWidth: false,
+        destroy: true,
+      });
+    }, 2000)
     this.loadPermits();
   },
   methods: {

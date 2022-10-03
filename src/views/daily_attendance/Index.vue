@@ -241,7 +241,7 @@
         <div class="modal-content">
           <form @submit.prevent="updateAbsensi()">
             <div class="modal-header">
-              <h5 class="modal-title">Edit</h5>
+              <h5 class="modal-title">Perbarui Kehadiran Harian</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -538,7 +538,9 @@ export default {
   mounted() {
     $("#pac-card").addClass("d-none");
     // this.geolocate();
-    this.table = $("#dt-dailyattendance").DataTable({ autoWidth: false });
+      setTimeout(() => {
+        this.table = $("#dt-dailyattendance").DataTable({ autoWidth: false });
+      }, 2000)
   },
   methods: {
     getDateNow() {

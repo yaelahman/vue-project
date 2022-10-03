@@ -78,7 +78,9 @@ export default {
   mounted() {
     this.id = this.$route.params.id;
     this.id = this.id != null ? this.id : "";
-    this.table = $("#dt1-personel").DataTable();
+    setTimeout(() => {
+      this.table = $("#dt1-personel").DataTable();
+    }, 2000)
   },
   methods: {
     select() {

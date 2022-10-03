@@ -95,7 +95,9 @@ export default {
     this.getAttendanceSpot();
   },
   mounted() {
-    this.table = $("#dt-attendancespot").DataTable();
+    setTimeout(() => {
+      this.table = $("#dt-attendancespot").DataTable();
+      }, 2000)
   },
   methods: {
     getAttendanceSpot() {

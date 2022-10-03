@@ -210,10 +210,12 @@ export default {
         // this.getDateNow();
     },
     mounted() {
+    setTimeout(() => {
         this.table = $("#dt-jam").DataTable({
             autoWidth: false,
             destroy: true,
         });
+    }, 2000)
         this.loadPermits();
     },
     methods: {

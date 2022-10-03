@@ -25,9 +25,15 @@ window.Swal = Swal
 // window.$ = window.jQuery = jQuery
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (!store.getters.isLoggedIn) {
-            next({ name: 'login' })
+    if(to.fullPath != '/welcome'){
+        if (to.matched.some(record => record.meta.requiresAuth)) {
+            console.log(to)
+
+            if (!store.getters.isLoggedIn) {
+                next({ name: 'login' })
+            } else {
+                next()
+            }
         } else {
             next()
         }

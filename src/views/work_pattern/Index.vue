@@ -107,7 +107,9 @@ export default {
     this.loadWorkPattern();
   },
   mounted() {
-    this.table = $("#dt-workpattern").DataTable();
+    setTimeout(() => {
+      this.table = $("#dt-workpattern").DataTable();
+    }, 2000)
   },
   methods: {
     loadWorkPattern() {

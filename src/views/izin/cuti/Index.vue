@@ -195,10 +195,12 @@ export default {
         // this.getDateNow();
     },
     mounted() {
+    setTimeout(() => {
         this.table = $("#dt-cuti").DataTable({
             autoWidth: false,
             destroy: true,
         });
+      }, 2000)
         this.loadPermits();
     },
     methods: {

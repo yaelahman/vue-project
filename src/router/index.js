@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 
+import Landing from '../views/Auth/Landing.vue'
 import Login from '../views/Auth/Login.vue'
 import Register from '../views/Auth/Register.vue'
 import ForgetPassword from '../views/Auth/ForgetPassword.vue'
@@ -75,6 +76,10 @@ const config = {
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [{
+        path: '/welcome',
+        component: Landing,
+    },
+    {
         path: '/login',
         name: 'login',
         component: Login,

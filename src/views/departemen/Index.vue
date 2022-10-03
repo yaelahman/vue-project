@@ -74,7 +74,9 @@ export default {
     // this.loadDepartemen();
   },
   mounted() {
-    this.table = $("#dt-1").DataTable();
+    setTimeout(() => {
+      this.table = $("#dt-1").DataTable();
+      }, 2000)
     this.loadDepartemen();
   },
   methods: {

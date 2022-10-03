@@ -306,7 +306,9 @@ export default {
   },
   mounted() {
     // this.geolocate();
-    this.table = $("#dt-visit").DataTable({ autoWidth: false });
+    setTimeout(() => {
+      this.table = $("#dt-visit").DataTable({ autoWidth: false });
+    }, 2000)
   },
   methods: {
     getDateNow() {

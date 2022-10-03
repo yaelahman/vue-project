@@ -77,7 +77,9 @@ export default {
     this.loadCompanyIndustri();
   },
   mounted() {
-    this.table = $("#dt-companyindustri").DataTable();
+    setTimeout(() => {
+      this.table = $("#dt-companyindustri").DataTable();
+    }, 2000)
     this.loadCompanyIndustri();
   },
   methods: {

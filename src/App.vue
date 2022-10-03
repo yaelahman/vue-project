@@ -1,7 +1,7 @@
 
 <template>
     <div>
-        <div v-if="isLoggedIn" class="app align-content-stretch d-flex flex-wrap">
+        <div v-if="isLoggedIn && route != '/welcome'" class="app align-content-stretch d-flex flex-wrap">
             <div class="app-sidebar">
                 <div class="logo" style="background-color: #1f1f2b; height: auto;">
                     <div class="w-100 text-center">
@@ -410,15 +410,17 @@ export default {
             auth: {
                 user: {},
             },
+            route: this.$router.currentRoute.value.path,
             isLoggedIn: false,
             active_el: 0,
             tanggal_sekarang: null
         };
     },
     created() {
-        this.isLoggedIn = this.$store.getters.isLoggedIn
         moment.locale('id')
+        console.log(this.$router.currentRoute.value)
         this.tanggal_sekarang = this.tanggalIndo(moment().format('d D M YYYY'))
+        this.isLoggedIn = this.$store.getters.isLoggedIn
         // alert(window.location.origin)
         if (this.isLoggedIn) {
             this.loadUser();
@@ -441,6 +443,9 @@ export default {
         ...mapGetters({
             user: "getUser",
         }),
+        currentRouteName() {
+            return this.$route.name;
+        }
     },
     methods: {
         tanggalIndo(tanggal){
