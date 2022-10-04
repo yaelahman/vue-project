@@ -114,7 +114,7 @@
                       required
                       style="
                         padding-left: 50px;
-                        background-image: url('http://divisihr.mifstorage.com/assets/images/icons/envelope.svg');
+                        background-image: url('/assets/images/icons/envelope.svg');
                         background-size: 15px;
                         background-repeat: no-repeat;
                         background-position-x: 3%;
