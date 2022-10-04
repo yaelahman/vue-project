@@ -26,7 +26,7 @@
           <div class="carousel-inner">
             <div class="carousel-item active" data-interval="8000">
               <img
-                src="http://divisihr.com/assets/images/backgrounds/default.png"
+                src="/assets/images/backgrounds/default.png"
                 class="d-block w-100"
                 alt="..."
                 style="height: 100vh; object-fit: cover"
@@ -120,7 +120,7 @@
                         required
                         style="
                           padding-left: 50px;
-                          background-image: url('http://divisihr-dev-migrasi.mamorasoft.com/assets/images/icons/envelope.svg');
+                          background-image: url('/assets/images/icons/envelope.svg');
                           background-size: 15px;
                           background-repeat: no-repeat;
                           background-position-x: 3%;
@@ -150,7 +150,7 @@
                         required
                         style="
                           padding-left: 50px;
-                          background-image: url('http://divisihr-dev-migrasi.mamorasoft.com/assets/images/icons/lock.svg');
+                          background-image: url('/assets/images/icons/lock.svg');
                           background-size: 15px;
                           background-repeat: no-repeat;
                           background-position-x: 3%;

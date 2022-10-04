@@ -8,7 +8,7 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-interval="8000">
-                            <img src="http://divisihr.com/assets/images/backgrounds/default.png" class="d-block w-100"
+                            <img src="/assets/images/backgrounds/default.png" class="d-block w-100"
                                 alt="..." style="height: 100vh; object-fit: cover;">
                         </div>
                     </div>
