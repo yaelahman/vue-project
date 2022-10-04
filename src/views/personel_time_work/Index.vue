@@ -137,7 +137,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.table = $("#dt-timework").DataTable({ autoWidth: false });
-    }, 2000)
+    }, 1000);
   },
   methods: {
     loadPersonelTimeWork() {

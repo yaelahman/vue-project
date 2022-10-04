@@ -538,9 +538,9 @@ export default {
   mounted() {
     $("#pac-card").addClass("d-none");
     // this.geolocate();
-      setTimeout(() => {
-        this.table = $("#dt-dailyattendance").DataTable({ autoWidth: false });
-      }, 2000)
+    setTimeout(() => {
+      this.table = $("#dt-dailyattendance").DataTable({ autoWidth: false });
+    }, 1000);
   },
   methods: {
     getDateNow() {

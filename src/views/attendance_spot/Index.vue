@@ -14,13 +14,20 @@
             <div class="col">
               <div class="card">
                 <div class="card-header">
-                  <router-link to="/attendance-spot/create" class="btn btn-primary">
+                  <router-link
+                    to="/attendance-spot/create"
+                    class="btn btn-primary"
+                  >
                     <i class="material-icons">add</i>Tambah
                   </router-link>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table id="dt-attendancespot" class="display" style="width: 100%">
+                    <table
+                      id="dt-attendancespot"
+                      class="display"
+                      style="width: 100%"
+                    >
                       <thead class="text-center">
                         <tr>
                           <th>No</th>
@@ -31,7 +38,11 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr style="text-align: center;" v-for="(val, index) in attendance_spot" :key="index">
+                        <tr
+                          style="text-align: center"
+                          v-for="(val, index) in attendance_spot"
+                          :key="index"
+                        >
                           <td class="text-center">{{ ++index }}</td>
                           <td>{{ val.m_attendance_spots_name }}</td>
                           <td class="text-center">{{ val.count_personel }}</td>
@@ -39,32 +50,69 @@
                           <td class="text-center">
                             <div class="btn-group">
                               <router-link
-                              :to="{ name: 'addPersonelAttendanceSpot', params: { id: val.id_m_attendance_spots } }"
-                              class="btn-light">
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Penempatan Personel">
+                                :to="{
+                                  name: 'addPersonelAttendanceSpot',
+                                  params: { id: val.id_m_attendance_spots },
+                                }"
+                                class="btn-light"
+                              >
+                                <button
+                                  type="button"
+                                  class="btn btn-sm btn-light"
+                                  data-toggle="tooltip"
+                                  data-placement="right"
+                                  title="Penempatan Personel"
+                                >
                                   <i class="material-icons">group_add</i>
                                 </button>
                               </router-link>
                               <router-link
-                                :to="{ name: 'detailPersonelAttendanceSpot', params: { id: val.id_m_attendance_spots } }"
-                                class="btn-light">
-                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Detail">
+                                :to="{
+                                  name: 'detailPersonelAttendanceSpot',
+                                  params: { id: val.id_m_attendance_spots },
+                                }"
+                                class="btn-light"
+                              >
+                                <button
+                                  type="button"
+                                  class="btn btn-sm btn-light"
+                                  data-toggle="tooltip"
+                                  data-placement="right"
+                                  title="Detail"
+                                >
                                   <i class="material-icons">visibility</i>
                                 </button>
                               </router-link>
                               <router-link
-                                :to="{ name: 'editAttendanceSpot', params: { id: val.id_m_attendance_spots } }"
-                                class="btn-light">
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Edit">
+                                :to="{
+                                  name: 'editAttendanceSpot',
+                                  params: { id: val.id_m_attendance_spots },
+                                }"
+                                class="btn-light"
+                              >
+                                <button
+                                  type="button"
+                                  class="btn btn-sm btn-light"
+                                  data-toggle="tooltip"
+                                  data-placement="right"
+                                  title="Edit"
+                                >
                                   <i class="material-icons">edit</i>
                                 </button>
                               </router-link>
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Hapus"
-                                @click="confirmDelete(val.id_m_attendance_spots, val.m_attendance_spots_name)">
+                              <button
+                                type="button"
+                                class="btn btn-sm btn-light"
+                                data-toggle="tooltip"
+                                data-placement="right"
+                                title="Hapus"
+                                @click="
+                                  confirmDelete(
+                                    val.id_m_attendance_spots,
+                                    val.m_attendance_spots_name
+                                  )
+                                "
+                              >
                                 <i class="material-icons">delete</i>
                               </button>
                             </div>
@@ -97,21 +145,23 @@ export default {
   mounted() {
     setTimeout(() => {
       this.table = $("#dt-attendancespot").DataTable();
-      }, 2000)
+    }, 1000);
   },
   methods: {
     getAttendanceSpot() {
-      this.$Progress.start()
-      axios.get(env.VITE_API_URL + "attendance-spot").then((response) => {
-        this.$Progress.finish()
-        this.attendance_spot = response.data.data;
-        this.table.destroy();
-        this.$nextTick(() => {
-          this.table = $("#dt-attendancespot").DataTable();
-        });
-      })
+      this.$Progress.start();
+      axios
+        .get(env.VITE_API_URL + "attendance-spot")
+        .then((response) => {
+          this.$Progress.finish();
+          this.attendance_spot = response.data.data;
+          this.table.destroy();
+          this.$nextTick(() => {
+            this.table = $("#dt-attendancespot").DataTable();
+          });
+        })
         .catch((error) => {
-          this.$Progress.fail()
+          this.$Progress.fail();
         });
     },
     confirmDelete(id, nama) {
@@ -125,16 +175,19 @@ export default {
       });
     },
     deleteAttendanceSpot(id) {
-      axios.delete(env.VITE_API_URL + "attendance-spot/" + id).then((response) => {
-        this.getAttendanceSpot();
-        let status = response.data.status;
-        let message = response.data.message;
-        let status_message = status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-        Toast.fire({
-          icon: status_message,
-          title: message,
-        });
-      })
+      axios
+        .delete(env.VITE_API_URL + "attendance-spot/" + id)
+        .then((response) => {
+          this.getAttendanceSpot();
+          let status = response.data.status;
+          let message = response.data.message;
+          let status_message =
+            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+          Toast.fire({
+            icon: status_message,
+            title: message,
+          });
+        })
         .catch((e) => {
           Api.messageError(e);
         });

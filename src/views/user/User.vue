@@ -15,7 +15,10 @@
             <div class="col">
               <div class="card">
                 <div class="card-header">
-                  <router-link to="/create-company-industri" class="btn btn-primary">
+                  <router-link
+                    to="/create-company-industri"
+                    class="btn btn-primary"
+                  >
                     <i class="material-icons">add</i>Tambah
                   </router-link>
                 </div>
@@ -37,16 +40,27 @@
                         <td>{{ val.email }}</td>
                         <td>{{ val.roles[0].name }}</td>
                         <td class="text-center">
-                          <div class="btn-group" role="group" aria-label="Basic example">
-                            <router-link :to="{
-                              name: 'editUser',
-                              params: {
-                                id: val.id,
-                              },
-                            }" class="btn btn-sm btn-light">
+                          <div
+                            class="btn-group"
+                            role="group"
+                            aria-label="Basic example"
+                          >
+                            <router-link
+                              :to="{
+                                name: 'editUser',
+                                params: {
+                                  id: val.id,
+                                },
+                              }"
+                              class="btn btn-sm btn-light"
+                            >
                               <i class="material-icons">edit</i>
                             </router-link>
-                            <button type="button" class="btn btn-sm btn-light" @click="confirmDelete(val.id, val.name)">
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-light"
+                              @click="confirmDelete(val.id, val.name)"
+                            >
                               <i class="material-icons">delete</i>
                             </button>
                           </div>
@@ -79,7 +93,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.table = $("#dt-user").DataTable();
-    }, 2000)
+    }, 1000);
     this.loadUser();
   },
   watch: {

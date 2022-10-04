@@ -251,9 +251,7 @@ export default {
             $("#ModalConfirmEmail").modal("show");
           } else if (Api.response(response.data) === Api.STATUS_SUCCESS) {
             $("#ModalConfirmEmail").modal("hide");
-            window.location.href =
-              window.location.origin + "/#/detail-company-user/" + this.id;
-            // this.$router.push("/detail-company-user/" + this.id);
+            window.location.reload();
           }
           $(".submit").prop("disabled", false);
           $(".submit").html("Submit");

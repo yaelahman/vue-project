@@ -25,14 +25,14 @@ window.Swal = Swal
 // window.$ = window.jQuery = jQuery
 
 router.beforeEach((to, from, next) => {
-    if(to.fullPath != '/welcome'){
-        if (to.matched.some(record => record.meta.requiresAuth)) {
-            console.log(to)
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        console.log(to)
 
-            if (!store.getters.isLoggedIn) {
+        if (!store.getters.isLoggedIn) {
+            if (to.fullPath != '/') {
                 next({ name: 'login' })
             } else {
-                next()
+                window.location.href = window.location.origin + '/welcome'
             }
         } else {
             next()

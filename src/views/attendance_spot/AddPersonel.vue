@@ -15,12 +15,20 @@
               <div class="card">
                 <div class="card-body">
                   <form @submit.prevent="createAddPersonelAttendanceSpot()">
-                    <table id="dt1-personel" class="display" style="width: 100%">
+                    <table
+                      id="dt1-personel"
+                      class="display"
+                      style="width: 100%"
+                    >
                       <thead>
                         <tr>
                           <th>
                             <label class="form-checkbox">
-                              <input type="checkbox" v-model="selectAll" @click="select" />
+                              <input
+                                type="checkbox"
+                                v-model="selectAll"
+                                @click="select"
+                              />
                               <i class="form-icon"></i>
                             </label>
                           </th>
@@ -32,7 +40,11 @@
                         <tr v-for="(personel, index) in personels" :key="index">
                           <td>
                             <label class="form-checkbox">
-                              <input type="checkbox" :value="personel.id_m_personel" v-model="selected" />
+                              <input
+                                type="checkbox"
+                                :value="personel.id_m_personel"
+                                v-model="selected"
+                              />
                               <i class="form-icon"></i>
                             </label>
                           </td>
@@ -80,7 +92,7 @@ export default {
     this.id = this.id != null ? this.id : "";
     setTimeout(() => {
       this.table = $("#dt1-personel").DataTable();
-    }, 2000)
+    }, 1000);
   },
   methods: {
     select() {

@@ -17,8 +17,14 @@
                   <div class="row">
                     <div class="col-sm-3">
                       <label>Start Date</label>
-                      <input type="date" class="form-control start-date" placeholder="Start Date"
-                        v-model="search.startDate" @change="loadAttendanceSummary" @click="resetEndDate" />
+                      <input
+                        type="date"
+                        class="form-control start-date"
+                        placeholder="Start Date"
+                        v-model="search.startDate"
+                        @change="loadAttendanceSummary"
+                        @click="resetEndDate"
+                      />
                     </div>
                     <div class="col-sm-1">
                       <label></label>
@@ -26,13 +32,24 @@
                     </div>
                     <div class="col-sm-3">
                       <label>End Date</label>
-                      <input type="date" class="form-control" placeholder="End Date" :min="search.startDate"
-                        v-model="search.endDate" @change="loadAttendanceSummary" :disabled="search.startDate == ''" />
+                      <input
+                        type="date"
+                        class="form-control"
+                        placeholder="End Date"
+                        :min="search.startDate"
+                        v-model="search.endDate"
+                        @change="loadAttendanceSummary"
+                        :disabled="search.startDate == ''"
+                      />
                     </div>
                   </div>
                 </div>
                 <div class="card-body">
-                  <table id="dt-attendancesummary" class="display" style="width: 100%">
+                  <table
+                    id="dt-attendancesummary"
+                    class="display"
+                    style="width: 100%"
+                  >
                     <thead class="text-center">
                       <tr>
                         <th>Nama</th>
@@ -41,7 +58,10 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(val, index) in attendance_summary" :key="index">
+                      <tr
+                        v-for="(val, index) in attendance_summary"
+                        :key="index"
+                      >
                         <td>{{ val.m_personel_names }}</td>
                         <td>{{ val.kehadiran }} Hari</td>
                         <td>{{ val.total_jam }} Jam</td>
@@ -77,7 +97,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.table = $("#dt-attendancesummary").DataTable();
-      }, 2000)
+    }, 1000);
   },
   methods: {
     loadAttendanceSummary() {

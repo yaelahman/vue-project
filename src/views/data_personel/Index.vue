@@ -103,31 +103,33 @@ export default {
   data() {
     return {
       personels: {},
-      table: null
+      table: null,
     };
   },
   mounted() {
     // // console.log($)
     setTimeout(() => {
       this.table = $("#dt-personel").DataTable({ autoWidth: false });
-      }, 2000)
+    }, 1000);
     this.loadPersonel();
   },
   methods: {
     loadPersonel() {
-      this.$Progress.start()
-      axios.get(env.VITE_API_URL + "index-data-personel").then((response) => {
-        if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-          this.$Progress.finish()
-          this.personels = response.data.data;
-          this.table.destroy();
-          this.$nextTick(() => {
-            this.table = $("#dt-personel").DataTable({ autoWidth: false });
-          });
-        }
-      })
+      this.$Progress.start();
+      axios
+        .get(env.VITE_API_URL + "index-data-personel")
+        .then((response) => {
+          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
+            this.$Progress.finish();
+            this.personels = response.data.data;
+            this.table.destroy();
+            this.$nextTick(() => {
+              this.table = $("#dt-personel").DataTable({ autoWidth: false });
+            });
+          }
+        })
         .catch((e) => {
-          this.$Progress.fail()
+          this.$Progress.fail();
           Api.messageError(e);
         });
     },
@@ -137,7 +139,11 @@ export default {
       } else {
         return Api.confirmGenerate(
           "Apakah anda yakin?",
-          "Data Personel ID " + personID + " dan nama " + nama + " akan digenerate lagi!"
+          "Data Personel ID " +
+            personID +
+            " dan nama " +
+            nama +
+            " akan digenerate lagi!"
         ).then((result) => {
           if (result.isConfirmed) {
             this.generatePassword(id);
@@ -146,16 +152,19 @@ export default {
       }
     },
     generatePassword(id) {
-      axios.get(env.VITE_API_URL + "generate-password-data-personel/" + id).then((response) => {
-        this.loadPersonel();
-        let status = response.data.status;
-        let message = response.data.message;
-        let status_message = status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-        Toast.fire({
-          icon: status_message,
-          title: message,
-        });
-      })
+      axios
+        .get(env.VITE_API_URL + "generate-password-data-personel/" + id)
+        .then((response) => {
+          this.loadPersonel();
+          let status = response.data.status;
+          let message = response.data.message;
+          let status_message =
+            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+          Toast.fire({
+            icon: status_message,
+            title: message,
+          });
+        })
         .catch((e) => {
           Api.messageError(e);
         });
@@ -166,9 +175,13 @@ export default {
       } else {
         return Api.confirmGenerate(
           "Apakah anda yakin?",
-          "Data Personel ID " + personID + " dan nama " + nama + " akan direset!",
-          'warning',
-          'Iya, reset!'
+          "Data Personel ID " +
+            personID +
+            " dan nama " +
+            nama +
+            " akan direset!",
+          "warning",
+          "Iya, reset!"
         ).then((result) => {
           if (result.isConfirmed) {
             this.resetDeviceID(id);
@@ -177,16 +190,19 @@ export default {
       }
     },
     resetDeviceID(id) {
-      axios.get(env.VITE_API_URL + "reset-deviceid-data-personel/" + id).then((response) => {
-        this.loadPersonel();
-        let status = response.data.status;
-        let message = response.data.message;
-        let status_message = status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-        Toast.fire({
-          icon: status_message,
-          title: message,
-        });
-      })
+      axios
+        .get(env.VITE_API_URL + "reset-deviceid-data-personel/" + id)
+        .then((response) => {
+          this.loadPersonel();
+          let status = response.data.status;
+          let message = response.data.message;
+          let status_message =
+            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+          Toast.fire({
+            icon: status_message,
+            title: message,
+          });
+        })
         .catch((e) => {
           Api.messageError(e);
         });
@@ -204,17 +220,19 @@ export default {
     },
     deleteDataPersonel(id) {
       // console.log(id);
-      axios.delete(env.VITE_API_URL + "delete-data-personel/" + id).then((response) => {
-        this.loadPersonel();
-        let status = response.data.status;
-        let message = response.data.message;
-        let status_message =
-          status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-        Toast.fire({
-          icon: status_message,
-          title: message,
-        });
-      })
+      axios
+        .delete(env.VITE_API_URL + "delete-data-personel/" + id)
+        .then((response) => {
+          this.loadPersonel();
+          let status = response.data.status;
+          let message = response.data.message;
+          let status_message =
+            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+          Toast.fire({
+            icon: status_message,
+            title: message,
+          });
+        })
         .catch((e) => {
           Api.messageError(e);
         });
