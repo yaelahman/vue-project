@@ -2246,9 +2246,12 @@ table.dataTable {
     margin-bottom: 20px !important
 }
 
-table.dataTable td,
 table.dataTable th {
     padding: 15px 20px !important;
+    border-bottom: 1px solid #e1e7ed !important
+}
+table.dataTable td {
+    padding: 7px 20px !important;
     border-bottom: 1px solid #e1e7ed !important
 }
 
