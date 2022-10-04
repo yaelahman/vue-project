@@ -72,12 +72,12 @@ export default {
   },
   created() {
     // this.loadDepartemen();
+    this.loadDepartemen();
   },
   mounted() {
     setTimeout(() => {
       this.table = $("#dt-1").DataTable();
     }, 1000);
-    this.loadDepartemen();
   },
   methods: {
     loadDepartemen() {
@@ -88,7 +88,6 @@ export default {
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
             this.$Progress.finish();
             this.departemens = response.data.data;
-            $("#dt-1").DataTable();
             this.table.destroy();
             this.$nextTick(() => {
               this.table = $("#dt-1").DataTable();

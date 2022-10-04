@@ -7,7 +7,7 @@ export const STATUS_ERROR = 400
 export const STATUS_LOGOUT = 401
 
 export const STATUS_USER_COMPANY = ['Tidak Aktif', 'Gratis Awal', 'Gratis', 'Berbayar']
-export const URL_PHOTO = "http://divisihr-backend-dev.mamorasoft.com/storage/photo_absensi/"
+export const URL_PHOTO = env.VITE_API_URL + "storage/photo_absensi/"
 
 export const SES_PREFIX = 'prefix'
 export const SES_NAME = 'session_name'
@@ -48,13 +48,13 @@ export function messageError(e) {
     // this.fail()
     if (e.response != null && e.response.status === STATUS_LOGOUT) {
         localStorage.removeItem('token')
-        window.location.href = window.location.origin
+        window.location.href = window.location.origin + '/#/login'
         // return location.reload()
         return Toast.fire({
             icon: MES_ERROR,
             title: "Session telah berakhir, silahkan login kembali"
         })
-    } 
+    }
     if (!error.status) {
         // network error
         return Toast.fire({
