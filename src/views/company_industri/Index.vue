@@ -79,31 +79,37 @@ export default {
   mounted() {
     setTimeout(() => {
       this.table = $("#dt-companyindustri").DataTable();
-    }, 2000)
+    }, 1000);
     this.loadCompanyIndustri();
   },
   methods: {
     loadCompanyIndustri() {
-      this.$Progress.start()
-      axios.get(env.VITE_API_URL + "index-company-industri").then((response) => {
-        if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-          this.$Progress.finish()
-          this.company_industris = response.data.data;
-          this.table.destroy();
-          this.$nextTick(() => {
-            this.table = $("#dt-companyindustri").DataTable();
-          });
-        }
-      })
+      this.$Progress.start();
+      axios
+        .get(env.VITE_API_URL + "index-company-industri")
+        .then((response) => {
+          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
+            this.$Progress.finish();
+            this.company_industris = response.data.data;
+            this.table.destroy();
+            this.$nextTick(() => {
+              this.table = $("#dt-companyindustri").DataTable();
+            });
+          }
+        })
         .catch((e) => {
-          this.$Progress.fail()
+          this.$Progress.fail();
           Api.messageError(e);
         });
     },
     confirmDelete(id, code, kategori) {
       return Api.confirmDelete(
         "Apakah anda yakin?",
-        "Company Industri kode " + code + " dan kategori " + kategori + " akan dihapus!"
+        "Company Industri kode " +
+          code +
+          " dan kategori " +
+          kategori +
+          " akan dihapus!"
       ).then((result) => {
         if (result.isConfirmed) {
           this.deleteCompanyIndustri(id);
@@ -111,16 +117,19 @@ export default {
       });
     },
     deleteCompanyIndustri(id) {
-      axios.delete(env.VITE_API_URL + "delete-company-industri/" + id).then((response) => {
-        this.loadCompanyIndustri();
-        let status = response.data.status;
-        let message = response.data.message;
-        let status_message = status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-        Toast.fire({
-          icon: status_message,
-          title: message,
-        });
-      })
+      axios
+        .delete(env.VITE_API_URL + "delete-company-industri/" + id)
+        .then((response) => {
+          this.loadCompanyIndustri();
+          let status = response.data.status;
+          let message = response.data.message;
+          let status_message =
+            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+          Toast.fire({
+            icon: status_message,
+            title: message,
+          });
+        })
         .catch((e) => {
           Api.messageError(e);
         });

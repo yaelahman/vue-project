@@ -76,25 +76,27 @@ export default {
   mounted() {
     setTimeout(() => {
       this.table = $("#dt-1").DataTable();
-      }, 2000)
+    }, 1000);
     this.loadDepartemen();
   },
   methods: {
     loadDepartemen() {
-      this.$Progress.start()
-      axios.get(env.VITE_API_URL + "index-departemen").then((response) => {
-        if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-          this.$Progress.finish()
-          this.departemens = response.data.data;
-          $("#dt-1").DataTable();
-          this.table.destroy();
-          this.$nextTick(() => {
-            this.table = $("#dt-1").DataTable();
-          });
-        }
-      })
+      this.$Progress.start();
+      axios
+        .get(env.VITE_API_URL + "index-departemen")
+        .then((response) => {
+          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
+            this.$Progress.finish();
+            this.departemens = response.data.data;
+            $("#dt-1").DataTable();
+            this.table.destroy();
+            this.$nextTick(() => {
+              this.table = $("#dt-1").DataTable();
+            });
+          }
+        })
         .catch((e) => {
-          this.$Progress.fail()
+          this.$Progress.fail();
           Api.messageError(e);
         });
     },
@@ -109,16 +111,19 @@ export default {
       });
     },
     deleteDepartemen(id) {
-      axios.delete(env.VITE_API_URL + "delete-departemen/" + id).then((response) => {
-        this.loadDepartemen();
-        let status = response.data.status;
-        let message = response.data.message;
-        let status_message = status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-        Toast.fire({
-          icon: status_message,
-          title: message,
-        });
-      })
+      axios
+        .delete(env.VITE_API_URL + "delete-departemen/" + id)
+        .then((response) => {
+          this.loadDepartemen();
+          let status = response.data.status;
+          let message = response.data.message;
+          let status_message =
+            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+          Toast.fire({
+            icon: status_message,
+            title: message,
+          });
+        })
         .catch((e) => {
           Api.messageError(e);
         });

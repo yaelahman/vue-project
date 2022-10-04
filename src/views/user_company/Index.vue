@@ -98,7 +98,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.table = $("#dt-company").DataTable();
-    }, 2000)
+    }, 1000);
     this.loadUserCompany();
   },
   methods: {

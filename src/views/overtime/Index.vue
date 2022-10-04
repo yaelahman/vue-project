@@ -493,7 +493,7 @@ export default {
     // this.geolocate();
     setTimeout(() => {
       this.table = $("#dt-overtime").DataTable({ autoWidth: false });
-      }, 2000)
+    }, 1000);
   },
   methods: {
     getDateNow() {
@@ -629,9 +629,9 @@ export default {
     Maps(val, status) {
       this.locations = [];
       var latLong = val.t_absensi_latLong.split(",");
-      modal.title = "Mulai"
+      modal.title = "Mulai";
       if (status == "end") {
-        modal.title = "Selesai"
+        modal.title = "Selesai";
         latLong = val.t_absensi_latLongEnd.split(",");
       }
       this.center = {

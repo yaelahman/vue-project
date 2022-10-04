@@ -14,13 +14,20 @@
             <div class="col">
               <div class="card">
                 <div class="card-header">
-                  <router-link to="/create-work-pattern" class="btn btn-primary">
+                  <router-link
+                    to="/create-work-pattern"
+                    class="btn btn-primary"
+                  >
                     <i class="material-icons">add</i>Tambah
                   </router-link>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table id="dt-workpattern" class="display" style="width: 100%">
+                    <table
+                      id="dt-workpattern"
+                      class="display"
+                      style="width: 100%"
+                    >
                       <thead class="text-center">
                         <tr>
                           <th>No</th>
@@ -32,8 +39,11 @@
                           <th>Aksi</th>
                         </tr>
                       </thead>
-                      <tbody style="text-align: center;">
-                        <tr v-for="(work_pattern, index) in work_patterns" :key="index">
+                      <tbody style="text-align: center">
+                        <tr
+                          v-for="(work_pattern, index) in work_patterns"
+                          :key="index"
+                        >
                           <td class="text-center">
                             {{ ++index }}
                           </td>
@@ -48,35 +58,55 @@
                           </td>
                           <td class="text-center">
                             <div class="btn-group">
-                              <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
-                                title="Detail">
-                                <router-link :to="{
-                                  name: 'detailWorkPattern',
-                                  params: {
-                                    id: work_pattern.id_m_work_patern,
-                                  },
-                                }" class="btn-light">
+                              <button
+                                class="btn btn-sm btn-light"
+                                data-toggle="tooltip"
+                                data-placement="right"
+                                title="Detail"
+                              >
+                                <router-link
+                                  :to="{
+                                    name: 'detailWorkPattern',
+                                    params: {
+                                      id: work_pattern.id_m_work_patern,
+                                    },
+                                  }"
+                                  class="btn-light"
+                                >
                                   <i class="material-icons">visibility</i>
                                 </router-link>
                               </button>
-                              <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
-                                title="Edit">
-                                <router-link :to="{
-                                  name: 'editWorkPattern',
-                                  params: {
-                                    id: work_pattern.id_m_work_patern,
-                                  },
-                                }" class="btn-light">
+                              <button
+                                class="btn btn-sm btn-light"
+                                data-toggle="tooltip"
+                                data-placement="right"
+                                title="Edit"
+                              >
+                                <router-link
+                                  :to="{
+                                    name: 'editWorkPattern',
+                                    params: {
+                                      id: work_pattern.id_m_work_patern,
+                                    },
+                                  }"
+                                  class="btn-light"
+                                >
                                   <i class="material-icons">edit</i>
                                 </router-link>
                               </button>
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Hapus" @click="
-  confirmDelete(
-    work_pattern.id_m_work_patern,
-    work_pattern.m_work_patern_name
-  )
-                                ">
+                              <button
+                                type="button"
+                                class="btn btn-sm btn-light"
+                                data-toggle="tooltip"
+                                data-placement="right"
+                                title="Hapus"
+                                @click="
+                                  confirmDelete(
+                                    work_pattern.id_m_work_patern,
+                                    work_pattern.m_work_patern_name
+                                  )
+                                "
+                              >
                                 <i class="material-icons">delete</i>
                               </button>
                             </div>
@@ -109,7 +139,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.table = $("#dt-workpattern").DataTable();
-    }, 2000)
+    }, 1000);
   },
   methods: {
     loadWorkPattern() {

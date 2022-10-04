@@ -302,7 +302,7 @@ export default {
         autoWidth: false,
         destroy: true,
       });
-    }, 2000)
+    }, 1000);
     this.loadPermits();
   },
   methods: {
