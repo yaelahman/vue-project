@@ -129,11 +129,11 @@
                               data-bs-target="#ModalImage"
                               @click="
                                 url =
-                                  'http://divisihr-backend-dev.mamorasoft.com/storage/photo_permit/' +
+                                  'http://divisihr-backend.mamorasoft.com/storage/photo_permit/' +
                                   val.permit_photo
                               "
                               :src="
-                                'http://divisihr-backend-dev.mamorasoft.com/storage/photo_permit/' +
+                                'http://divisihr-backend.mamorasoft.com/storage/photo_permit/' +
                                 val.permit_photo
                               "
                               alt=""
