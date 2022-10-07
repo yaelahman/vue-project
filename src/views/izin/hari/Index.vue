@@ -332,6 +332,9 @@ export default {
         case 2:
           return '<span class="text-danger">Ditolak</span>';
           break;
+        case 3:
+          return '<span class="text-warning">Kadaluarsa</span>';
+          break;
         default:
           break;
       }

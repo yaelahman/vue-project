@@ -376,6 +376,9 @@ export default {
         case 2:
           return '<button class="mt-3 btn btn-danger">Ditolak</button>';
           break;
+        case 3:
+          return '<button class="mt-3 btn btn-warning">Kadaluarsa</button>';
+          break;
         default:
           break;
       }
