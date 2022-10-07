@@ -21,6 +21,10 @@
                   </div>
                   <div class="card-body">
                     <div class="row mb-3">
+                      <div class="form-group mb-3">
+                        <label class="fw-bolder">Denda <small class="text-danger">*Per Menit</small></label>
+                        <input type="number" min="0" required v-model="device_settings.m_device_settings_denda" class="form-control">
+                      </div>
                       <div class="text-uppercase">
                         <h5 class="bg-light rounded p-3">Absensi</h5>
                         <div class="card-body pt-0">

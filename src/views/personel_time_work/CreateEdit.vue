@@ -141,7 +141,11 @@ export default {
         loadPersonel() {
             this.update = this.$route.params.update
             if (this.id != null) {
-                axios.get(env.VITE_API_URL + "get-edit-personel").then(response => {
+                axios.get(env.VITE_API_URL + "get-edit-personel", {
+                    params: {
+                        except: this.$route.params.id
+                    }
+                }).then(response => {
                     if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
                         this.personels = response.data.data;
                     }

@@ -137,6 +137,7 @@
                           <td class="text-start">
                             <div class="btn-group">
                               <button
+                                v-if="val.t_absensi_latLong != null"
                                 type="button"
                                 class="btn btn-sm btn-light"
                                 data-bs-toggle="modal"
@@ -149,7 +150,7 @@
                                 <i class="material-icons">place</i>
                               </button>
                               <button
-                                v-if="val.t_absensi_endClock != null"
+                                v-if="val.t_absensi_latLongEnd != null"
                                 type="button"
                                 class="btn btn-sm btn-light"
                                 data-toggle="tooltip"
@@ -297,6 +298,16 @@
                   :disabled="modal.endClock === null"
                   required
                 />
+              </div>
+              <div class="form-group mt-2">
+                <label>Catatan</label>
+                <textarea
+                  class="form-control"
+                  v-model="modal.catatan"
+                  step="any"
+                  required
+                  
+                ></textarea>
               </div>
             </div>
             <div class="modal-footer">
