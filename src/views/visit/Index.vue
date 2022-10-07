@@ -232,7 +232,7 @@
         <div class="modal-content">
           <form @submit.prevent="updateAbsensi()">
             <div class="modal-header">
-              <h5 class="modal-title">Edit</h5>
+              <h5 class="modal-title">{{ modal.title }}</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -257,12 +257,33 @@
                 </select>
               </div>
               <div class="form-group mt-2">
+                <label>Tanggal Mulai</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  v-model="modal.startDate"
+                  step="any"
+                  required
+                />
+              </div>
+              <div class="form-group mt-2">
                 <label>Jam Mulai</label>
                 <input
                   type="time"
                   class="form-control"
                   v-model="modal.startClock"
                   step="any"
+                  required
+                />
+              </div>
+              <div class="form-group mt-2">
+                <label>Tanggal Selesai</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  v-model="modal.endDate"
+                  step="any"
+                  :disabled="modal.endDate === null"
                   required
                 />
               </div>
@@ -276,6 +297,16 @@
                   :disabled="modal.endClock === null"
                   required
                 />
+              </div>
+              <div class="form-group mt-2">
+                <label>Catatan</label>
+                <textarea
+                  class="form-control"
+                  v-model="modal.catatan"
+                  step="any"
+                  required
+                  
+                ></textarea>
               </div>
             </div>
             <div class="modal-footer">
@@ -555,6 +586,7 @@ export default {
     },
     Modal(val, type = "start") {
       this.modal = {
+        title: "Perbarui Kunjungan",
         id: val.id_t_absensi,
         personel: val.personel.id_m_personel,
         nama: val.personel.m_personel_names,
@@ -579,6 +611,7 @@ export default {
     },
     ModalReset() {
       this.modal = {
+        title: "Tambah Kunjungan",
         id: "",
         nama: "",
         startDate: "",
@@ -586,6 +619,7 @@ export default {
         endDate: "",
         endClock: "",
         personel: "",
+        catatan: "",
       };
     },
     Maps(val, status) {

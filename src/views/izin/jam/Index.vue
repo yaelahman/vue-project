@@ -301,8 +301,8 @@ export default {
       if (start != null) {
         var a = moment(moment(start).toArray());
         var b = moment(moment(end).toArray());
-        var result = b.diff(a, "h");
-        return (result < 0 ? 0 : result) + " Jam";
+        var result = b.diff(a, "m");
+        return (result < 0 ? 0 : result/60) + " Jam";
       }
       return 0 + " Jam";
     },

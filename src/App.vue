@@ -562,6 +562,7 @@ export default {
                 .then((response) => {
                     if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
                         // console.log(response.data.data);
+                        localStorage.setItem("denda", response.data.data[0].m_device_settings_denda)
                     }
                 })
                 .catch((e) => {

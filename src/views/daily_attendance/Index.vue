@@ -14,6 +14,16 @@
             <div class="col">
               <div class="card">
                 <div class="card-header">
+                  <div class="col-sm-3 mb-3">
+                    <button
+                      class="btn btn-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#Modal"
+                      @click="ModalReset()"
+                    >
+                      <i class="material-icons">add</i> Tambah
+                    </button>
+                  </div>
                   <form @submit.prevent="filterRangeDate()">
                     <div class="row">
                       <div class="col-sm-3">
@@ -86,6 +96,7 @@
                           <th>Tanggal Pulang</th>
                           <th>Jam Pulang</th>
                           <th>Menit Terlambat</th>
+                          <th>Denda</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -138,9 +149,13 @@
                           <td>
                             {{ menitTerlambat(val) }}
                           </td>
+                          <td>
+                            {{ hitungDenda(val) }}
+                          </td>
                           <td class="text-start">
                             <div class="btn-group">
                               <button
+                                v-if="val.t_absensi_latLong != null"
                                 type="button"
                                 class="btn btn-sm btn-light"
                                 data-toggle="tooltip"
@@ -153,7 +168,7 @@
                                 <i class="material-icons">place</i>
                               </button>
                               <button
-                                v-if="val.t_absensi_endClock != null"
+                                v-if="val.t_absensi_latLongEnd != null"
                                 type="button"
                                 class="btn btn-sm btn-light"
                                 data-toggle="tooltip"
@@ -254,12 +269,16 @@
             <div class="modal-body">
               <div class="form-group mt-2">
                 <label>Nama</label>
-                <input
-                  type="text"
-                  disabled
-                  class="form-control"
-                  v-model="modal.nama"
-                />
+                <select class="form-control" required v-model="modal.personel">
+                  <option value="" disabled>-- Pilih Personel --</option>
+                  <option
+                    v-for="(row, index) in personels"
+                    :key="index"
+                    :value="row.id_m_personel"
+                  >
+                    {{ row.m_personel_names }}
+                  </option>
+                </select>
               </div>
               <div class="form-group mt-2">
                 <label>Keterangan Datang</label>
@@ -269,6 +288,17 @@
                   <option value="2">Terlambat</option>
                 </select>
               </div>
+              
+              <div class="form-group mt-2">
+                <label>Tanggal Masuk</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  v-model="modal.startDate"
+                  step="any"
+                  required
+                />
+              </div>
               <div class="form-group mt-2">
                 <label>Jam Masuk</label>
                 <input
@@ -276,6 +306,18 @@
                   class="form-control"
                   v-model="modal.startClock"
                   step="any"
+                  required
+                />
+              </div>
+              <div class="form-group mt-2">
+                <label>Tanggal Pulang</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  v-model="modal.endDate"
+                  step="any"
+                  :disabled="modal.endDate === null"
+                  required
                 />
               </div>
               <div class="form-group mt-2">
@@ -286,7 +328,24 @@
                   v-model="modal.endClock"
                   step="any"
                   :disabled="modal.endClock === null"
+                  required
                 />
+              </div>
+              <div class="form-group mt-2">
+                <label>Catatan Terlambat Masuk <small class="text-danger">*Isi jika ada</small></label>
+                <textarea
+                  class="form-control"
+                  v-model="modal.catatan_masuk"
+                ></textarea>
+               
+              </div>
+              <div class="form-group mt-2">
+                <label>Catatan Terlambat Pulang <small class="text-danger">*Isi jika ada</small></label>
+                <textarea
+                  class="form-control"
+                  v-model="modal.catatan_pulang"
+                ></textarea>
+                
               </div>
               <div class="form-group mt-2 ml-5">
                 <div class="form-check form-switch">
@@ -534,6 +593,7 @@ export default {
   created() {
     this.loadDailyAttendance();
     this.getDateNow();
+    this.loadPersonel()
   },
   mounted() {
     $("#pac-card").addClass("d-none");
@@ -550,6 +610,28 @@ export default {
     getMapData(place) {
       this.place = place;
     },
+    hitungDenda(val) {
+      let denda = localStorage.getItem("denda") != undefined ? localStorage.getItem("denda") : 0
+      let menit = parseInt(this.menitTerlambat(val).replace(' Menit', ''))
+      console.log(denda, menit)
+      return this.formatRupiah((denda * menit).toString())
+    },
+    formatRupiah(angka, prefix){
+      var number_string = angka.replace(/[^,\d]/g, '').toString(),
+      split   		= number_string.split(','),
+      sisa     		= split[0].length % 3,
+      rupiah     		= split[0].substr(0, sisa),
+      ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+      // tambahkan titik jika yang di input sudah menjadi angka ribuan
+      if(ribuan){
+          var separator = sisa ? '.' : '';
+          rupiah += separator + ribuan.join('.');
+      }
+
+      rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+      return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+  },
     menitTerlambat(val) {
       var start = val.t_absensi_startDate + " " + val.t_absensi_startClock;
       var now =
@@ -639,10 +721,30 @@ export default {
           Api.messageError(e);
         });
     },
+    loadPersonel() {
+      this.$Progress.start();
+      axios
+        .get(env.VITE_API_URL + "index-data-personel", {
+          params: {
+            work_personel: true
+          }
+        })
+        .then((response) => {
+          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
+            this.$Progress.finish();
+            this.personels = response.data.data;
+          }
+        })
+        .catch((e) => {
+          this.$Progress.fail();
+          Api.messageError(e);
+        });
+    },
     Modal(val, type = "start") {
       this.modal = {
         id: val.id_t_absensi,
         nama: val.personel.m_personel_names,
+        personel: val.personel.id_m_personel,
         isLate: val.t_absensi_isLate,
         startClock: val.t_absensi_startClock,
         endClock: val.t_absensi_endClock,
@@ -669,6 +771,22 @@ export default {
         this.modal.photo =
           Api.URL_PHOTO + val.photo_absensi[0].t_absensi_photofileOri;
       }
+    },
+    ModalReset() {
+      this.modal = {
+        title: "Tambah Kunjungan",
+        id: "",
+        nama: "",
+        isLate: '',
+        startDate: "",
+        startClock: "",
+        endDate: "",
+        endClock: "",
+        personel: "",
+        catatan: "",
+        catatan_masuk: "",
+        catatan_pulang: "",
+      };
     },
     Maps(val, status) {
       this.locations = [];
