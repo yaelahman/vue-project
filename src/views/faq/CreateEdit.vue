@@ -16,6 +16,14 @@
                 <div class="card-body">
                   <form class="mt-3" @submit.prevent="createFaq()">
                     <div class="example-content">
+                      <label class="form-label">Kategori</label>
+                      <select class="form-control" v-model="faq.kategori_faq" oninvalid="this.setCustomValidity('Kategori harus dipilih')" required>
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="1">Aplikasi</option>
+                        <option value="2">Website</option>
+                      </select>
+                    </div>
+                    <div class="example-content">
                       <label class="form-label">Pertanyaan</label>
                       <input type="text" class="form-control" v-model="faq.nama_m_faq" placeholder="Pertanyaan"
                         required oninvalid="this.setCustomValidity('Pertanyaan harus diisi')" oninput="setCustomValidity('')">
@@ -49,7 +57,9 @@ export default {
   data() {
     return {
       id: "",
-      faq: {},
+      faq: {
+        kategori_faq: ""
+      },
       title: "Tambah",
     };
   },

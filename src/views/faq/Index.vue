@@ -24,6 +24,7 @@
                       <thead class="text-center">
                         <tr>
                           <th>No</th>
+                          <th>Kategori</th>
                           <th>Pertanyaan</th>
                           <th>Jawaban</th>
                           <th>Aksi</th>
@@ -32,6 +33,7 @@
                       <tbody>
                         <tr v-for="(faq, index) in faqs" :key="index">
                           <td class="text-center">{{index + 1}}</td>
+                          <td>{{faq.kategori_faq == 1 ? 'Aplikasi' : 'Website'}}</td>
                           <td>{{faq.nama_m_faq}}</td>
                           <td>{{faq.jawaban_m_faq}}</td>
                           <td class="text-center">

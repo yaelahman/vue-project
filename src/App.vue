@@ -14,8 +14,8 @@
                 <div class="app-menu">
                     <ul class="accordion-menu">
                         <li class="sidebar-title">Apps</li>
-                        <li @click="activate(1)">
-                            <router-link to="/" :class="{ 'active': active_el == 1 }">
+                        <li class="nav-item" @click="activate(1900)">
+                            <router-link to="/" :class="{ 'active': active_el == 1900 }">
                                 <i><svg class="menu-svg" width="19" height="19" viewBox="0 0 22 22" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -512,6 +512,9 @@ export default {
             }
         },
         activate: function (el) {
+            if(el == 1){
+                $('.submenu').removeClass('show')
+            }
             $('.dd-parent').removeClass('show')
             $('.dd-menu').removeClass('show')
             this.dropdown = false
