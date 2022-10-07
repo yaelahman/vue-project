@@ -72,7 +72,8 @@ export function messageError(e) {
             title: "Session telah berakhir, silahkan login kembali"
         })
     }
-    if (!error.status) {
+    if (!e.status) {
+        return false
         // network error
         return Toast.fire({
             icon: MES_ERROR,

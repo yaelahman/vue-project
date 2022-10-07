@@ -13,6 +13,9 @@ import Dashboard from "../views/dashboard/Dashboard.vue"
 import IndexCompanyIndustri from "../views/company_industri/Index.vue"
 import CreateEditCompanyIndustri from "../views/company_industri/CreateEdit.vue"
 
+import IndexFaq from "../views/faq/Index.vue"
+import CreateEditFaq from "../views/faq/CreateEdit.vue"
+
 import IndexDepartemen from "../views/departemen/Index.vue"
 import CreateEditDepartemen from "../views/departemen/CreateEdit.vue"
 
@@ -125,6 +128,11 @@ const router = createRouter({
     { path: "/index-departemen", component: IndexDepartemen, ...config },
     { path: "/create-departemen", component: CreateEditDepartemen, ...config },
     { path: "/update-departemen/:id", component: CreateEditDepartemen, name: "editDepartemen", ...config },
+
+    //Departemen
+    { path: "/faq", component: IndexFaq, ...config },
+    { path: "/create-faq", component: CreateEditFaq, ...config },
+    { path: "/update-faq/:id", component: CreateEditFaq, name: "editFaq", ...config },
 
     //Company
     { path: "/index-user-company", component: IndexUserCompany, ...config },
