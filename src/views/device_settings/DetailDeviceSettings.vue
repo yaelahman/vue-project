@@ -27,7 +27,7 @@
                       </div>
                       <div class="text-uppercase">
                         <h5 class="bg-light rounded p-3">Absensi</h5>
-                        <div class="card-body pt-0">
+                        <div class="card-body py-0">
                           <div
                             class="form-check form-switch"
                             style="margin-left: 10px"
@@ -72,7 +72,7 @@
                     <div class="row mb-3">
                       <div class="text-uppercase">
                         <h5 class="bg-light rounded p-3">Visit Client</h5>
-                        <div class="card-body pt-0">
+                        <div class="card-body py-0">
                           <div
                             class="form-check form-switch"
                             style="margin-left: 10px"
@@ -117,7 +117,7 @@
                     <div class="row mb-3">
                       <div class="text-uppercase">
                         <h5 class="bg-light rounded p-3">Overtime</h5>
-                        <div class="card-body pt-0">
+                        <div class="card-body py-0">
                           <div
                             class="form-check form-switch"
                             style="margin-left: 10px"
@@ -159,7 +159,8 @@
                         </div>
                       </div>
                     </div>
-
+                    <div class="row mb-3"><div style="position: relative;"><hr><h5 class="bg-light rounded p-3">Denda terlambat</h5><div class="card-body py-0"><label style="position: absolute; display: block; right: 8%; top: 75%; z-index: 9;">/menit</label>
+                    <input type="text" class="form-control" required="" placeholder="Denda terlambat" oninvalid="" oninput=""></div></div></div>
                     <!-- <div class="example-content">
                       <div class="d-flex justify-content-between">
                         <label style="font-size: 1.3em">Kamera</label>

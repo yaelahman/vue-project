@@ -53,16 +53,16 @@
                           required
                         />
                       </div>
-                      <div class="col-sm-4" style="margin-top: 1.8rem">
+                      <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">
                         <button
-                          class="btn btn-primary"
+                          class="btn btn-sm text-nowrap btn-primary mb-2 me-2"
                           style="width: 120px"
                           @click="filterType = 'show'"
                         >
                           Tampilkan
                         </button>
                         <button
-                          class="btn btn-primary"
+                          class="btn btn-sm text-nowrap btn-primary mb-2 me-2"
                           style="width: 120px"
                           @click="filterType = 'download'"
                         >
