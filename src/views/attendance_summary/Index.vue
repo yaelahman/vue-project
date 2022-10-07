@@ -81,55 +81,57 @@
                   </form>
                 </div>
                 <div class="card-body">
-                  <table
+                  <div class="table-responsive">
+                    <table
                     id="dt-attendancesummary"
                     class="display"
                     style="width: 100%"
                   >
-                    <thead class="text-center">
-                      <tr>
-                        <th>Nama</th>
-                        <th>Departemen</th>
-                        <th>Kehadiran Hari</th>
-                        <th>Kehadiran Jam</th>
-                        <th>Terlambat</th>
-                        <th>Tidak Terlambat</th>
-                        <th>WFH</th>
-                        <th>Tidak Absen</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        v-for="(val, index) in attendance_summary"
-                        :key="index"
-                      >
-                        <td>{{ val.m_personel_names }}</td>
-                        <td>{{ val.departemen.m_departemen_name }}</td>
-                        <td>{{ val.kehadiran ?? 0 }}</td>
-                        <td>{{ val.total_jam ?? 0 }}</td>
-                        <td>
-                          <div class="detail-as" @click="Detail(val, 'Terlambat')">
-                            {{ val.terlambat ?? 0 }}
-                          </div>
-                        </td>
-                        <td>
-                          <div class="detail-as" @click="Detail(val, 'Tidak Terlambat')">
-                            {{ val.tidak_terlambat ?? 0 }}
-                          </div>
-                        </td>
-                        <td>
-                          <div class="detail-as" @click="Detail(val, 'WFH')">
-                            {{ val.wfh ?? 0 }}
-                          </div>
-                        </td>
-                        <td>
-                          <div class="detail-as" @click="Detail(val, 'Tidak Absen')">
-                            {{ val.tidak_hadir ?? 0 }}
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                      <thead class="text-center">
+                        <tr>
+                          <th>Nama</th>
+                          <th>Departemen</th>
+                          <th>Kehadiran Hari</th>
+                          <th>Kehadiran Jam</th>
+                          <th>Terlambat</th>
+                          <th>Tidak Terlambat</th>
+                          <th>WFH</th>
+                          <th>Tidak Absen</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="(val, index) in attendance_summary"
+                          :key="index"
+                        >
+                          <td>{{ val.m_personel_names }}</td>
+                          <td>{{ val.departemen.m_departemen_name }}</td>
+                          <td>{{ val.kehadiran ?? 0 }}</td>
+                          <td>{{ val.total_jam ?? 0 }}</td>
+                          <td>
+                            <div class="detail-as" @click="Detail(val, 'Terlambat')">
+                              {{ val.terlambat ?? 0 }}
+                            </div>
+                          </td>
+                          <td>
+                            <div class="detail-as" @click="Detail(val, 'Tidak Terlambat')">
+                              {{ val.tidak_terlambat ?? 0 }}
+                            </div>
+                          </td>
+                          <td>
+                            <div class="detail-as" @click="Detail(val, 'WFH')">
+                              {{ val.wfh ?? 0 }}
+                            </div>
+                          </td>
+                          <td>
+                            <div class="detail-as" @click="Detail(val, 'Tidak Absen')">
+                              {{ val.tidak_hadir ?? 0 }}
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -155,7 +157,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body table-responsive">
             <table
               id="tableTerlambat"
               class="display"
@@ -210,7 +212,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body table-responsive">
             <table
               id="tableTidakTerlambat"
               class="display"
@@ -263,7 +265,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body table-responsive">
             <table
               id="tableWFH"
               class="display"
@@ -316,7 +318,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body table-responsive">
             <table
               id="tableTidakAbsen"
               class="display"
@@ -368,7 +370,7 @@ export default {
   data() {
     return {
       attendance_summary: {},
-      detail_attendance_summary: {},
+      detail_attendance_summary: [],
       search: {
         startDate: "",
         endDate: "",
@@ -404,20 +406,25 @@ export default {
         data: null,
         type: type,
       }
-      this.table2 = $("#table" + this.modal.type.replace(' ', '')).DataTable();
       $('#ModalDetail' + this.modal.type.replace(' ', '')).modal('show')
+      this.detail_attendance_summary = []
+      if(this.table2 != null){
+        this.table2.destroy();
+      }
+      // this.table2 = $("#table" + this.modal.type.replace(' ', '')).DataTable();
       this.$Progress.start();
       await axios
         .get(env.VITE_API_URL + "detail-attendance-summary", { params: this.modal })
         .then((response) => {
           this.$Progress.finish();
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-            this.detail_attendance_summary = []
-            this.detail_attendance_summary = response.data.data;
-            this.table2.destroy();
-            this.$nextTick(() => {
-              this.table2 = $("#table" + this.modal.type.replace(' ', '')).DataTable();
-            });
+            // setTimeout(() => {
+              this.detail_attendance_summary = response.data.data;
+              // this.table2.destroy();
+              this.$nextTick(() => {
+                this.table2 = $("#table" + this.modal.type.replace(' ', '')).DataTable();
+              });
+            // }, 1000)
           }
         })
         .catch((e) => {
