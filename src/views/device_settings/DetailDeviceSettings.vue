@@ -21,10 +21,10 @@
                   </div>
                   <div class="card-body">
                     <div class="row mb-3">
-                      <div class="form-group mb-3">
+                      <!-- <div class="form-group mb-3">
                         <label class="fw-bolder">Denda <small class="text-danger">*Per Menit</small></label>
                         <input type="number" min="0" required v-model="device_settings.m_device_settings_denda" class="form-control">
-                      </div>
+                      </div> -->
                       <div class="text-uppercase">
                         <h5 class="bg-light rounded p-3">Absensi</h5>
                         <div class="card-body py-0">
@@ -160,7 +160,7 @@
                       </div>
                     </div>
                     <div class="row mb-3"><div style="position: relative;"><hr><h5 class="bg-light rounded p-3">Denda terlambat</h5><div class="card-body py-0"><label style="position: absolute; display: block; right: 8%; top: 75%; z-index: 9;">/menit</label>
-                    <input type="text" class="form-control" required="" placeholder="Denda terlambat" oninvalid="" oninput=""></div></div></div>
+                    <input type="number" min="0" class="form-control" required placeholder="Denda terlambat" v-model="device_settings.m_device_settings_denda"></div></div></div>
                     <!-- <div class="example-content">
                       <div class="d-flex justify-content-between">
                         <label style="font-size: 1.3em">Kamera</label>
