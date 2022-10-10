@@ -15,6 +15,16 @@
     text-overflow: ellipsis;
 }
 
+.btn-link {
+    color: #000;
+}
+
+.btn-link:hover,
+.btn-link:focus,
+.btn-link.focus {
+    text-decoration: none !important;
+}
+
 .user-info-text ::-webkit-scrollbar {
     display: none;
 }
