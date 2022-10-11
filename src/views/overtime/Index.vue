@@ -235,8 +235,8 @@
                 </select>
               </div>
               <div class="form-group mt-2">
-                <label>Catatan</label>
-                <textarea class="form-control" v-model="modal.catatan" step="any" required></textarea>
+                <label>Catatan Approval</label>
+                <textarea class="form-control" v-model="modal.catatan_admin" step="any"></textarea>
               </div>
             </div>
             <div class="modal-footer">
@@ -356,7 +356,8 @@ export default {
         personel: "",
         photo: "",
         photo2: "",
-        status_admin: ""
+        status_admin: "",
+        catatan_admin: "",
       },
       data: {
         catatan: "",
@@ -409,6 +410,7 @@ export default {
           return '<span class="text-warning">Kadaluarsa</span>';
           break;
         default:
+          return '-'
           break;
       }
     },
@@ -540,7 +542,8 @@ export default {
         startDate: val.t_absensi_startDate,
         endDate: val.t_absensi_endDate,
         catatan: val.t_absensi_catatan,
-        status_admin: val.t_absensi_status_admin
+        status_admin: val.t_absensi_status_admin,
+        catatan_admin: val.t_absensi_catatan_admin,
       };
       if (val.t_absensi_status == 2) {
         this.modal.status = true;
