@@ -183,7 +183,6 @@
                     </div>
                     <div v-else>
                       <button
-                        v-if="permit.permit_status != 3"
                         class="btn btn-primary rounded-pill me-2"
                         data-bs-toggle="modal"
                         data-bs-target="#ModalEditPersetujuan"
