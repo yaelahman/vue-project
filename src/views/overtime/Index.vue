@@ -226,10 +226,6 @@
                   :disabled="modal.endClock === null" required />
               </div>
               <div class="form-group mt-2">
-                <label>Catatan</label>
-                <textarea class="form-control" v-model="modal.catatan" step="any" required></textarea>
-              </div>
-              <div class="form-group mt-2">
                 <label>Status</label>
                 <select class="form-control" required v-model="modal.status_admin">
                   <option value="" disabled>-- Pilih Status --</option>
@@ -237,6 +233,10 @@
                   <option value="1">Disetujui</option>
                   <option value="2">Ditolak</option>
                 </select>
+              </div>
+              <div class="form-group mt-2">
+                <label>Catatan</label>
+                <textarea class="form-control" v-model="modal.catatan" step="any" required></textarea>
               </div>
             </div>
             <div class="modal-footer">
