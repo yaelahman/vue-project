@@ -17,9 +17,6 @@
                   <router-link to="/create-personel-time-work" class="btn btn-primary">
                     <i class="material-icons">add</i>Tambah
                   </router-link>
-                  <router-link to="/index-work-pattern" class="btn btn-light">
-                    <i class="material-icons">arrow_back</i>Kembali
-                  </router-link>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -88,6 +85,11 @@
                         </tr>
                       </tbody>
                     </table>
+                  </div>
+                  <div class="mt-5">
+                    <router-link to="/index-work-pattern" class="btn btn-light">
+                      <i class="material-icons">arrow_back</i>Kembali
+                    </router-link>
                   </div>
                 </div>
               </div>
