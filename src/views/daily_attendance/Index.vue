@@ -15,12 +15,8 @@
               <div class="card">
                 <div class="card-header">
                   <div class="col-sm-3 mb-3">
-                    <button
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#Modal"
-                      @click="ModalReset()"
-                    >
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal"
+                      @click="ModalReset()">
                       <i class="material-icons">add</i> Tambah
                     </button>
                   </div>
@@ -28,14 +24,8 @@
                     <div class="row">
                       <div class="col-sm-3">
                         <label>Start Date</label>
-                        <input
-                          type="date"
-                          class="form-control start-date"
-                          placeholder="Start Date"
-                          v-model="search.startDate"
-                          @click="search.endDate = ''"
-                          required
-                        />
+                        <input type="date" class="form-control start-date" placeholder="Start Date"
+                          v-model="search.startDate" @click="search.endDate = ''" required />
                       </div>
                       <div class="col-sm-1">
                         <label></label>
@@ -43,41 +33,22 @@
                       </div>
                       <div class="col-sm-3">
                         <label>End Date</label>
-                        <input
-                          type="date"
-                          class="form-control"
-                          placeholder="End Date"
-                          :min="search.startDate"
-                          v-model="search.endDate"
-                          :disabled="search.startDate == ''"
-                          required
-                        />
+                        <input type="date" class="form-control" placeholder="End Date" :min="search.startDate"
+                          v-model="search.endDate" :disabled="search.startDate == ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">
-                        <button
-                          class="btn btn-sm text-nowrap btn-primary mb-2 me-2"
-                          style="width: 120px"
-                          @click="filterType = 'show'"
-                        >
+                        <button class="btn btn-sm text-nowrap btn-primary mb-2 me-2" style="width: 120px"
+                          @click="filterType = 'show'">
                           Tampilkan
                         </button>
-                        <button
-                          class="btn btn-sm text-nowrap btn-primary mb-2 me-2"
-                          style="width: 120px"
-                          @click="filterType = 'download'"
-                        >
+                        <button class="btn btn-sm text-nowrap btn-primary mb-2 me-2" style="width: 120px"
+                          @click="filterType = 'download'">
                           Unduh
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M3.75 19.5H20.25C20.4489 19.5 20.6397 19.579 20.7803 19.7197C20.921 19.8603 21 20.0511 21 20.25C21 20.4489 20.921 20.6397 20.7803 20.7803C20.6397 20.921 20.4489 21 20.25 21H3.75C3.55109 21 3.36032 20.921 3.21967 20.7803C3.07902 20.6397 3 20.4489 3 20.25C3 20.0511 3.07902 19.8603 3.21967 19.7197C3.36032 19.579 3.55109 19.5 3.75 19.5ZM12.75 13.554L18.288 8.0145L19.3485 9.075L11.925 16.5L4.5 9.075L5.5605 8.0145L11.25 13.704V3H12.75V13.554Z"
-                              fill="white"
-                            />
+                              fill="white" />
                           </svg>
                         </button>
                       </div>
@@ -95,43 +66,31 @@
                           <th>Jam Masuk</th>
                           <th>Tanggal Pulang</th>
                           <th>Jam Pulang</th>
+                          <th>Jadwal Kerja</th>
                           <th>Menit Terlambat</th>
                           <th>Denda</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          style="text-align: center"
-                          v-for="(val, index) in daily_attendances"
-                          :key="index"
-                        >
+                        <tr style="text-align: center" v-for="(val, index) in daily_attendances" :key="index">
                           <td>{{ index + 1 }}</td>
                           <td style="width: 10px; text-align: start">
                             {{ val.personel.m_personel_names }}
-                            <span
-                              style="margin-left: 5px"
-                              v-if="val.t_absensi_status == 2"
-                              class="
+                            <span style="margin-left: 5px" v-if="val.t_absensi_status == 2" class="
                                 badge
                                 badge-sm
                                 badge-style-bordered
                                 badge-warning
-                              "
-                              >WFH</span
-                            >
+                              ">WFH</span>
                           </td>
                           <td v-if="val.t_absensi_startDate != null">
                             {{ convertDate(val.t_absensi_startDate) }}
                           </td>
                           <td v-else class="text-center">-</td>
-                          <td
-                            class="text-nowrap"
-                            v-bind:class="{
-                              'text-danger': val.t_absensi_isLate != 1,
-                            }"
-                            v-if="val.t_absensi_startClock != null"
-                          >
+                          <td class="text-nowrap" v-bind:class="{
+                            'text-danger': val.t_absensi_isLate != 1,
+                          }" v-if="val.t_absensi_startClock != null">
                             {{ val.t_absensi_startClock }} WIB
                           </td>
                           <td v-else class="text-center">-</td>
@@ -139,13 +98,13 @@
                             {{ convertDate(val.t_absensi_endDate) }}
                           </td>
                           <td v-else class="text-center">-</td>
-                          <td
-                            class="text-nowrap"
-                            v-if="val.t_absensi_endClock != null"
-                          >
+                          <td class="text-nowrap" v-if="val.t_absensi_endClock != null">
                             {{ val.t_absensi_endClock }} WIB
                           </td>
                           <td v-else class="text-center">-</td>
+                          <td>
+                            {{ val.work_personel.get_work_pattern.m_work_patern_name }}
+                          </td>
                           <td>
                             {{ menitTerlambat(val) }}
                           </td>
@@ -154,82 +113,38 @@
                           </td>
                           <td class="text-start">
                             <div class="btn-group">
-                              <button
-                                v-if="val.t_absensi_latLong != null"
-                                type="button"
-                                class="btn btn-sm btn-light"
-                                data-toggle="tooltip"
-                                data-placement="right"
-                                title="Lokasi awal"
-                                data-bs-toggle="modal"
-                                data-bs-target="#ModalMaps"
-                                @click="Maps(val, 'start')"
-                              >
+                              <button v-if="val.t_absensi_latLong != null" type="button" class="btn btn-sm btn-light"
+                                data-toggle="tooltip" data-placement="right" title="Lokasi awal" data-bs-toggle="modal"
+                                data-bs-target="#ModalMaps" @click="Maps(val, 'start')">
                                 <i class="material-icons">place</i>
                               </button>
-                              <button
-                                v-if="val.t_absensi_latLongEnd != null"
-                                type="button"
-                                class="btn btn-sm btn-light"
-                                data-toggle="tooltip"
-                                data-placement="right"
-                                title="Lokasi akhir"
-                                data-bs-toggle="modal"
-                                data-bs-target="#ModalMaps"
-                                @click="Maps(val, 'end')"
-                              >
+                              <button v-if="val.t_absensi_latLongEnd != null" type="button" class="btn btn-sm btn-light"
+                                data-toggle="tooltip" data-placement="right" title="Lokasi akhir" data-bs-toggle="modal"
+                                data-bs-target="#ModalMaps" @click="Maps(val, 'end')">
                                 <i class="material-icons">place</i>
                               </button>
-                              <button
-                                v-if="val.photo_absensi.length > 0"
-                                type="button"
-                                class="btn btn-sm btn-light"
-                                data-toggle="tooltip"
-                                data-placement="right"
-                                title="Image"
-                                data-bs-toggle="modal"
-                                data-bs-target="#ModalImage"
-                                @click="Modal(val)"
-                              >
+                              <button v-if="val.photo_absensi.length > 0" type="button" class="btn btn-sm btn-light"
+                                data-toggle="tooltip" data-placement="right" title="Image" data-bs-toggle="modal"
+                                data-bs-target="#ModalImage" @click="Modal(val)">
                                 <i class="material-icons">image</i>
                               </button>
-                              <button
-                                type="button"
-                                class="btn btn-sm btn-light"
-                                data-toggle="tooltip"
-                                data-placement="right"
-                                title="Catatan Telat Masuk & Pulang"
-                                data-bs-toggle="modal"
-                                data-bs-target="#ModalCatatan"
-                                @click="Modal(val, 'end')"
-                              >
+                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                data-placement="right" title="Catatan Telat Masuk & Pulang" data-bs-toggle="modal"
+                                data-bs-target="#ModalCatatan" @click="Modal(val, 'end')">
                                 <i class="material-icons">book</i>
                               </button>
-                              <button
-                                type="button"
-                                class="btn btn-sm btn-light"
-                                data-toggle="tooltip"
-                                data-placement="right"
-                                title="Edit"
-                                data-bs-toggle="modal"
-                                data-bs-target="#Modal"
-                                @click="Modal(val)"
-                              >
+                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                data-placement="right" title="Edit" data-bs-toggle="modal" data-bs-target="#Modal"
+                                @click="Modal(val)">
                                 <i class="material-icons">edit</i>
                               </button>
-                              <button
-                                type="button"
-                                class="btn btn-sm btn-light"
-                                data-toggle="tooltip"
-                                data-placement="right"
-                                title="Hapus"
-                                @click="
+                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                data-placement="right" title="Hapus" @click="
                                   confirmDelete(
                                     val.id_t_absensi,
                                     val.personel.m_personel_names
                                   )
-                                "
-                              >
+                                ">
                                 <i class="material-icons">delete</i>
                               </button>
                             </div>
@@ -245,24 +160,13 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="Modal"
-      tabindex="-1"
-      aria-labelledby="ModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <form @submit.prevent="updateAbsensi()">
             <div class="modal-header">
               <h5 class="modal-title">Perbarui Kehadiran Harian</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <input type="hidden" v-model="modal.startDate" />
             <input type="hidden" v-model="modal.endDate" />
@@ -271,11 +175,7 @@
                 <label>Nama</label>
                 <select class="form-control" required v-model="modal.personel">
                   <option value="" disabled>-- Pilih Personel --</option>
-                  <option
-                    v-for="(row, index) in personels"
-                    :key="index"
-                    :value="row.id_m_personel"
-                  >
+                  <option v-for="(row, index) in personels" :key="index" :value="row.id_m_personel">
                     {{ row.m_personel_names }}
                   </option>
                 </select>
@@ -288,75 +188,39 @@
                   <option value="2">Terlambat</option>
                 </select>
               </div>
-              
+
               <div class="form-group mt-2">
                 <label>Tanggal Masuk</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  v-model="modal.startDate"
-                  step="any"
-                  required
-                />
+                <input type="date" class="form-control" v-model="modal.startDate" step="any" required />
               </div>
               <div class="form-group mt-2">
                 <label>Jam Masuk</label>
-                <input
-                  type="time"
-                  class="form-control"
-                  v-model="modal.startClock"
-                  step="any"
-                  required
-                />
+                <input type="time" class="form-control" v-model="modal.startClock" step="any" required />
               </div>
               <div class="form-group mt-2">
                 <label>Tanggal Pulang</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  v-model="modal.endDate"
-                  step="any"
-                  :disabled="modal.endDate === null"
-                  required
-                />
+                <input type="date" class="form-control" v-model="modal.endDate" step="any"
+                  :disabled="modal.endDate === null" required />
               </div>
               <div class="form-group mt-2">
                 <label>Jam Pulang</label>
-                <input
-                  type="time"
-                  class="form-control"
-                  v-model="modal.endClock"
-                  step="any"
-                  :disabled="modal.endClock === null"
-                  required
-                />
+                <input type="time" class="form-control" v-model="modal.endClock" step="any"
+                  :disabled="modal.endClock === null" required />
               </div>
               <div class="form-group mt-2">
                 <label>Catatan Terlambat Masuk <small class="text-danger">*Isi jika ada</small></label>
-                <textarea
-                  class="form-control"
-                  v-model="modal.catatan_masuk"
-                ></textarea>
-               
+                <textarea class="form-control" v-model="modal.catatan_masuk"></textarea>
+
               </div>
               <div class="form-group mt-2">
                 <label>Catatan Terlambat Pulang <small class="text-danger">*Isi jika ada</small></label>
-                <textarea
-                  class="form-control"
-                  v-model="modal.catatan_pulang"
-                ></textarea>
-                
+                <textarea class="form-control" v-model="modal.catatan_pulang"></textarea>
+
               </div>
               <div class="form-group mt-2 ml-5">
                 <div class="form-check form-switch">
-                  <input
-                    class="form-check-input ml-3"
-                    type="checkbox"
-                    v-model="modal.status"
-                  />
-                  <label class="form-check-label" for="flexSwitchCheckChecked"
-                    >WFH ?</label
-                  >
+                  <input class="form-check-input ml-3" type="checkbox" v-model="modal.status" />
+                  <label class="form-check-label" for="flexSwitchCheckChecked">WFH ?</label>
                 </div>
               </div>
             </div>
@@ -364,11 +228,7 @@
               <button type="submit" id="submit" class="btn btn-primary">
                 Save
               </button>
-              <button
-                type="button"
-                class="btn btn-light"
-                data-bs-dismiss="modal"
-              >
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal">
                 Close
               </button>
             </div>
@@ -376,41 +236,21 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="ModalMaps"
-      tabindex="-1"
-      aria-labelledby="ModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="ModalMaps" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Lokasi Personel Absensi</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="row">
               <div class="col-12">
-                <GoogleMap
-                  :api-key="api_key"
-                  style="width: 100%; height: 500px"
-                  :center="center"
-                  :zoom="15"
-                >
+                <GoogleMap :api-key="api_key" style="width: 100%; height: 500px" :center="center" :zoom="15">
                   <!-- <Marker :options="markerOptions" /> -->
 
                   <MarkerCluster>
-                    <Marker
-                      v-for="(location, i) in locations"
-                      :options="{ position: location }"
-                      :key="i"
-                    />
+                    <Marker v-for="(location, i) in locations" :options="{ position: location }" :key="i" />
                   </MarkerCluster>
                 </GoogleMap>
               </div>
@@ -424,45 +264,23 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="ModalCatatan"
-      tabindex="-1"
-      aria-labelledby="ModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="ModalCatatan" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Catatan</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="row">
               <div class="col-sm-6">
                 <h5>Catatan Terlambat Masuk</h5>
-                <textarea
-                  class="form-control mb-4"
-                  v-model="modal.catatan_masuk"
-                  cols="30"
-                  rows="10"
-                  readonly
-                ></textarea>
+                <textarea class="form-control mb-4" v-model="modal.catatan_masuk" cols="30" rows="10"
+                  readonly></textarea>
               </div>
               <div class="col-sm-6">
                 <h5>Catatan Terlambat Pulang</h5>
-                <textarea
-                  class="form-control"
-                  v-model="modal.catatan_pulang"
-                  cols="30"
-                  rows="10"
-                  readonly
-                ></textarea>
+                <textarea class="form-control" v-model="modal.catatan_pulang" cols="30" rows="10" readonly></textarea>
               </div>
             </div>
           </div>
@@ -474,23 +292,12 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="ModalImage"
-      tabindex="-1"
-      aria-labelledby="ModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="ModalImage" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Foto</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -512,32 +319,15 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="ModalCatatan"
-      tabindex="-1"
-      aria-labelledby="ModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="ModalCatatan" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Catatan Absensi</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <textarea
-              class="form-control"
-              v-model="modal.catatan"
-              cols="30"
-              rows="10"
-              readonly
-            ></textarea>
+            <textarea class="form-control" v-model="modal.catatan" cols="30" rows="10" readonly></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
@@ -616,22 +406,22 @@ export default {
       console.log(denda, menit)
       return this.formatRupiah((denda * menit).toString())
     },
-    formatRupiah(angka, prefix){
+    formatRupiah(angka, prefix) {
       var number_string = angka.replace(/[^,\d]/g, '').toString(),
-      split   		= number_string.split(','),
-      sisa     		= split[0].length % 3,
-      rupiah     		= split[0].substr(0, sisa),
-      ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+        split = number_string.split(','),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
       // tambahkan titik jika yang di input sudah menjadi angka ribuan
-      if(ribuan){
-          var separator = sisa ? '.' : '';
-          rupiah += separator + ribuan.join('.');
+      if (ribuan) {
+        var separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
       }
 
       rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
       return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-  },
+    },
     menitTerlambat(val) {
       var start = val.t_absensi_startDate + " " + val.t_absensi_startClock;
       var now =

@@ -15,36 +15,24 @@
               <div class="card">
                 <div class="card-body">
                   <form @submit.prevent="createAddPersonelAttendanceSpot()">
-                    <table
-                      id="dt1-personel"
-                      class="display"
-                      style="width: 100%"
-                    >
+                    <table id="dt1-personel" class="display" style="width: 100%">
                       <thead>
                         <tr>
                           <th>
                             <label class="form-checkbox">
-                              <input
-                                type="checkbox"
-                                v-model="selectAll"
-                                @click="select"
-                              />
+                              <input type="checkbox" v-model="selectAll" @click="select" />
                               <i class="form-icon"></i>
                             </label>
                           </th>
-                          <th class="text-center">Personel ID</th>
-                          <th class="text-center">Nama Personel</th>
+                          <th class="text-start">Personel ID</th>
+                          <th class="text-start">Nama Personel</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(personel, index) in personels" :key="index">
                           <td>
                             <label class="form-checkbox">
-                              <input
-                                type="checkbox"
-                                :value="personel.id_m_personel"
-                                v-model="selected"
-                              />
+                              <input type="checkbox" :value="personel.id_m_personel" v-model="selected" />
                               <i class="form-icon"></i>
                             </label>
                           </td>
@@ -58,7 +46,10 @@
                       <button type="submit" id="submit" class="btn btn-primary">
                         <i class="material-icons">save</i>Simpan
                       </button>
-                      <router-link to="/attendance-spot" class="btn btn-light">
+                      <router-link :to="{
+                        name: 'detailPersonelAttendanceSpot',
+                        params: { id: id },
+                      }" class="btn btn-light">
                         <i class="material-icons">arrow_back</i>Kembali
                       </router-link>
                     </div>

@@ -14,20 +14,13 @@
             <div class="col">
               <div class="card">
                 <div class="card-header">
-                  <router-link
-                    to="/attendance-spot/create"
-                    class="btn btn-primary"
-                  >
+                  <router-link to="/attendance-spot/create" class="btn btn-primary">
                     <i class="material-icons">add</i>Tambah
                   </router-link>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table
-                      id="dt-attendancespot"
-                      class="display"
-                      style="width: 100%"
-                    >
+                    <table id="dt-attendancespot" class="display" style="width: 100%">
                       <thead class="text-center">
                         <tr>
                           <th>No</th>
@@ -38,81 +31,47 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          style="text-align: center"
-                          v-for="(val, index) in attendance_spot"
-                          :key="index"
-                        >
+                        <tr style="text-align: center" v-for="(val, index) in attendance_spot" :key="index">
                           <td class="text-center">{{ ++index }}</td>
                           <td>{{ val.m_attendance_spots_name }}</td>
                           <td class="text-center">{{ val.count_personel }}</td>
                           <td>{{ val.m_attendance_spots_address }}</td>
                           <td class="text-center">
                             <div class="btn-group">
-                              <router-link
-                                :to="{
-                                  name: 'addPersonelAttendanceSpot',
-                                  params: { id: val.id_m_attendance_spots },
-                                }"
-                                class="btn-light"
-                              >
-                                <button
-                                  type="button"
-                                  class="btn btn-sm btn-light"
-                                  data-toggle="tooltip"
-                                  data-placement="right"
-                                  title="Penempatan Personel"
-                                >
-                                  <i class="material-icons">group_add</i>
+                              <router-link :to="{
+                                name: 'detailPersonelAttendanceSpot',
+                                params: { id: val.id_m_attendance_spots },
+                              }" class="btn-light">
+                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                  data-placement="right" title="Penempatan Personel">
+                                  <i class="material-icons">group</i>
                                 </button>
                               </router-link>
-                              <router-link
-                                :to="{
-                                  name: 'detailPersonelAttendanceSpot',
-                                  params: { id: val.id_m_attendance_spots },
-                                }"
-                                class="btn-light"
-                              >
-                                <button
-                                  type="button"
-                                  class="btn btn-sm btn-light"
-                                  data-toggle="tooltip"
-                                  data-placement="right"
-                                  title="Detail"
-                                >
+                              <!-- <router-link :to="{
+                                name: 'detailPersonelAttendanceSpot',
+                                params: { id: val.id_m_attendance_spots },
+                              }" class="btn-light">
+                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                  data-placement="right" title="Detail">
                                   <i class="material-icons">visibility</i>
                                 </button>
-                              </router-link>
-                              <router-link
-                                :to="{
-                                  name: 'editAttendanceSpot',
-                                  params: { id: val.id_m_attendance_spots },
-                                }"
-                                class="btn-light"
-                              >
-                                <button
-                                  type="button"
-                                  class="btn btn-sm btn-light"
-                                  data-toggle="tooltip"
-                                  data-placement="right"
-                                  title="Edit"
-                                >
+                              </router-link> -->
+                              <router-link :to="{
+                                name: 'editAttendanceSpot',
+                                params: { id: val.id_m_attendance_spots },
+                              }" class="btn-light">
+                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                  data-placement="right" title="Edit">
                                   <i class="material-icons">edit</i>
                                 </button>
                               </router-link>
-                              <button
-                                type="button"
-                                class="btn btn-sm btn-light"
-                                data-toggle="tooltip"
-                                data-placement="right"
-                                title="Hapus"
-                                @click="
+                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                data-placement="right" title="Hapus" @click="
                                   confirmDelete(
                                     val.id_m_attendance_spots,
                                     val.m_attendance_spots_name
                                   )
-                                "
-                              >
+                                ">
                                 <i class="material-icons">delete</i>
                               </button>
                             </div>

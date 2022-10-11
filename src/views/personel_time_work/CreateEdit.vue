@@ -54,8 +54,7 @@
                                             <button type="submit" class="btn btn-primary" id="submit">
                                                 <i class="material-icons">save</i>Simpan
                                             </button>
-                                            <router-link to="/index-personel-time-work" type="button"
-                                                class="btn btn-light">
+                                            <router-link to="/index-work-pattern" type="button" class="btn btn-light">
                                                 <i class="material-icons">arrow_back</i>Kembali
                                             </router-link>
                                         </div>

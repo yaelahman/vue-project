@@ -18,62 +18,34 @@
                     <div class="row">
                       <div class="col-lg-3 col-md-4 col-sm-4 col-6">
                         <label>Start Date</label>
-                        <input
-                          type="date"
-                          class="form-control start-date"
-                          placeholder="Start Date"
-                          v-model="search.startDate"
-                          @click="search.endDate = ''"
-                          required
-                        />
+                        <input type="date" class="form-control start-date" placeholder="Start Date"
+                          v-model="search.startDate" @click="search.endDate = ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-6">
                         <label>End Date</label>
-                        <input
-                          type="date"
-                          class="form-control"
-                          placeholder="End Date"
-                          :min="search.startDate"
-                          v-model="search.endDate"
-                          :disabled="search.startDate == ''"
-                          required
-                        />
+                        <input type="date" class="form-control" placeholder="End Date" :min="search.startDate"
+                          v-model="search.endDate" :disabled="search.startDate == ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12">
                         <label>Status</label>
                         <select v-model="search.status" class="form-control">
                           <option value="">Semua</option>
                           <option value="0">Menunggu Persetujuan</option>
-                          <option value="1">Diterima</option>
+                          <option value="1">Disetujui</option>
                           <option value="2">Ditolak</option>
                         </select>
                       </div>
-                      <div
-                        class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex"
-                        style="margin-top: 1.8rem"
-                      >
-                        <button
-                          class="btn btn-sm text-nowrap me-2 btn-primary mb-2"
-                          @click="filterType = 'show'"
-                        >
+                      <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">
+                        <button class="btn btn-sm text-nowrap me-2 btn-primary mb-2" @click="filterType = 'show'">
                           Tampilkan
                         </button>
-                        <button
-                          class="btn btn-sm text-nowrap me-2 btn-primary mb-2"
-                          @click="filterType = 'download'"
-                        >
+                        <button class="btn btn-sm text-nowrap me-2 btn-primary mb-2" @click="filterType = 'download'">
                           Unduh
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M3.75 19.5H20.25C20.4489 19.5 20.6397 19.579 20.7803 19.7197C20.921 19.8603 21 20.0511 21 20.25C21 20.4489 20.921 20.6397 20.7803 20.7803C20.6397 20.921 20.4489 21 20.25 21H3.75C3.55109 21 3.36032 20.921 3.21967 20.7803C3.07902 20.6397 3 20.4489 3 20.25C3 20.0511 3.07902 19.8603 3.21967 19.7197C3.36032 19.579 3.55109 19.5 3.75 19.5ZM12.75 13.554L18.288 8.0145L19.3485 9.075L11.925 16.5L4.5 9.075L5.5605 8.0145L11.25 13.704V3H12.75V13.554Z"
-                              fill="white"
-                            />
+                              fill="white" />
                           </svg>
                         </button>
                       </div>
@@ -95,11 +67,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          style="text-align: center"
-                          v-for="(val, index) in permits"
-                          :key="index"
-                        >
+                        <tr style="text-align: center" v-for="(val, index) in permits" :key="index">
                           <td>{{ index + 1 }}</td>
                           <td style="text-align: start">
                             {{ val.personel.m_personel_names }}
@@ -119,62 +87,34 @@
                           </td>
                           <td class="w-100 d-flex justify-content-start">
                             <div class="btn-group">
-                              <router-link
-                                :to="{
-                                  name: 'detailIzin',
-                                  params: {
-                                    id: val.id_permit_application,
-                                  },
-                                }"
-                                class="btn btn-sm btn-light"
-                                data-toggle="tooltip"
-                                data-placement="right"
-                                title="Detail"
-                              >
+                              <router-link :to="{
+                                name: 'detailIzin',
+                                params: {
+                                  id: val.id_permit_application,
+                                },
+                              }" class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
+                                title="Detail">
                                 <i class="material-icons">remove_red_eye</i>
                               </router-link>
-                              <button
-                                type="button"
-                                class="btn btn-sm btn-light"
-                                data-toggle="tooltip"
-                                data-placement="right"
-                                title="Hapus"
-                                @click="
+                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                data-placement="right" title="Hapus" @click="
                                   confirmDelete(val.id_permit_application)
-                                "
-                              >
+                                ">
                                 <i class="material-icons">delete</i>
                               </button>
-                              <div
-                                v-if="val.permit_status == 0"
-                                style="display: contents"
-                              >
-                                <button
-                                  type="button"
-                                  class="btn btn-sm btn-light"
-                                  data-toggle="tooltip"
-                                  data-placement="right"
-                                  title="Setuju"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#ModalCatatan"
-                                  @click="
+                              <div v-if="val.permit_status == 0" style="display: contents">
+                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                  data-placement="right" title="Setuju" data-bs-toggle="modal"
+                                  data-bs-target="#ModalCatatan" @click="
                                     Modal(val.id_permit_application, 'setuju')
-                                  "
-                                >
+                                  ">
                                   <i class="material-icons">check</i>
                                 </button>
-                                <button
-                                  type="button"
-                                  class="btn btn-sm btn-light"
-                                  data-toggle="tooltip"
-                                  data-placement="right"
-                                  title="Tolak"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#ModalCatatan"
-                                  @click="
+                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                  data-placement="right" title="Tolak" data-bs-toggle="modal"
+                                  data-bs-target="#ModalCatatan" @click="
                                     Modal(val.id_permit_application, 'tolak')
-                                  "
-                                >
+                                  ">
                                   <i class="material-icons">close</i>
                                 </button>
                               </div>
@@ -191,13 +131,7 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="ModalCatatan"
-      tabindex="-1"
-      aria-labelledby="ModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="ModalCatatan" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -206,28 +140,15 @@
             </p>
           </div>
           <div class="mx-5">
-            <textarea
-              class="form-control"
-              v-model="data.catatan"
-              cols="30"
-              rows="10"
-              placeholder="Catatan dari admin"
-            ></textarea>
+            <textarea class="form-control" v-model="data.catatan" cols="30" rows="10"
+              placeholder="Catatan dari admin"></textarea>
           </div>
           <div class="modal-footer text-center">
             <div class="mx-auto">
-              <button
-                type="button"
-                class="btn rounded-pill btn-light me-2 btn-cancel"
-                data-bs-dismiss="modal"
-              >
+              <button type="button" class="btn rounded-pill btn-light me-2 btn-cancel" data-bs-dismiss="modal">
                 Kembali
               </button>
-              <button
-                type="button"
-                @click="permitApprove()"
-                class="btn rounded-pill btn-primary btn-submit"
-              >
+              <button type="button" @click="permitApprove()" class="btn rounded-pill btn-primary btn-submit">
                 Submit
               </button>
             </div>
@@ -235,13 +156,7 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="ModalImage"
-      tabindex="-1"
-      aria-labelledby="ModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="ModalImage" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header text-center">
@@ -252,11 +167,7 @@
           </div>
           <div class="modal-footer text-center">
             <div class="mx-auto">
-              <button
-                type="button"
-                class="btn rounded-pill btn-light me-2 btn-cancel"
-                data-bs-dismiss="modal"
-              >
+              <button type="button" class="btn rounded-pill btn-light me-2 btn-cancel" data-bs-dismiss="modal">
                 Kembali
               </button>
             </div>
@@ -327,7 +238,7 @@ export default {
           return '<span class="text-muted">Menunggu Persetujuan</span>';
           break;
         case 1:
-          return '<span class="text-success">Diterima</span>';
+          return '<span class="text-success">Disetujui</span>';
           break;
         case 2:
           return '<span class="text-danger">Ditolak</span>';

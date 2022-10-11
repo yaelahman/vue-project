@@ -13,72 +13,82 @@
           <div class="row">
             <div class="col">
               <div class="card">
+                <div class="card-header">
+                  <router-link to="/create-personel-time-work" class="btn btn-primary">
+                    <i class="material-icons">add</i>Tambah
+                  </router-link>
+                  <router-link to="/index-work-pattern" class="btn btn-light">
+                    <i class="material-icons">arrow_back</i>Kembali
+                  </router-link>
+                </div>
                 <div class="card-body">
-                  <form @submit.prevent="createWorkPattern()">
-                    <div class="form-group">
-                      <label class="form-label">Nama Daftar Jadwal</label>
-                      <input v-model="work_pattern.m_work_patern_name" type="text" class="form-control"
-                        placeholder="Nama Daftar Jadwal" disabled
-                        oninvalid="this.setCustomValidity('Nama Daftar Jadwal harus diisi')"
-                        oninput="setCustomValidity('')">
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Jumlah Hari</label>
-                      <input type="number" class="form-control" v-model.number="m_work_patern_numberCycle" min="0"
-                        max="31" v-on:keyup="addArray()" placeholder="Jumlah Hari" disabled
-                        oninvalid="this.setCustomValidity('Jumlah Hari harus diisi')" oninput="setCustomValidity('')">
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Toleransi</label>
-                      <div class="row">
-                        <div class="col-sm-11">
-                          <input v-model="work_pattern.m_work_patern_tolerance" type="number" min="0"
-                            class="form-control" placeholder="Toleransi" disabled
-                            oninvalid="this.setCustomValidity('Toleransi harus diisi')" oninput="setCustomValidity('')">
-                        </div>
-                        <div class="col-sm-1">
-                          <p class="mt-2">Menit</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1" class="form-label" v-if="m_work_patern_numberCycle != ''">Daftar
-                        Jadwal</label>
-                      <div v-for="(val, index) in work_schedule" :key="index">
-                        <div class="row mt-2 mb-2">
-                          <div class="col-md-2">
-                            <p class="mt-2 bold">Day {{ ++index }}</p>
-                          </div>
-                          <div class="col-md-3">
-                            <select v-model="val.m_work_schedule_type" class="form-select"
-                              aria-label="Default select example" disabled>
-                              <option value="" disabled>-- Pilih --</option>
-                              <option value="1">Kerja</option>
-                              <option value="2">Libur</option>
-                            </select>
-                          </div>
-                          <div class="col-md-3">
-                            <input v-model="val.m_work_schedule_clockIn" type="time" class="form-control" disabled
-                              id="exampleInputEmail1" aria-describedby="emailHelp">
-                          </div>
-                          <div class="col-md-1">
-                            <p class="mt-2 text-center">s/d</p>
-                          </div>
-                          <div class="col-md-3">
-                            <input v-model="val.m_work_schedule_clockOut" type="time" class="form-control" disabled
-                              id="exampleInputEmail1" aria-describedby="emailHelp">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="example-content">
-                      <div class="mt-3">
-                        <router-link to="/index-work-pattern" class="btn btn-light">
-                          <i class="material-icons">arrow_back</i> Kembali
-                        </router-link>
-                      </div>
-                    </div>
-                  </form>
+                  <div class="table-responsive">
+                    <table id="dt-timework" class="display nowrap w-100">
+                      <thead class="text-center text-nowrap">
+                        <tr>
+                          <th>No</th>
+                          <th style="text-align: start">Nama</th>
+                          <th>Departemen</th>
+                          <th>Daftar Jadwal</th>
+                          <th>Mulai</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr style="text-align: center" v-for="(
+                            personel_time_work, index
+                          ) in personel_time_works" :key="index">
+                          <td>{{ index + 1 }}</td>
+                          <td style="width: 10px; text-align: start">
+                            {{
+                            personel_time_work.get_personel.m_personel_names
+                            }}
+                          </td>
+                          <td>
+                            {{
+                            personel_time_work.get_personel.departemen != null
+                            ? personel_time_work.get_personel.departemen
+                            .m_departemen_name
+                            : "-"
+                            }}
+                          </td>
+                          <td>
+                            {{ personel_time_work.get_work_pattern
+                            .m_work_patern_name }}
+                          </td>
+                          <td>
+                            {{ convertDate(personel_time_work.m_work_personel_time) }}
+                          </td>
+                          <td class="text-center">
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                data-placement="right" title="Edit">
+                                <router-link :to="{
+                                  name: 'editPersonelTimeWork',
+                                  params: {
+                                    id: personel_time_work.id_m_work_personel,
+                                    update: true,
+                                  },
+                                }" class="btn-light">
+                                  <i class="material-icons">edit</i>
+                                </router-link>
+                              </button>
+                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                data-placement="right" title="Hapus" @click="
+                                  confirmDelete(
+                                    personel_time_work.id_m_work_personel,
+                                    personel_time_work.get_work_pattern
+                                      .m_work_patern_name
+                                  )
+                                ">
+                                <i class="material-icons">delete</i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -97,11 +107,19 @@ export default {
       title: 'Detail',
       m_work_patern_numberCycle: '',
       work_schedule: [],
-      work_pattern: {}
+      work_pattern: {},
+      personel_time_works: {},
+      table: null,
     };
   },
   created() {
     this.loadWorkPattern();
+    this.loadPersonelTimeWork();
+  },
+  mounted() {
+    setTimeout(() => {
+      this.table = $("#dt-timework").DataTable({ autoWidth: false });
+    }, 1000);
   },
   methods: {
     loadWorkPattern() {
@@ -120,7 +138,40 @@ export default {
             Api.messageError(e);
           });
       }
-    }
+    },
+    loadPersonelTimeWork() {
+      this.$Progress.start();
+      axios
+        .get(env.VITE_API_URL + "index-personel-time-work", {
+          params: {
+            id_work_pattern: this.id
+          }
+        })
+        .then((response) => {
+          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
+            this.$Progress.finish();
+            this.personel_time_works = response.data.data;
+            this.table.destroy();
+            this.$nextTick(() => {
+              this.table = $("#dt-timework").DataTable({ autoWidth: false });
+            });
+          }
+        })
+        .catch((e) => {
+          this.$Progress.fail();
+          Api.messageError(e);
+        });
+    },
+    confirmDelete(id, name) {
+      return Api.confirmDelete(
+        "Apakah anda yakin?",
+        "Jadwal Karyawan dengan personel " + name + " akan dihapus!"
+      ).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteCompany(id);
+        }
+      });
+    },
   }
 };
 </script>

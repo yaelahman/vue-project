@@ -13,14 +13,14 @@
           <div class="row">
             <div class="col">
               <div class="card">
-                <div class="card-header">
+                <!-- <div class="card-header">
                   <router-link
                     to="/create-personel-time-work"
                     class="btn btn-primary"
                   >
                     <i class="material-icons">add</i>Tambah
                   </router-link>
-                </div>
+                </div> -->
                 <div class="card-body">
                   <div class="table-responsive">
                     <table id="dt-timework" class="display nowrap w-100">
@@ -35,76 +35,58 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          style="text-align: center"
-                          v-for="(
+                        <tr style="text-align: center" v-for="(
                             personel_time_work, index
-                          ) in personel_time_works"
-                          :key="index"
-                        >
+                          ) in personel_time_works" :key="index">
                           <td>{{ index + 1 }}</td>
                           <td style="width: 10px; text-align: start">
                             {{
-                              personel_time_work.get_personel.m_personel_names
+                            personel_time_work.get_personel.m_personel_names
                             }}
                           </td>
                           <td>
                             {{
-                              personel_time_work.get_personel.departemen != null
-                                ? personel_time_work.get_personel.departemen
-                                    .m_departemen_name
-                                : "-"
+                            personel_time_work.get_personel.departemen != null
+                            ? personel_time_work.get_personel.departemen
+                            .m_departemen_name
+                            : "-"
                             }}
                           </td>
                           <td>
                             {{
-                              personel_time_work.get_work_pattern
-                                .m_work_patern_name
+                            personel_time_work.get_work_pattern
+                            .m_work_patern_name
                             }}
                           </td>
                           <td>
                             {{
-                              convertDate(
-                                personel_time_work.m_work_personel_time
-                              )
+                            convertDate(
+                            personel_time_work.m_work_personel_time
+                            )
                             }}
                           </td>
                           <td class="text-center">
                             <div class="btn-group">
-                              <button
-                                type="button"
-                                class="btn btn-sm btn-light"
-                                data-toggle="tooltip"
-                                data-placement="right"
-                                title="Edit"
-                              >
-                                <router-link
-                                  :to="{
-                                    name: 'editPersonelTimeWork',
-                                    params: {
-                                      id: personel_time_work.id_m_work_personel,
-                                      update: true,
-                                    },
-                                  }"
-                                  class="btn-light"
-                                >
+                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                data-placement="right" title="Edit">
+                                <router-link :to="{
+                                  name: 'editPersonelTimeWork',
+                                  params: {
+                                    id: personel_time_work.id_m_work_personel,
+                                    update: true,
+                                  },
+                                }" class="btn-light">
                                   <i class="material-icons">edit</i>
                                 </router-link>
                               </button>
-                              <button
-                                type="button"
-                                class="btn btn-sm btn-light"
-                                data-toggle="tooltip"
-                                data-placement="right"
-                                title="Hapus"
-                                @click="
+                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                data-placement="right" title="Hapus" @click="
                                   confirmDelete(
                                     personel_time_work.id_m_work_personel,
                                     personel_time_work.get_work_pattern
                                       .m_work_patern_name
                                   )
-                                "
-                              >
+                                ">
                                 <i class="material-icons">delete</i>
                               </button>
                             </div>

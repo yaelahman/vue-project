@@ -13,37 +13,35 @@
           <div class="row">
             <div class="col">
               <div class="card">
+                <div class="card-header">
+
+                  <router-link :to="{
+                    name: 'addPersonelAttendanceSpot',
+                    params: { id: id },
+                  }" class="btn btn-primary">
+                    <i class="material-icons">add</i>Tambah
+                  </router-link>
+                </div>
                 <div class="card-body">
-                  <table
-                    id="dt-detailpersonel"
-                    class="display"
-                    style="width: 100%"
-                  >
-                    <thead class="text-center">
+                  <table id="dt-detailpersonel" class="display" style="width: 100%">
+                    <thead class="text-start">
                       <tr>
+                        <th style="width: 20%">PersonelID</th>
                         <th>Nama Personel</th>
-                        <th>PersonelID</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        v-for="(val, index) in attendance_personels"
-                        :key="index"
-                      >
-                        <td>{{ val.get_personel.m_personel_names }}</td>
+                      <tr v-for="(val, index) in attendance_personels" :key="index">
                         <td>{{ val.get_personel.m_personel_personID }}</td>
-                        <td class="text-center">
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-light"
-                            @click="
-                              confirmDelete(
-                                val.id_m_attendance_personel,
-                                val.get_personel.m_personel_names
-                              )
-                            "
-                          >
+                        <td>{{ val.get_personel.m_personel_names }}</td>
+                        <td class="text-start">
+                          <button type="button" class="btn btn-sm btn-light" @click="
+                            confirmDelete(
+                              val.id_m_attendance_personel,
+                              val.get_personel.m_personel_names
+                            )
+                          ">
                             <i class="material-icons">delete</i>
                           </button>
                         </td>
