@@ -140,10 +140,10 @@ export default {
         return Api.confirmGenerate(
           "Apakah anda yakin?",
           "Data Personel ID " +
-            personID +
-            " dan nama " +
-            nama +
-            " akan digenerate lagi!"
+          personID +
+          " dan nama " +
+          nama +
+          " akan digenerate lagi!"
         ).then((result) => {
           if (result.isConfirmed) {
             this.generatePassword(id);
@@ -176,10 +176,10 @@ export default {
         return Api.confirmGenerate(
           "Apakah anda yakin?",
           "Data Personel ID " +
-            personID +
-            " dan nama " +
-            nama +
-            " akan direset!",
+          personID +
+          " dan nama " +
+          nama +
+          " akan direset!",
           "warning",
           "Iya, reset!"
         ).then((result) => {
@@ -237,8 +237,8 @@ export default {
           Api.messageError(e);
         });
     },
-    convertDate(date, format = "DD-MM-YYYY", empty = "-") {
-      return Api.convertDate(date, format, empty);
+    convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
+      return Api.convertDate(date, format, empty, subtract);
     },
   },
 };

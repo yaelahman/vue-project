@@ -468,8 +468,8 @@ export default {
         });
     },
 
-    convertDate(date, format = "DD-MM-YYYY", empty = "-") {
-      return Api.convertDate(date, format, empty);
+    convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
+      return Api.convertDate(date, format, empty, subtract);
     },
   },
 };

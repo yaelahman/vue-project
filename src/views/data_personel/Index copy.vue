@@ -94,83 +94,66 @@
 import * as Api from "../../helper/Api.js";
 export default {
   data() {
-    return {
-      personels: {},
-    };
-  },
-  created() {
-    this.loadPersonel();
-  },
-  methods: {
-    loadPersonel() {
-      this.$Progress.start()
-      axios.get(env.VITE_API_URL + "index-data-personel").then((response) => {
-        if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-          this.$Progress.finish()
-          this.personels = response.data.data;
-        }
-      })
+  return {
+    rsonels: {},
+                  {
+        sonel();
+            
+      onel() {
+      Progress.start()
+      get(env.VITE_API_URL + "index-data-personel").then((response) => {
+      Api.response(response.data, false) === Api.STATUS_SUCCESS) {
+        Progress.finish()
+        ersonels = response.data.data;
+                    ch((e) => {
+      this.$Progress.fail()
+        Api.messageError(e);
+      });
+      confirmGenerate(id, nama, personID, password) {
+    if (password == null) {
+    this.generatePassword(id);
+       {
+      rn Api.confirmGenerate(
+      pakah anda yakin?",
+      ata Personel ID " + personID + " dan nama " + nama + " akan digenerate lagi!"
+        result) => {
+        sult.isConfirmed) {
+          eratePassword(id);
+                                                                      _URL + "generate-password-data-personel/" + id).then((response) => {
+            l();
+           response.data.status;
+        age = response.data.message;
+      status_message = status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+        re({
+          us_message,
+          sage,
+            
         .catch((e) => {
-          this.$Progress.fail()
-          Api.messageError(e);
-        });
-    },
-    confirmGenerate(id, nama, personID, password) {
-      if (password == null) {
-        this.generatePassword(id);
-      } else {
-        return Api.confirmGenerate(
-          "Apakah anda yakin?",
-          "Data Personel ID " + personID + " dan nama " + nama + " akan digenerate lagi!"
-        ).then((result) => {
-          if (result.isConfirmed) {
-            this.generatePassword(id);
-          }
-        });
-      }
-    },
-    generatePassword(id) {
-      axios.get(env.VITE_API_URL + "generate-password-data-personel/" + id).then((response) => {
-        this.loadPersonel();
-        let status = response.data.status;
-        let message = response.data.message;
+      Api.messageError(e);
+      
+        confirmResetDeviceID(id, personID, nama, deviceID) {
+     (deviceID == null) {
+      .resetDeviceID(id);
+       {
+        pi.confirmGenerate(
+        h anda yakin?",
+      ata Personel ID " + personID + " dan nama " + nama + " akan direset!",
+        ng',
+          t!'
+          lt) => {
+          .isConfirmed) {
+            viceID(id);
+                                              iceID(id) {
+        env.VITE_API_URL + "reset-deviceid-data-personel/" + id).then((response) => {
+          sonel();
+        us = response.data.status;
+    let message = response.data.message;
         let status_message = status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-        Toast.fire({
-          icon: status_message,
-          title: message,
-        });
-      })
-        .catch((e) => {
-          Api.messageError(e);
-        });
-    },
-    confirmResetDeviceID(id, personID, nama, deviceID) {
-      if (deviceID == null) {
-        this.resetDeviceID(id);
-      } else {
-        return Api.confirmGenerate(
-          "Apakah anda yakin?",
-          "Data Personel ID " + personID + " dan nama " + nama + " akan direset!",
-          'warning',
-          'Iya, reset!'
-        ).then((result) => {
-          if (result.isConfirmed) {
-            this.resetDeviceID(id);
-          }
-        });
-      }
-    },
-    resetDeviceID(id) {
-      axios.get(env.VITE_API_URL + "reset-deviceid-data-personel/" + id).then((response) => {
-        this.loadPersonel();
-        let status = response.data.status;
-        let message = response.data.message;
-        let status_message = status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-        Toast.fire({
-          icon: status_message,
-          title: message,
-        });
-      })
+    Toast.fire({
+      on: status_message,
+      tle: message,
+    });
+    })
         .catch((e) => {
           Api.messageError(e);
         });
@@ -203,8 +186,8 @@ export default {
           Api.messageError(e);
         });
     },
-    convertDate(date, format = "DD-MM-YYYY", empty = "-") {
-      return Api.convertDate(date, format, empty);
+    convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
+      return Api.convertDate(date, format, empty, subtract);
     },
   },
 };

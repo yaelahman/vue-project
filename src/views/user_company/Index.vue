@@ -85,73 +85,73 @@
 <script>
 import * as Api from "../../helper/Api.js";
 export default {
-  data() {
-    return {
-      user_companies: {},
-      table: null,
-      status: ["Tidak Aktif", "Gratis Awal", "Gratis", "Berbayar"],
-    };
-  },
-  created() {
-    this.loadUserCompany();
-  },
-  mounted() {
-    setTimeout(() => {
-      this.table = $("#dt-company").DataTable();
-    }, 1000);
-    this.loadUserCompany();
-  },
-  methods: {
-    loadUserCompany() {
-      this.$Progress.start();
-      axios
-        .get(env.VITE_API_URL + "index-user-company")
-        .then((response) => {
-          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-            this.$Progress.finish();
-            this.user_companies = response.data.data;
-            this.table.destroy();
-            this.$nextTick(() => {
-              this.table = $("#dt-company").DataTable();
+    data() {
+        return {
+            user_companies: {},
+            table: null,
+            status: ["Tidak Aktif", "Gratis Awal", "Gratis", "Berbayar"],
+        };
+    },
+    created() {
+        this.loadUserCompany();
+    },
+    mounted() {
+        setTimeout(() => {
+            this.table = $("#dt-company").DataTable();
+        }, 1000);
+        this.loadUserCompany();
+    },
+    methods: {
+        loadUserCompany() {
+            this.$Progress.start();
+            axios
+                .get(env.VITE_API_URL + "index-user-company")
+                .then((response) => {
+                    if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
+                        this.$Progress.finish();
+                        this.user_companies = response.data.data;
+                        this.table.destroy();
+                        this.$nextTick(() => {
+                            this.table = $("#dt-company").DataTable();
+                        });
+                    }
+                })
+                .catch((e) => {
+                    this.$Progress.fail();
+                    Api.messageError(e);
+                });
+        },
+        confirmDelete(id, name) {
+            return Api.confirmDelete(
+                "Apakah anda yakin?",
+                "User Company dengan nama " + name + " akan dihapus!"
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    this.deleteCompany(id);
+                }
             });
-          }
-        })
-        .catch((e) => {
-          this.$Progress.fail();
-          Api.messageError(e);
-        });
+        },
+        deleteCompany(id) {
+            axios
+                .delete(env.VITE_API_URL + "delete-user-company/" + id)
+                .then((response) => {
+                    this.loadUserCompany();
+                    let status = response.data.status;
+                    let message = response.data.message;
+                    let status_message =
+                        status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+                    Toast.fire({
+                        icon: status_message,
+                        title: message,
+                    });
+                })
+                .catch((e) => {
+                    Api.messageError(e);
+                });
+        },
+        convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
+            return Api.convertDate(date, format, empty, subtract);
+        },
     },
-    confirmDelete(id, name) {
-      return Api.confirmDelete(
-        "Apakah anda yakin?",
-        "User Company dengan nama " + name + " akan dihapus!"
-      ).then((result) => {
-        if (result.isConfirmed) {
-          this.deleteCompany(id);
-        }
-      });
-    },
-    deleteCompany(id) {
-      axios
-        .delete(env.VITE_API_URL + "delete-user-company/" + id)
-        .then((response) => {
-          this.loadUserCompany();
-          let status = response.data.status;
-          let message = response.data.message;
-          let status_message =
-            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-          Toast.fire({
-            icon: status_message,
-            title: message,
-          });
-        })
-        .catch((e) => {
-          Api.messageError(e);
-        });
-    },
-    convertDate(date, format = "DD-MM-YYYY", empty = "-") {
-      return Api.convertDate(date, format, empty);
-    },
-  },
 };
 </script>

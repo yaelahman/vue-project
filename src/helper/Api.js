@@ -16,7 +16,8 @@ let prefix = localStorage.getItem(SES_PREFIX)
 let this_progress = null;
 
 export function convertDate(date, format = 'DD-MM-YYYY', empty = '-', subtract = false) {
-    if (subtract) {
+
+    if (subtract || date.includes('T')) {
 
         return date != null ? moment(date).subtract(7, 'h').format(format) : empty;
     }
@@ -24,7 +25,8 @@ export function convertDate(date, format = 'DD-MM-YYYY', empty = '-', subtract =
 }
 
 export function convertTime(date, format = 'hh:mm', empty = '-', subtract = false) {
-    if (subtract) {
+
+    if (subtract || date.includes('T')) {
 
         return date != null ? moment(date).subtract(7, 'h').format(format) : empty;
     }

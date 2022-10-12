@@ -38,8 +38,8 @@
                     <div class="col">
                       <div class="form-group">
                         <label class="form-label">Tanggal Pengajuan</label>
-                        <input type="text" class="form-control" :value="convertDate(permit.created_at)" required
-                          disabled />
+                        <input type="text" class="form-control"
+                          :value="convertDate(permit.created_at, 'DD-MM-YYYY','-', true)" required disabled />
                       </div>
                     </div>
                     <div class="col">
@@ -324,8 +324,8 @@ export default {
           $(".btn-submit").attr("disabled", false);
         });
     },
-    convertDate(date, format = "DD-MM-YYYY", empty = "-") {
-      return Api.convertDate(date, format, empty);
+    convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
+      return Api.convertDate(date, format, empty, subtract);
     },
   },
 };

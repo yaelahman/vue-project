@@ -93,7 +93,7 @@ export default {
         },
 
         convertDate(date, format = 'DD-MM-YYYY', empty = '-') {
-            return Api.convertDate(date, format, empty)
+            return Api.convertDate(date, format, empty, subtract)
         },
 
         setPermission() {
