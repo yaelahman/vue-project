@@ -54,8 +54,8 @@
                                     <tr v-for="(val, index) in permissions.data" :key="index">
                                         <td class="text-center">{{ permissions.from + index }}</td>
                                         <td class="">{{ val.name }}</td>
-                                        <td class="">{{ convertDate(val.created_at) }}</td>
-                                        <td class="">{{ convertDate(val.updated_at) }}</td>
+                                        <td class="">{{ convertDate(val.created_at, "DD-MM-YYYY", '-', true) }}</td>
+                                        <td class="">{{ convertDate(val.updated_at, "DD-MM-YYYY", '-', true) }}</td>
                                         <td class="text-center">
                                             <b-button v-b-modal.modal-permission @click="edit(val)" variant="warning"
                                                 size="sm"

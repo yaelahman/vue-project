@@ -52,8 +52,8 @@
                                     <tr v-for="(val, index) in roles.data" :key="index">
                                         <td class="text-center">{{ roles.from + index }}</td>
                                         <td>{{ val.name }}</td>
-                                        <td>{{ convertDate(val.created_at) }}</td>
-                                        <td>{{ convertDate(val.updated_at) }}</td>
+                                        <td>{{ convertDate(val.created_at, "DD-MM-YYYY", '-', true) }}</td>
+                                        <td>{{ convertDate(val.updated_at, "DD-MM-YYYY", '-', true) }}</td>
                                         <td class="text-center">
                                             <b-button v-b-modal.modal-role variant="warning" size="sm"
                                                 @click="edit(val)"
