@@ -23,7 +23,7 @@ export function convertDate(date, format = 'DD-MM-YYYY', empty = '-', subtract =
     return date != null ? moment(date).format(format) : empty;
 }
 
-export function convertDate(date, format = 'hh:mm', empty = '-', subtract = false) {
+export function convertTime(date, format = 'hh:mm', empty = '-', subtract = false) {
     if (subtract) {
 
         return date != null ? moment(date).subtract(7, 'h').format(format) : empty;
