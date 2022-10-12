@@ -155,7 +155,7 @@ const router = createRouter({
 
     //Jadwal Karyawan
     { path: "/index-personel-time-work", component: IndexPersonelTimeWork, ...config },
-    { path: "/create-personel-time-work", component: CreateEditPersonelTimeWork, ...config },
+    { path: "/create-personel-time-work/:id", component: CreateEditPersonelTimeWork, name: "createPersonelTimeWork", ...config },
     { path: "/update-personel-time-work/:id", component: CreateEditPersonelTimeWork, name: "editPersonelTimeWork", ...config },
 
     // Attendance Spot

@@ -14,8 +14,14 @@
             <div class="col">
               <div class="card">
                 <div class="card-header">
-                  <router-link to="/create-personel-time-work" class="btn btn-primary">
-                    <i class="material-icons">add</i>Tambah
+
+                  <router-link :to="{
+                    name: 'createPersonelTimeWork',
+                    params: {
+                      id: id,
+                    },
+                  }" class="btn btn-primary">
+                    <i class="material-icons">add</i> Tambah
                   </router-link>
                 </div>
                 <div class="card-body">
@@ -66,6 +72,9 @@
                                     id: personel_time_work.id_m_work_personel,
                                     update: true,
                                   },
+                                  query: {
+                                    update:true
+                                  },
                                 }" class="btn-light">
                                   <i class="material-icons">edit</i>
                                 </router-link>
@@ -105,7 +114,7 @@ import * as Api from "../../helper/Api.js";
 export default {
   data() {
     return {
-      id: '',
+      id: this.$route.params.id,
       title: 'Detail',
       m_work_patern_numberCycle: '',
       work_schedule: [],

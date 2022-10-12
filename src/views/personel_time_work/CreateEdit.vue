@@ -102,7 +102,8 @@ export default {
         async loadPersonelTimeWork() {
             this.id = this.$route.params.id
             this.id = this.id != null ? this.id : ''
-            if (this.id != '') {
+            console.log(this.$route.params.update)
+            if (this.id != '' && this.$route.query.update) {
                 this.$Progress.start()
                 this.title = 'Update'
                 await axios.get(env.VITE_API_URL + 'detail-personel-time-work/' + this.id).then(response => {
@@ -116,6 +117,8 @@ export default {
                         this.$Progress.fail()
                         Api.messageError(e)
                     })
+            } else {
+                this.personel_time_work.id_m_work_patern = this.id
             }
         },
         createPersonelTimeWork() {
