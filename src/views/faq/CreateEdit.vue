@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col">
               <div class="page-description">
-                <h1>{{ title }} Faq</h1>
+                <h1>{{ title }} FAQ</h1>
               </div>
             </div>
           </div>

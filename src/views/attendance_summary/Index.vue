@@ -160,8 +160,8 @@
           <div class="modal-body table-responsive">
             <table
               id="tableTerlambat"
-              class="display"
-              style="width: 100%"
+              class="display text-center"
+              style="width: 100%;"
             >
               <thead class="text-center">
                 <tr>
@@ -215,7 +215,7 @@
           <div class="modal-body table-responsive">
             <table
               id="tableTidakTerlambat"
-              class="display"
+              class="display text-center"
               style="width: 100%"
             >
               <thead class="text-center">
@@ -268,7 +268,7 @@
           <div class="modal-body table-responsive">
             <table
               id="tableWFH"
-              class="display"
+              class="display text-center"
               style="width: 100%"
             >
               <thead class="text-center">
@@ -321,7 +321,7 @@
           <div class="modal-body table-responsive">
             <table
               id="tableTidakAbsen"
-              class="display"
+              class="display text-center"
               style="width: 100%"
             >
               <thead class="text-center">

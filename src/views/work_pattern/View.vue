@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col">
               <div class="page-description">
-                <h1>{{ title }} Daftar Jadwal</h1>
+                <h1>Detail Personel</h1>
               </div>
             </div>
           </div>
