@@ -16,11 +16,11 @@ let prefix = localStorage.getItem(SES_PREFIX)
 let this_progress = null;
 
 export function convertDate(date, format = 'DD-MM-YYYY', empty = '-') {
-    return date != null ? moment(date).subtract(-7, 'h').format(format) : empty;
+    return date != null ? moment(date).subtract(7, 'h').format(format) : empty;
 }
 
 export function convertTime(date, format = 'hh:mm', empty = ':') {
-    return date != null ? moment(date).subtract(-7, 'h').format(format) : empty;
+    return date != null ? moment(date).subtract(7, 'h').format(format) : empty;
 }
 
 export function formatRupiah(angka, prefix) {

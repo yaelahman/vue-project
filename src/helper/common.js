@@ -18,7 +18,7 @@ export default {
             }
         },
         convertDate(date, format = 'DD-MM-YYYY', empty = '-') {
-            return date != null ? moment(date).format(format) : empty;
+            return date != null ? moment(date).subtract(7, 'h').format(format) : empty;
         },
         $can(permissionName) {
             let Permission = this.$store.state.my_permissions
