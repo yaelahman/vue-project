@@ -88,7 +88,7 @@
                             {{ val.personel.departemen.m_departemen_name }}
                           </td>
                           <td v-if="val.created_at != null">
-                            {{ convertDate(val.created_at) }}
+                            {{ convertDate(val.created_at, "DD-MM-YYYY", '-', true) }}
                           </td>
                           <td v-else class="text-center">-</td>
                           <td>
@@ -369,7 +369,7 @@ export default {
           Api.messageError(e);
         });
     },
-    convertDate(date, format = "DD-MM-YYYY", empty = "-") {
+    convertDate(date, format = "DD-MM-YYYY", empty = "-", substract = false) {
       return Api.convertDate(date, format, empty);
     },
   },

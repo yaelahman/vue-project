@@ -17,8 +17,12 @@ export default {
                 Api.messageError(e)
             }
         },
-        convertDate(date, format = 'DD-MM-YYYY', empty = '-') {
-            return date != null ? moment(date).subtract(7, 'h').format(format) : empty;
+        convertDate(date, format = 'DD-MM-YYYY', empty = '-', subtract = false) {
+            if (subtract) {
+
+                return date != null ? moment(date).subtract(7, 'h').format(format) : empty;
+            }
+            return date != null ? moment(date).format(format) : empty;
         },
         $can(permissionName) {
             let Permission = this.$store.state.my_permissions
