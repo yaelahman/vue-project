@@ -23,8 +23,8 @@
                   <form @submit.prevent="filterRangeDate()">
                     <div class="row">
                       <div class="col-sm-3">
-                        <label>Start Date</label>
-                        <input type="date" class="form-control start-date" placeholder="Start Date"
+                        <label>Tanggal Mulai</label>
+                        <input type="date" class="form-control start-date" placeholder="Tanggal Mulai"
                           v-model="search.startDate" @click="search.endDate = ''" required />
                       </div>
                       <div class="col-sm-1">
@@ -66,7 +66,7 @@
                           <th>Jam Masuk</th>
                           <th>Tanggal Pulang</th>
                           <th>Jam Pulang</th>
-                          <th>Jadwal Kerja</th>
+                          <th class="text-start">Jadwal Kerja</th>
                           <th>Menit Terlambat</th>
                           <th>Denda</th>
                           <th>Aksi</th>
@@ -102,14 +102,14 @@
                             {{ val.t_absensi_endClock }} WIB
                           </td>
                           <td v-else class="text-center">-</td>
-                          <td>
+                          <td class="text-start">
                             {{ val.work_personel.get_work_pattern.m_work_patern_name }}
                           </td>
                           <td>
                             {{ menitTerlambat(val) }}
                           </td>
                           <td>
-                            {{ hitungDenda(val) }}
+                            {{ val.t_absensi_isLate == 1 ? '0' : hitungDenda(val) }}
                           </td>
                           <td class="text-start">
                             <div class="btn-group">

@@ -17,27 +17,14 @@
                   <form @submit.prevent="filterRangeDate()">
                     <div class="row">
                       <div class="col-lg-3 col-md-4 col-sm-4 col-6">
-                        <label>Start Date</label>
-                        <input
-                          type="date"
-                          class="form-control start-date"
-                          placeholder="Start Date"
-                          v-model="search.startDate"
-                          @click="search.endDate = ''"
-                          required
-                        />
+                        <label>Tanggal Mulai</label>
+                        <input type="date" class="form-control start-date" placeholder="Tanggal Mulai"
+                          v-model="search.startDate" @click="search.endDate = ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-6">
                         <label>End Date</label>
-                        <input
-                          type="date"
-                          class="form-control"
-                          placeholder="End Date"
-                          :min="search.startDate"
-                          v-model="search.endDate"
-                          :disabled="search.startDate == ''"
-                          required
-                        />
+                        <input type="date" class="form-control" placeholder="End Date" :min="search.startDate"
+                          v-model="search.endDate" :disabled="search.startDate == ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12">
                         <label>Departemen</label>
@@ -48,32 +35,17 @@
                           </option>
                         </select>
                       </div>
-                      <div
-                        class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex"
-                        style="margin-top: 1.8rem"
-                      >
-                        <button
-                          class="btn btn-sm text-nowrap btn-primary mb-2 me-2"
-                          @click="filterType = 'show'"
-                        >
+                      <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">
+                        <button class="btn btn-sm text-nowrap btn-primary mb-2 me-2" @click="filterType = 'show'">
                           Tampilkan
                         </button>
-                        <button
-                          class="btn btn-sm text-nowrap btn-primary mb-2 me-2"
-                          @click="filterType = 'download'"
-                        >
+                        <button class="btn btn-sm text-nowrap btn-primary mb-2 me-2" @click="filterType = 'download'">
                           Unduh
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M3.75 19.5H20.25C20.4489 19.5 20.6397 19.579 20.7803 19.7197C20.921 19.8603 21 20.0511 21 20.25C21 20.4489 20.921 20.6397 20.7803 20.7803C20.6397 20.921 20.4489 21 20.25 21H3.75C3.55109 21 3.36032 20.921 3.21967 20.7803C3.07902 20.6397 3 20.4489 3 20.25C3 20.0511 3.07902 19.8603 3.21967 19.7197C3.36032 19.579 3.55109 19.5 3.75 19.5ZM12.75 13.554L18.288 8.0145L19.3485 9.075L11.925 16.5L4.5 9.075L5.5605 8.0145L11.25 13.704V3H12.75V13.554Z"
-                              fill="white"
-                            />
+                              fill="white" />
                           </svg>
                         </button>
                       </div>
@@ -82,11 +54,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table
-                    id="dt-attendancesummary"
-                    class="display"
-                    style="width: 100%"
-                  >
+                    <table id="dt-attendancesummary" class="display" style="width: 100%">
                       <thead class="text-center">
                         <tr>
                           <th>Nama</th>
@@ -100,10 +68,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          v-for="(val, index) in attendance_summary"
-                          :key="index"
-                        >
+                        <tr v-for="(val, index) in attendance_summary" :key="index">
                           <td>{{ val.m_personel_names }}</td>
                           <td>{{ val.departemen.m_departemen_name }}</td>
                           <td>{{ val.kehadiran ?? 0 }}</td>
@@ -139,30 +104,15 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="ModalDetailTerlambat"
-      tabindex="-1"
-      aria-labelledby="ModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="ModalDetailTerlambat" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">{{ modal.title }}</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table
-              id="tableTerlambat"
-              class="display"
-              style="width: 100%"
-            >
+            <table id="tableTerlambat" class="display" style="width: 100%">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
@@ -173,13 +123,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="(val, index) in detail_attendance_summary"
-                  :key="index"
-                >
+                <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ?  'text-danger' : ''">{{ convertDate(val.t_absensi_endClock, 'hh:mm:ss') }}</td>
+                  <td :class="val.t_absensi_isLate == 2 ?  'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
+                  'hh:mm:ss') }}</td>
                   <td>{{ val.t_absensi_catatan }}</td>
                   <td>{{ val.t_absensi_status == 1 ? 'WFO' : 'WFH' }}</td>
                 </tr>
@@ -194,30 +142,16 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="ModalDetailTidakTerlambat"
-      tabindex="-1"
-      aria-labelledby="ModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="ModalDetailTidakTerlambat" tabindex="-1" aria-labelledby="ModalLabel"
+      aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">{{ modal.title }}</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table
-              id="tableTidakTerlambat"
-              class="display"
-              style="width: 100%"
-            >
+            <table id="tableTidakTerlambat" class="display" style="width: 100%">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
@@ -227,13 +161,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="(val, index) in detail_attendance_summary"
-                  :key="index"
-                >
+                <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ?  'text-danger' : ''">{{ convertDate(val.t_absensi_endClock, 'hh:mm:ss') }}</td>
+                  <td :class="val.t_absensi_isLate == 2 ?  'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
+                  'hh:mm:ss') }}</td>
                   <td>{{ val.t_absensi_status == 1 ? 'WFO' : 'WFH' }}</td>
                 </tr>
               </tbody>
@@ -247,30 +179,15 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="ModalDetailWFH"
-      tabindex="-1"
-      aria-labelledby="ModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="ModalDetailWFH" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">{{ modal.title }}</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table
-              id="tableWFH"
-              class="display"
-              style="width: 100%"
-            >
+            <table id="tableWFH" class="display" style="width: 100%">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
@@ -280,13 +197,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="(val, index) in detail_attendance_summary"
-                  :key="index"
-                >
+                <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ?  'text-danger' : ''">{{ convertDate(val.t_absensi_endClock, 'hh:mm:ss') }}</td>
+                  <td :class="val.t_absensi_isLate == 2 ?  'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
+                  'hh:mm:ss') }}</td>
                   <td>{{ val.t_absensi_catatan }}</td>
                 </tr>
               </tbody>
@@ -300,30 +215,15 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="ModalDetailTidakAbsen"
-      tabindex="-1"
-      aria-labelledby="ModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="ModalDetailTidakAbsen" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">{{ modal.title }}</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table
-              id="tableTidakAbsen"
-              class="display"
-              style="width: 100%"
-            >
+            <table id="tableTidakAbsen" class="display" style="width: 100%">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
@@ -331,10 +231,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="(val, index) in detail_attendance_summary"
-                  :key="index"
-                >
+                <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
                 </tr>
@@ -352,14 +249,14 @@
   </div>
 </template>
 <style>
-  .detail-as {
-    cursor: pointer;
-    text-decoration: underline;
-  }
+.detail-as {
+  cursor: pointer;
+  text-decoration: underline;
+}
 
-  .detail-as:hover {
-    color: #34B1E8 !important;
-  }
+.detail-as:hover {
+  color: #34B1E8 !important;
+}
 </style>
 <script>
 import * as Api from "../../helper/Api.js";

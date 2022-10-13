@@ -7,7 +7,7 @@ export const STATUS_ERROR = 400
 export const STATUS_LOGOUT = 401
 
 export const STATUS_USER_COMPANY = ['Tidak Aktif', 'Gratis Awal', 'Gratis', 'Berbayar']
-export const URL_PHOTO = import.meta.env.VITE_API_URL + "/storage/photo_absensi/"
+export const URL_PHOTO = import.meta.env.VITE_URL_PHOTO + "/storage/photo_absensi/"
 
 export const SES_PREFIX = 'prefix'
 export const SES_NAME = 'session_name'

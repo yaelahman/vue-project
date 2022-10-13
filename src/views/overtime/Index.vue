@@ -23,8 +23,8 @@
                   <form @submit.prevent="filterRangeDate()">
                     <div class="row">
                       <div class="col-sm-3">
-                        <label>Start Date</label>
-                        <input type="date" class="form-control start-date" placeholder="Start Date"
+                        <label>Tanggal Mulai</label>
+                        <input type="date" class="form-control start-date" placeholder="Tanggal Mulai"
                           v-model="search.startDate" @click="search.endDate = ''" required />
                       </div>
                       <div class="col-sm-1">
@@ -167,6 +167,10 @@
             </p>
           </div>
           <div class="mx-5">
+            <div class="form-group my-3">
+              <label>Catatan Lembur</label>
+              <textarea class="form-control" v-model="data.catatan_lembur" readonly step="any"></textarea>
+            </div>
             <textarea class="form-control" v-model="data.catatan" cols="30" rows="10"
               placeholder="Catatan dari admin"></textarea>
           </div>
@@ -209,7 +213,7 @@
               </div>
               <div class="form-group mt-2">
                 <label>Jam Mulai</label>
-                <input type="time" class="form-control" v-model="modal.startClock" step="any" required />
+                <input type="time" name="time" class="form-control" v-model="modal.startClock" step="any" required />
               </div>
               <div class="form-group mt-2">
                 <label>Tanggal Selesai</label>
@@ -218,7 +222,7 @@
               </div>
               <div class="form-group mt-2">
                 <label>Jam Selesai</label>
-                <input type="time" class="form-control" v-model="modal.endClock" step="any"
+                <input type="time" name="time" class="form-control" v-model="modal.endClock" step="any"
                   :disabled="modal.endClock === null" required />
               </div>
               <div class="form-group mt-2">
@@ -358,6 +362,7 @@ export default {
         photo2: "",
         status_admin: "",
         catatan_admin: "",
+
       },
       data: {
         catatan: "",
@@ -372,6 +377,9 @@ export default {
         lat: -6.93,
         lng: 107.6,
       },
+
+      markerOptions: { position: { lat: 0, lng: 0 }, label: "O" },
+      locations: [{ lat: -31.56391, lng: 147.154312 }],
       currentPlace: null,
       markers: [],
       markers2: [],
@@ -561,6 +569,7 @@ export default {
       this.data = {
         id: val.id_t_absensi,
         type: type,
+        catatan_lembur: val.t_absensi_catatan
       };
     },
     ModalReset() {
@@ -578,9 +587,9 @@ export default {
     Maps(val, status) {
       this.locations = [];
       var latLong = val.t_absensi_latLong.split(",");
-      modal.title = "Mulai";
+      this.modal.title = "Mulai";
       if (status == "end") {
-        modal.title = "Selesai";
+        this.modal.title = "Selesai";
         latLong = val.t_absensi_latLongEnd.split(",");
       }
       this.center = {
@@ -588,6 +597,7 @@ export default {
         lng: parseFloat(latLong[1]),
       };
       this.locations.push(this.center);
+      console.log(this.locations)
     },
     resetEndDate() {
       this.search.endDate = "";

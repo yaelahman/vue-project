@@ -17,8 +17,8 @@
                   <form @submit.prevent="filterRangeDate()">
                     <div class="row">
                       <div class="col-lg-3 col-md-4 col-sm-4 col-6">
-                        <label>Start Date</label>
-                        <input type="date" class="form-control start-date" placeholder="Start Date"
+                        <label>Tanggal Mulai</label>
+                        <input type="date" class="form-control start-date" placeholder="Tanggal Mulai"
                           v-model="search.startDate" @click="search.endDate = ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-6">

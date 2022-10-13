@@ -101,10 +101,10 @@
                           <td v-for="(val, index) in permit.permit_image" :key="index">
                             <img data-bs-toggle="modal" data-bs-target="#ModalImage" @click="
                               url =
-                                'http://divisihr-backend.mamorasoft.com/storage/photo_permit/' +
+                                url_photo +
                                 val.permit_photo
                             " :src="
-                              'http://divisihr-backend.mamorasoft.com/storage/photo_permit/' +
+                              url_photo +
                               val.permit_photo
                             " alt="" class="me-1" style="width: 143px; height: 193px" />
                           </td>
@@ -224,9 +224,11 @@
 <script>
 import * as Api from "../../../helper/Api.js";
 import moment from "moment";
+import { env } from "process";
 export default {
   data() {
     return {
+      url_photo: env.VITE_URL_PHOTO + 'storage/permit/',
       permit: {
         personel: {
           m_personel_names: "",
