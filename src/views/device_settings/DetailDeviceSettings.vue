@@ -159,8 +159,23 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row mb-3"><div style="position: relative;"><hr><h5 class="bg-light rounded p-3">Denda terlambat</h5><div class="card-body py-0"><label style="position: absolute; display: block; right: 8%; top: 75%; z-index: 9;">/menit</label>
-                    <input type="number" min="0" class="form-control" required placeholder="Denda terlambat" v-model="device_settings.m_device_settings_denda"></div></div></div>
+                    <div class="row mb-3">
+                      <div style="position: relative;">
+                        <hr>
+                        <h5 class="bg-light rounded p-3">Denda terlambat</h5>
+                        <div class="card-body py-0">
+                          <label style="position: absolute; display: block; right: 5%; top: 75%; z-index: 9;">/menit</label>
+                          <div class="row w-100">
+                            <div class="pt-2" style="width: 5%;">
+                              <label>Rp</label>
+                            </div>
+                            <div style="width: 90%;">                          
+                              <input type="number" min="0" class="form-control" required placeholder="Denda terlambat" v-model="device_settings.m_device_settings_denda">
+                            </div>                            
+                          </div>
+                        </div>
+                    </div>
+                  </div>
                     <!-- <div class="example-content">
                       <div class="d-flex justify-content-between">
                         <label style="font-size: 1.3em">Kamera</label>

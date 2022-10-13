@@ -112,7 +112,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table id="tableTerlambat" class="display" style="width: 100%">
+            <table id="tableTerlambat" class="display text-center" style="width: 100%;">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
@@ -151,7 +151,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table id="tableTidakTerlambat" class="display" style="width: 100%">
+            <table id="tableTidakTerlambat" class="display text-center" style="width: 100%">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
@@ -187,7 +187,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table id="tableWFH" class="display" style="width: 100%">
+            <table id="tableWFH" class="display text-center" style="width: 100%">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
@@ -223,7 +223,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table id="tableTidakAbsen" class="display" style="width: 100%">
+            <table id="tableTidakAbsen" class="display text-center" style="width: 100%">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
@@ -294,7 +294,7 @@ export default {
     }, 1000);
   },
   methods: {
-    async Detail(val, type){
+    async Detail(val, type) {
       this.modal = {
         title: "Data " + this.capitalizeFirstLetter(type) + ' ' + val.m_personel_names,
         id_m_personel: val.id_m_personel,
@@ -305,7 +305,7 @@ export default {
       }
       $('#ModalDetail' + this.modal.type.replace(' ', '')).modal('show')
       this.detail_attendance_summary = []
-      if(this.table2 != null){
+      if (this.table2 != null) {
         this.table2.destroy();
       }
       // this.table2 = $("#table" + this.modal.type.replace(' ', '')).DataTable();
@@ -316,11 +316,11 @@ export default {
           this.$Progress.finish();
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
             // setTimeout(() => {
-              this.detail_attendance_summary = response.data.data;
-              // this.table2.destroy();
-              this.$nextTick(() => {
-                this.table2 = $("#table" + this.modal.type.replace(' ', '')).DataTable();
-              });
+            this.detail_attendance_summary = response.data.data;
+            // this.table2.destroy();
+            this.$nextTick(() => {
+              this.table2 = $("#table" + this.modal.type.replace(' ', '')).DataTable();
+            });
             // }, 1000)
           }
         })
@@ -352,7 +352,7 @@ export default {
         var a = moment(moment(this.search.startDate).toArray());
         var b = moment(moment(this.search.endDate).toArray());
         // if (b.diff(a, "days") + 1 < 8) {
-          this.loadAttendanceSummary();
+        this.loadAttendanceSummary();
         // } else {
         //   Swal.fire({
         //     title: "Perhatian",

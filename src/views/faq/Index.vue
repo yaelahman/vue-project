@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col">
               <div class="page-description">
-                <h1>Faq</h1>
+                <h1>FAQ</h1>
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@ export default {
     confirmDelete(id) {
       return Api.confirmDelete(
         "Apakah anda yakin?",
-        "Faq akan dihapus!"
+        "FAQ akan dihapus!"
       ).then((result) => {
         if (result.isConfirmed) {
           this.deleteFaq(id);
