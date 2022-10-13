@@ -214,7 +214,7 @@ export default {
         destroy: true,
       });
     }, 1000);
-     this.loadPermits();
+    this.loadPermits();
   },
   methods: {
     getDateNow() {
@@ -224,8 +224,8 @@ export default {
     jumlahHari(val) {
       var start = val.permit_startclock;
       var end = val.permit_endclock;
-      if  (start != null) {
-         var a = moment(moment(start).toArray());
+      if (start != null) {
+        var a = moment(moment(start).toArray());
         var b = moment(moment(end).toArray());
         var result = b.diff(a, "d");
         return (result < 0 ? 0 : result + 1) + " Hari";
@@ -235,11 +235,11 @@ export default {
     mapStatus(status) {
       switch (status) {
         case 0:
-            rn '<span class="text-muted">Menunggu Persetujuan</span>';
-            k;
-            :
-               '<span class="text-success">Disetujui</span>';
-            k;
+          return '<span class="text-muted">Menunggu Persetujuan</span>';
+          break;
+        case 1:
+          return '<span class="text-success">Disetujui</span>';
+          break;
         case 2:
           return '<span class="text-danger">Ditolak</span>';
           break;
@@ -271,7 +271,7 @@ export default {
         .then((response) => {
           this.loadPermits();
           let status = response.data.status;
-        let message = response.data.message;
+          let message = response.data.message;
           let status_message =
             status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
           Toast.fire({
