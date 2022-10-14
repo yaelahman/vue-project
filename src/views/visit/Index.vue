@@ -32,8 +32,8 @@
                         <p class="text-center mt-2">s/d</p>
                       </div>
                       <div class="col-sm-3">
-                        <label>End Date</label>
-                        <input type="date" class="form-control" placeholder="End Date" :min="search.startDate"
+                        <label>Tanggal Selesai</label>
+                        <input type="date" class="form-control" placeholder="Tanggal Selesai" :min="search.startDate"
                           v-model="search.endDate" :disabled="search.startDate == ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">
