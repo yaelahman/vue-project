@@ -32,8 +32,8 @@
                         <p class="text-center mt-2">s/d</p>
                       </div>
                       <div class="col-sm-3">
-                        <label>End Date</label>
-                        <input type="date" class="form-control" placeholder="End Date" :min="search.startDate"
+                        <label>Tanggal Selesai</label>
+                        <input type="date" class="form-control" placeholder="Tanggal Selesai" :min="search.startDate"
                           v-model="search.endDate" :disabled="search.startDate == ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">
@@ -402,7 +402,7 @@ export default {
     },
     hitungDenda(val) {
       let denda = localStorage.getItem("denda") != undefined ? localStorage.getItem("denda") : 0
-      let menit = parseInt(this.menitTerlambat(val).replace(' Menit', ''))
+      let menit = this.menitTerlambat(val)
       console.log(denda, menit)
       return this.formatRupiah((denda * menit).toString())
     },
@@ -437,11 +437,12 @@ export default {
           : 0;
       var a = moment(moment(start).toArray());
       var b = moment(moment(now).toArray());
+      console.log(a, b)
       var result =
         a.diff(b, "minutes") - tolerance < 0
           ? 0
           : a.diff(b, "minutes") - tolerance;
-      return result + " Menit";
+      return result;
     },
     filterRangeDate() {
       if (this.filterType == "show") {

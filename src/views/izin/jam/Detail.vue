@@ -228,7 +228,7 @@ import moment from "moment";
 export default {
   data() {
     return {
-      url_photo: env.VITE_URL_PHOTO + 'storage/permit/',
+      url_photo: env.VITE_URL_PHOTO + 'storage/photo_permit/',
       permit: {
         personel: {
           m_personel_names: "",
