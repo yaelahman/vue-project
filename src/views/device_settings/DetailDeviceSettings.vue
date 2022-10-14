@@ -25,7 +25,7 @@
                         <label class="fw-bolder">Denda <small class="text-danger">*Per Menit</small></label>
                         <input type="number" min="0" required v-model="device_settings.m_device_settings_denda" class="form-control">
                       </div> -->
-                      <div class="text-uppercase">
+                      <div class="">
                         <h5 class="bg-light rounded p-3">Absensi</h5>
                         <div class="card-body py-0">
                           <div
@@ -70,7 +70,7 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <div class="text-uppercase">
+                      <div class="">
                         <h5 class="bg-light rounded p-3">Visit Client</h5>
                         <div class="card-body py-0">
                           <div
@@ -115,7 +115,7 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <div class="text-uppercase">
+                      <div class="">
                         <h5 class="bg-light rounded p-3">Overtime</h5>
                         <div class="card-body py-0">
                           <div
@@ -162,7 +162,7 @@
                     <div class="row mb-3">
                       <div style="position: relative;">
                         <hr>
-                        <h5 class="bg-light rounded p-3">Denda terlambat</h5>
+                        <h5 class="bg-light rounded p-3">Denda Terlambat</h5>
                         <div class="card-body py-0">
                           <label style="position: absolute; display: block; right: 5%; top: 75%; z-index: 9;">/menit</label>
                           <div class="row w-100">

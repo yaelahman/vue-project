@@ -24,7 +24,7 @@
                       <thead class="text-center">
                         <tr>
                           <th>No</th>
-                          <th>Nama Daftar Jadwal</th>
+                          <th class="text-start">Nama Daftar Jadwal</th>
                           <th>Jumlah Hari</th>
                           <th>Jumlah Bekerja</th>
                           <th>Jumlah Libur</th>
@@ -37,8 +37,8 @@
                           <td class="text-center">
                             {{ ++index }}
                           </td>
-                          <td>{{ work_pattern.m_work_patern_name }}</td>
-                          <td>
+                          <td class="text-start">{{ work_pattern.m_work_patern_name }}</td>
+                          <td >
                             {{ work_pattern.m_work_patern_numberCycle }} Hari
                           </td>
                           <td>{{ work_pattern.w_p_d_kerja_count }} Hari</td>

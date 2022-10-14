@@ -57,8 +57,8 @@
                     <table id="dt-attendancesummary" class="display" style="width: 100%">
                       <thead class="text-center">
                         <tr>
-                          <th>Nama</th>
-                          <th>Departemen</th>
+                          <th class="text-start">Nama</th>
+                          <th class="text-start">Departemen</th>
                           <th>Kehadiran Hari</th>
                           <th>Kehadiran Jam</th>
                           <th>Terlambat</th>
@@ -71,24 +71,24 @@
                         <tr v-for="(val, index) in attendance_summary" :key="index">
                           <td>{{ val.m_personel_names }}</td>
                           <td>{{ val.departemen.m_departemen_name }}</td>
-                          <td>{{ val.kehadiran ?? 0 }}</td>
-                          <td>{{ val.total_jam ?? 0 }}</td>
-                          <td>
+                          <td class="text-center">{{ val.kehadiran ?? 0 }}</td>
+                          <td class="text-center">{{ val.total_jam ?? 0 }}</td>
+                          <td class="text-center">
                             <div class="detail-as" @click="Detail(val, 'Terlambat')">
                               {{ val.terlambat ?? 0 }}
                             </div>
                           </td>
-                          <td>
+                          <td class="text-center">
                             <div class="detail-as" @click="Detail(val, 'Tidak Terlambat')">
                               {{ val.tidak_terlambat ?? 0 }}
                             </div>
                           </td>
-                          <td>
+                          <td class="text-center">
                             <div class="detail-as" @click="Detail(val, 'WFH')">
                               {{ val.wfh ?? 0 }}
                             </div>
                           </td>
-                          <td>
+                          <td class="text-center">
                             <div class="detail-as" @click="Detail(val, 'Tidak Absen')">
                               {{ val.tidak_hadir ?? 0 }}
                             </div>

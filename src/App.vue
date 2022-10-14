@@ -71,7 +71,7 @@
                                         <span class="ms-3">History</span> <span class="caret"></span>
                                     </div>
 
-                                    <div class="text-dark">{{ count_approval.lembur }}</div>
+                                    <div class="text-light notif">{{ count_approval.lembur }}</div>
                                 </div>
                             </a>
                             <ul class="submenu collapse submenu-1"
@@ -122,7 +122,7 @@
                                                 </i>
                                                 Lembur
                                             </div>
-                                            <div class="text-dark">{{ count_approval.lembur }}</div>
+                                            <div class="text-light notif">{{ count_approval.lembur }}</div>
                                         </div>
                                     </router-link>
                                 </li>
@@ -263,7 +263,7 @@
 
                                         <span class="ms-3">Pengajuan Izin</span> <span class="caret"></span>
                                     </div>
-                                    <div class="text-dark">{{ count_approval.jam + count_approval.hari
+                                    <div class="text-light notif">{{ count_approval.jam + count_approval.hari
                                     + count_approval.cuti }}</div>
                                 </div>
                             </a>
@@ -293,7 +293,7 @@
                                                 </i>
                                                 Izin Jam
                                             </div>
-                                            <div class="text-dark">{{ count_approval.jam }}</div>
+                                            <div class="text-light notif">{{ count_approval.jam }}</div>
                                         </div>
                                     </router-link>
                                 </li>
@@ -314,7 +314,7 @@
                                                 Izin Hari
                                             </div>
 
-                                            <div class="text-dark">{{ count_approval.hari }}</div>
+                                            <div class="text-light notif">{{ count_approval.hari }}</div>
                                         </div>
                                     </router-link>
                                 </li>
@@ -333,7 +333,7 @@
                                                 </i>
                                                 Cuti
                                             </div>
-                                            <div class="text-dark">{{ count_approval.cuti }}</div>
+                                            <div class="text-light notif">{{ count_approval.cuti }}</div>
                                         </div>
                                     </router-link>
                                 </li>
