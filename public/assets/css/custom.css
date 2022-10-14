@@ -25,6 +25,15 @@
     text-decoration: none !important;
 }
 
+.notif {
+    background-color: #FF9500;
+    padding: 3px 0px 3px 0px;
+    border-radius: 5px;
+    height: 25px;
+    width: 25px;
+    text-align: center;
+}
+
 .user-info-text ::-webkit-scrollbar {
     display: none;
 }

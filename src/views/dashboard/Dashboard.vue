@@ -164,7 +164,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-6">
+            <!-- <div class="col-xl-6">
               <div class="card widget widget-stats">
                 <div class="card-body">
                   <div class="widget-stats-container d-flex">
@@ -220,7 +220,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="col-xl-6">
               <div class="card widget widget-stats">
                 <div class="card-body">
@@ -234,18 +234,13 @@
                     </div>
                     <div class="widget-stats-content flex-fill">
                       <span class="widget-stats-title">Izin</span>
-                      <span class="widget-stats-amount"
-                        >{{ personelKunjungan.length }}
+                      <span class="widget-stats-amount">{{ izin.hari.length + izin.jam.length }}
                         &nbsp;
-                        <!-- <button
-                          type="button"
-                          class="btn btn-primary btn-sm"
-                          v-if="personelKunjungan.length != 0"
-                          data-bs-toggle="modal"
-                          data-bs-target="#ModalAbsenKunjungan"
-                        >
+                        <button type="button" class="btn btn-primary btn-sm"
+                          v-if="izin.hari.length != 0 || izin.jam.length != 0" data-bs-toggle="modal"
+                          data-bs-target="#ModalIzin">
                           Lihat Personel
-                        </button> -->
+                        </button>
                       </span>
                     </div>
                   </div>
@@ -265,18 +260,12 @@
                     </div>
                     <div class="widget-stats-content flex-fill">
                       <span class="widget-stats-title">Cuti</span>
-                      <span class="widget-stats-amount"
-                        >{{ personelKunjungan.length }}
+                      <span class="widget-stats-amount">{{ cuti.length }}
                         &nbsp;
-                        <!-- <button
-                          type="button"
-                          class="btn btn-primary btn-sm"
-                          v-if="personelKunjungan.length != 0"
-                          data-bs-toggle="modal"
-                          data-bs-target="#ModalAbsenKunjungan"
-                        >
+                        <button type="button" class="btn btn-primary btn-sm" v-if="cuti.length != 0"
+                          data-bs-toggle="modal" data-bs-target="#ModalCuti">
                           Lihat Personel
-                        </button> -->
+                        </button>
                       </span>
                     </div>
                   </div>
