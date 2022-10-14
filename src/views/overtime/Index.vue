@@ -66,8 +66,8 @@
                           <th>Jam Mulai</th>
                           <th>Tanggal Selesai</th>
                           <th>Jam Selesai</th>
-                          <th>Menit Lembur</th>
-                          <th>Status</th>
+                          <th class="text-end">Menit Lembur</th>
+                          <th class="text-center">Status</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -93,10 +93,10 @@
                             {{ val.t_absensi_endClock }} WIB
                           </td>
                           <td v-else class="text-center">-</td>
-                          <td>
+                          <td class="text-end">
                             {{ menitLembur(val) }}
                           </td>
-                          <td>
+                          <td class="text-center">
                             <div v-html="mapStatus(val.t_absensi_status_admin)"></div>
                           </td>
                           <td class="text-start">

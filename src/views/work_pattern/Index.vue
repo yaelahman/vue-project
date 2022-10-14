@@ -38,7 +38,7 @@
                             {{ ++index }}
                           </td>
                           <td class="text-start">{{ work_pattern.m_work_patern_name }}</td>
-                          <td>
+                          <td >
                             {{ work_pattern.m_work_patern_numberCycle }} Hari
                           </td>
                           <td>{{ work_pattern.w_p_d_kerja_count }} Hari</td>

@@ -28,8 +28,8 @@
                         <tr>
                           <th>No</th>
                           <th style="text-align: start">Nama</th>
-                          <th>Departemen</th>
-                          <th>Daftar Jadwal</th>
+                          <th class="text-start">Departemen</th>
+                          <th class="text-start">Daftar Jadwal</th>
                           <th>Mulai</th>
                           <th>Aksi</th>
                         </tr>
@@ -44,7 +44,7 @@
                             personel_time_work.get_personel.m_personel_names
                             }}
                           </td>
-                          <td>
+                          <td class="text-start">
                             {{
                             personel_time_work.get_personel.departemen != null
                             ? personel_time_work.get_personel.departemen
@@ -52,7 +52,7 @@
                             : "-"
                             }}
                           </td>
-                          <td>
+                          <td class="text-start">
                             {{
                             personel_time_work.get_work_pattern
                             .m_work_patern_name

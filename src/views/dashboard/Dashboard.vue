@@ -385,7 +385,7 @@
                   <tr>
                     <th style="width: 5px">No</th>
                     <th>Nama</th>
-                    <th>Departemen</th>
+                    <th class="text-start">Departemen</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -395,7 +395,7 @@
                       {{ val.m_personel_names }} (
                       {{ val.m_personel_personID }} )
                     </td>
-                    <td>{{ val.departemen.m_departemen_name }}</td>
+                    <td class="text-start">{{ val.departemen.m_departemen_name }}</td>
                   </tr>
                 </tbody>
               </table>
