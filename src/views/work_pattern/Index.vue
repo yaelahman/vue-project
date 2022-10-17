@@ -38,7 +38,7 @@
                             {{ ++index }}
                           </td>
                           <td class="text-start">{{ work_pattern.m_work_patern_name }}</td>
-                          <td >
+                          <td>
                             {{ work_pattern.m_work_patern_numberCycle }} Hari
                           </td>
                           <td>{{ work_pattern.w_p_d_kerja_count }} Hari</td>
@@ -48,28 +48,28 @@
                           </td>
                           <td class="text-center">
                             <div class="btn-group">
-                              <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
-                                title="Detail">
-                                <router-link :to="{
-                                  name: 'detailWorkPattern',
-                                  params: {
-                                    id: work_pattern.id_m_work_patern,
-                                  },
-                                }" class="btn-light">
+                              <router-link :to="{
+                                name: 'detailWorkPattern',
+                                params: {
+                                  id: work_pattern.id_m_work_patern,
+                                },
+                              }" class="btn-light">
+                                <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
+                                  title="Detail">
                                   <i class="material-icons">group</i>
-                                </router-link>
-                              </button>
-                              <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
-                                title="Edit">
-                                <router-link :to="{
-                                  name: 'editWorkPattern',
-                                  params: {
-                                    id: work_pattern.id_m_work_patern,
-                                  },
-                                }" class="btn-light">
+                                </button>
+                              </router-link>
+                              <router-link :to="{
+                                name: 'editWorkPattern',
+                                params: {
+                                  id: work_pattern.id_m_work_patern,
+                                },
+                              }" class="btn-light">
+                                <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
+                                  title="Edit">
                                   <i class="material-icons">edit</i>
-                                </router-link>
-                              </button>
+                                </button>
+                              </router-link>
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Hapus" @click="
                                   confirmDelete(

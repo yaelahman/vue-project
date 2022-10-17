@@ -54,7 +54,8 @@
                                             <button type="submit" class="btn btn-primary" id="submit">
                                                 <i class="material-icons">save</i>Simpan
                                             </button>
-                                            <router-link to="/index-work-pattern" type="button" class="btn btn-light">
+                                            <router-link to="/index-personel-time-work" type="button"
+                                                class="btn btn-light">
                                                 <i class="material-icons">arrow_back</i>Kembali
                                             </router-link>
                                         </div>
@@ -102,8 +103,7 @@ export default {
         async loadPersonelTimeWork() {
             this.id = this.$route.params.id
             this.id = this.id != null ? this.id : ''
-            console.log(this.$route.params.update)
-            if (this.id != '' && this.$route.query.update) {
+            if (this.id != '') {
                 this.$Progress.start()
                 this.title = 'Update'
                 await axios.get(env.VITE_API_URL + 'detail-personel-time-work/' + this.id).then(response => {
