@@ -64,21 +64,21 @@
                           </td>
                           <td class="text-center">
                             <div class="btn-group">
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Edit">
-                                <router-link :to="{
-                                  name: 'editPersonelTimeWork',
-                                  params: {
-                                    id: personel_time_work.id_m_work_personel,
-                                    update: true,
-                                  },
-                                  query: {
-                                    update:true
-                                  },
-                                }" class="btn-light">
+                              <!-- <router-link :to="{
+                                name: 'editPersonelTimeWork',
+                                params: {
+                                  id: personel_time_work.id_m_work_personel,
+                                  update: true,
+                                },
+                                query: {
+                                  update:true
+                                },
+                              }" class="btn-light">
+                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                  data-placement="right" title="Edit">
                                   <i class="material-icons">edit</i>
-                                </router-link>
-                              </button>
+                                </button>
+                              </router-link> -->
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Hapus" @click="
                                   confirmDelete(
@@ -182,6 +182,24 @@ export default {
           this.deleteCompany(id);
         }
       });
+    },
+    deleteCompany(id) {
+      axios
+        .delete(env.VITE_API_URL + "delete-personel-time-work/" + id)
+        .then((response) => {
+          this.loadPersonelTimeWork();
+          let status = response.data.status;
+          let message = response.data.message;
+          let status_message =
+            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+          Toast.fire({
+            icon: status_message,
+            title: message,
+          });
+        })
+        .catch((e) => {
+          Api.messageError(e);
+        });
     },
   }
 };

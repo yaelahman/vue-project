@@ -67,18 +67,18 @@
                           </td>
                           <td class="text-center">
                             <div class="btn-group">
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Edit">
-                                <router-link :to="{
-                                  name: 'editPersonelTimeWork',
-                                  params: {
-                                    id: personel_time_work.id_m_work_personel,
-                                    update: true,
-                                  },
-                                }" class="btn-light">
+                              <router-link :to="{
+                                name: 'editPersonelTimeWork',
+                                params: {
+                                  id: personel_time_work.id_m_work_personel,
+                                  update: true,
+                                },
+                              }" class="btn-light">
+                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                  data-placement="right" title="Edit">
                                   <i class="material-icons">edit</i>
-                                </router-link>
-                              </button>
+                                </button>
+                              </router-link>
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Hapus" @click="
                                   confirmDelete(
