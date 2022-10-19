@@ -55,7 +55,7 @@
                 <div class="card-body">
                   <div class="table-responsive">
                     <table id="dt-attendancesummary" class="display" style="width: 100%">
-                      <thead class="text-center">
+                      <thead class="text-center" style="vertical-align: top;">
                         <tr>
                           <th class="text-start">Nama</th>
                           <th class="text-start">Departemen</th>
