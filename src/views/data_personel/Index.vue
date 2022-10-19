@@ -98,7 +98,7 @@
 </template>
 <script>
 import * as Api from "../../helper/Api.js";
-
+import Swal from "sweetalert2"
 export default {
   data() {
     return {
@@ -163,6 +163,25 @@ export default {
           Toast.fire({
             icon: status_message,
             title: message,
+          });
+          Swal.fire({
+            title: '<h5 class="text-success">Berhasil</h5>',
+            text: message,
+            icon: 'success',
+            input: 'text',
+            inputValue: response.data.data.m_personel_password_show,
+            inputAttributes: {
+              autocapitalize: 'off',
+              disabled: true,
+            },
+            confirmButtonColor: '#3085d6',
+            // onBeforeOpen: function (ele) {
+            //   $(ele).find('button.swal2-confirm.swal2-styled')
+            //     .toggleClass('swal2-confirm swal2-styled swal2-confirm btn btn-success')
+            // },
+            customClass: {
+              confirmButton: 'w-100'
+            },
           });
         })
         .catch((e) => {

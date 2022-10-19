@@ -437,7 +437,7 @@ export default {
           : 0;
       var a = moment(moment(start).toArray());
       var b = moment(moment(now).toArray());
-      console.log(a, b)
+      console.log(a, b, val.work_personel.get_work_schedule.m_work_schedule_clockIn)
       var result =
         a.diff(b, "minutes") - tolerance < 0
           ? 0
