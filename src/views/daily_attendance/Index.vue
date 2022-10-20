@@ -106,7 +106,7 @@
                             {{ val.work_personel.get_work_pattern.m_work_patern_name }}
                           </td>
                           <td class="text-end">
-                            {{ menitTerlambat(val) }}
+                            {{ val.t_absensi_isLate == 1 ? '0' : menitTerlambat(val) }}
                           </td>
                           <td class="text-end">
                             {{ val.t_absensi_isLate == 1 ? '0' : hitungDenda(val) }}
