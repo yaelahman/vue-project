@@ -637,8 +637,12 @@
           <div class="modal-body">
             <div class="text-center mb-3">
               <div class="">
-                <button @click="ModalIzinChange('Jam')" class="btn btn-sm btn-secondary" style="margin-right: 1rem; background-color: #FFECFE;">Izin Jam</button>
-                <button @click="ModalIzinChange('Hari')" class="btn btn-sm btn-secondary" style="background-color: #FFECFE;">Izin Hari</button>
+                <button @click="ModalIzinChange('Jam')" class="btn btn-sm btn-secondary me-2"
+                  :style="[modal_izin_now == 'Jam' ? 'background-color: #FF69D5' : 'background-color: #FFECFE']">Izin
+                  Jam</button>
+                <button @click="ModalIzinChange('Hari')" class="btn btn-sm btn-secondary"
+                  :style="[modal_izin_now == 'Hari' ? 'background-color: #FF69D5' : 'background-color: #FFECFE']">Izin
+                  Hari</button>
               </div>
             </div>
             <div class="table-responsive">
@@ -751,6 +755,7 @@ export default {
   data() {
     return {
       timestamp: "00:00:00",
+      modal_izin_now: "Jam",
       data: {
         sudahAbsen: 0,
         belumAbsen: 0,
@@ -971,10 +976,10 @@ export default {
     async checkPersonelBelumAbsen() {
       setTimeout(() => {
         this.table = $("#dt-dashboard").DataTable({
-        "columnDefs": [
-          { "width": "3%", "targets": 0 }
-        ]
-      });
+          "columnDefs": [
+            { "width": "3%", "targets": 0 }
+          ]
+        });
       }, 1000);
       this.$Progress.start();
       await axios
@@ -986,10 +991,10 @@ export default {
             this.table.destroy();
             this.$nextTick(() => {
               this.table = $("#dt-dashboard").DataTable({
-        "columnDefs": [
-          { "width": "3%", "targets": 0 }
-        ]
-      });
+                "columnDefs": [
+                  { "width": "3%", "targets": 0 }
+                ]
+              });
             });
           }
         })
@@ -1037,10 +1042,10 @@ export default {
             this.table3.destroy();
             this.$nextTick(() => {
               this.table3 = $("#dt-wfh").DataTable({
-        "columnDefs": [
-          { "width": "3%", "targets": 0 }
-        ]
-      });
+                "columnDefs": [
+                  { "width": "3%", "targets": 0 }
+                ]
+              });
             });
           }
         })
@@ -1065,10 +1070,10 @@ export default {
             this.table4.destroy();
             this.$nextTick(() => {
               this.table4 = $("#dt-kunjungan").DataTable({
-        "columnDefs": [
-          { "width": "3%", "targets": 0 }
-        ]
-      });
+                "columnDefs": [
+                  { "width": "3%", "targets": 0 }
+                ]
+              });
             });
           }
         })
@@ -1094,10 +1099,10 @@ export default {
             this.table51.destroy();
             this.$nextTick(() => {
               this.table51 = $("#dt-izin").DataTable({
-        "columnDefs": [
-          { "width": "3%", "targets": 0 }
-        ]
-      });
+                "columnDefs": [
+                  { "width": "3%", "targets": 0 }
+                ]
+              });
             });
           }
         })
@@ -1122,10 +1127,10 @@ export default {
             this.table52.destroy();
             this.$nextTick(() => {
               this.table52 = $("#dt-cuti").DataTable({
-        "columnDefs": [
-          { "width": "3%", "targets": 0 }
-        ]
-      });
+                "columnDefs": [
+                  { "width": "3%", "targets": 0 }
+                ]
+              });
             });
           }
         })
@@ -1137,16 +1142,18 @@ export default {
     ModalIzinChange(type) {
       if (type == "Jam") {
         this.izin.current = this.izin.jam;
+        this.modal_izin_now = "Jam"
       } else {
         this.izin.current = this.izin.hari;
+        this.modal_izin_now = "Hari"
       }
       this.table51.destroy();
       this.$nextTick(() => {
         this.table51 = $("#dt-izin").DataTable({
-        "columnDefs": [
-          { "width": "3%", "targets": 0 }
-        ]
-      })
+          "columnDefs": [
+            { "width": "3%", "targets": 0 }
+          ]
+        })
       });
     },
     async loadChart() {

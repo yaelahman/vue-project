@@ -33,6 +33,7 @@
                           <option value="0">Menunggu Persetujuan</option>
                           <option value="1">Disetujui</option>
                           <option value="2">Ditolak</option>
+                          <option value="3">Kadaluarsa</option>
                         </select>
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">

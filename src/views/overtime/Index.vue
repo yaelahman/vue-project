@@ -22,19 +22,25 @@
                   </div>
                   <form @submit.prevent="filterRangeDate()">
                     <div class="row">
-                      <div class="col-sm-3">
+                      <div class="col-lg-3 col-md-4 col-sm-4 col-6">
                         <label>Tanggal Mulai</label>
                         <input type="date" class="form-control start-date" placeholder="Tanggal Mulai"
                           v-model="search.startDate" @click="search.endDate = ''" required />
                       </div>
-                      <div class="col-sm-1">
-                        <label></label>
-                        <p class="text-center mt-2">s/d</p>
-                      </div>
-                      <div class="col-sm-3">
+                      <div class="col-lg-3 col-md-4 col-sm-4 col-6">
                         <label>Tanggal Selesai</label>
                         <input type="date" class="form-control" placeholder="Tanggal Selesai" :min="search.startDate"
                           v-model="search.endDate" :disabled="search.startDate == ''" required />
+                      </div>
+                      <div class="col-lg-3 col-md-4 col-sm-4 col-12">
+                        <label>Status</label>
+                        <select v-model="search.status" class="form-control">
+                          <option value="">Semua</option>
+                          <option value="0">Menunggu Persetujuan</option>
+                          <option value="1">Disetujui</option>
+                          <option value="2">Ditolak</option>
+                          <option value="3">Kadaluarsa</option>
+                        </select>
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">
                         <button class="btn btn-sm text-nowrap btn-primary mb-2 me-2" style="width: 120px"
@@ -349,6 +355,7 @@ export default {
       search: {
         t_absensi_Dates: "",
         startDate: "",
+        status: ""
       },
       modal: {
         id: "",
@@ -452,6 +459,10 @@ export default {
     menitLembur(val) {
       var start = val.t_absensi_startDate + " " + val.t_absensi_startClock;
       var end = val.t_absensi_endDate + " " + val.t_absensi_endClock;
+      if (val.t_absensi_endDate == null) {
+        end = moment().format('YYYY-MM-DD HH:mm:ss')
+      }
+      console.log(end)
       var a = moment(moment(start).toArray());
       var b = moment(moment(end).toArray());
       var result = b.diff(a, "minutes");
@@ -491,7 +502,7 @@ export default {
           if (resp.isConfirmed) {
             axios
               .get(
-                `${env.VITE_API_URL}/exports/lembur?start_date=${this.search.startDate}&end_date=${this.search.endDate}`
+                `${env.VITE_API_URL}/exports/lembur?start_date=${this.search.startDate}&end_date=${this.search.endDate}&status=${this.search.status}`
               )
               .then((resp) => {
                 if (resp.status == 200) {
