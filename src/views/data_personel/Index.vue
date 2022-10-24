@@ -112,6 +112,24 @@ export default {
       this.table = $("#dt-personel").DataTable({ autoWidth: false });
     }, 1000);
     this.loadPersonel();
+
+    $(document).on('click', '.btn-copy-text', function () {
+      var value = $('.copy-text').val(); //Upto this I am getting value
+
+      var $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val(value).select();
+      document.execCommand("copy");
+      $temp.remove();
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Password berhasil disalin',
+        text: value,
+        showConfirmButton: false,
+        timer: 3000
+      });
+    })
   },
   methods: {
     loadPersonel() {
@@ -168,12 +186,18 @@ export default {
             title: '<h5 class="text-success">Berhasil</h5>',
             text: message,
             icon: 'success',
-            input: 'text',
-            inputValue: response.data.data.m_personel_password_show,
-            inputAttributes: {
-              autocapitalize: 'off',
-              disabled: true,
-            },
+            html: `
+            <div class="input-group mb-3">
+              <input type="text" class="form-control copy-text" value="${response.data.data.m_personel_password_show}" disabled required>
+              <span class="input-group-text btn-copy-text" style="cursor: pointer">Salin</span>
+            </div>
+            `,
+            // input: 'text',
+            // inputValue: response.data.data.m_personel_password_show,
+            // inputAttributes: {
+            //   autocapitalize: 'off',
+            //   disabled: true,
+            // },
             confirmButtonColor: '#3085d6',
             // onBeforeOpen: function (ele) {
             //   $(ele).find('button.swal2-confirm.swal2-styled')

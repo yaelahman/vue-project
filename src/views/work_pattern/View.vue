@@ -18,7 +18,7 @@
                   <router-link :to="{
                     name: 'createPersonelTimeWork',
                     params: {
-                      id: id,
+                      create: id,
                     },
                   }" class="btn btn-primary">
                     <i class="material-icons">add</i> Tambah
@@ -44,20 +44,21 @@
                           <td>{{ index + 1 }}</td>
                           <td style="width: 10px; text-align: start">
                             {{
-                            personel_time_work.get_personel.m_personel_names
+                                personel_time_work.get_personel.m_personel_names
                             }}
                           </td>
                           <td>
                             {{
-                            personel_time_work.get_personel.departemen != null
-                            ? personel_time_work.get_personel.departemen
-                            .m_departemen_name
-                            : "-"
+                                personel_time_work.get_personel.departemen != null
+                                  ? personel_time_work.get_personel.departemen
+                                    .m_departemen_name
+                                  : "-"
                             }}
                           </td>
                           <td>
                             {{ personel_time_work.get_work_pattern
-                            .m_work_patern_name }}
+                                .m_work_patern_name
+                            }}
                           </td>
                           <td>
                             {{ convertDate(personel_time_work.m_work_personel_time) }}
@@ -81,11 +82,11 @@
                               </router-link> -->
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Hapus" @click="
-                                  confirmDelete(
-                                    personel_time_work.id_m_work_personel,
-                                    personel_time_work.get_work_pattern
-                                      .m_work_patern_name
-                                  )
+  confirmDelete(
+    personel_time_work.id_m_work_personel,
+    personel_time_work.get_work_pattern
+      .m_work_patern_name
+  )
                                 ">
                                 <i class="material-icons">delete</i>
                               </button>

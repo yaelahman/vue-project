@@ -440,7 +440,7 @@
               <table id="dt2" class="display" style="width: 100%">
                 <thead class="text-left text-nowrap">
                   <tr>
-                    <th style="width: 10px !important">No</th>
+                    <th style="width: 5%">No</th>
                     <th style="width: 200px !important">Nama</th>
                     <th style="width: 60px !important">Departemen</th>
                     <th style="width: 60px !important">Jam Absen</th>
@@ -970,7 +970,11 @@ export default {
     },
     async checkPersonelBelumAbsen() {
       setTimeout(() => {
-        this.table = $("#dt-dashboard").DataTable();
+        this.table = $("#dt-dashboard").DataTable({
+        "columnDefs": [
+          { "width": "3%", "targets": 0 }
+        ]
+      });
       }, 1000);
       this.$Progress.start();
       await axios
@@ -981,7 +985,11 @@ export default {
             this.personelBelumAbsen = response.data.data;
             this.table.destroy();
             this.$nextTick(() => {
-              this.table = $("#dt-dashboard").DataTable();
+              this.table = $("#dt-dashboard").DataTable({
+        "columnDefs": [
+          { "width": "3%", "targets": 0 }
+        ]
+      });
             });
           }
         })
@@ -1014,7 +1022,11 @@ export default {
         });
     },
     async checkPersonelWFH() {
-      this.table3 = $("#dt-wfh").DataTable();
+      this.table3 = $("#dt-wfh").DataTable({
+        "columnDefs": [
+          { "width": "3%", "targets": 0 }
+        ]
+      });
       this.$Progress.start();
       await axios
         .get(env.VITE_API_URL + "checkPersonelWFH")
@@ -1024,7 +1036,11 @@ export default {
             this.personelWFH = response.data.data;
             this.table3.destroy();
             this.$nextTick(() => {
-              this.table3 = $("#dt-wfh").DataTable();
+              this.table3 = $("#dt-wfh").DataTable({
+        "columnDefs": [
+          { "width": "3%", "targets": 0 }
+        ]
+      });
             });
           }
         })
@@ -1034,7 +1050,11 @@ export default {
         });
     },
     async checkPersonelKunjungan() {
-      this.table4 = $("#dt-kunjungan").DataTable();
+      this.table4 = $("#dt-kunjungan").DataTable({
+        "columnDefs": [
+          { "width": "3%", "targets": 0 }
+        ]
+      });
       this.$Progress.start();
       await axios
         .get(env.VITE_API_URL + "checkPersonelKunjungan")
@@ -1044,7 +1064,11 @@ export default {
             this.personelKunjungan = response.data.data;
             this.table4.destroy();
             this.$nextTick(() => {
-              this.table4 = $("#dt-kunjungan").DataTable();
+              this.table4 = $("#dt-kunjungan").DataTable({
+        "columnDefs": [
+          { "width": "3%", "targets": 0 }
+        ]
+      });
             });
           }
         })
@@ -1054,7 +1078,11 @@ export default {
         });
     },
     async checkIzin() {
-      this.table51 = $("#dt-izin").DataTable();
+      this.table51 = $("#dt-izin").DataTable({
+        "columnDefs": [
+          { "width": "3%", "targets": 0 }
+        ]
+      });
       this.$Progress.start();
       await axios
         .get(env.VITE_API_URL + "checkIzin")
@@ -1065,7 +1093,11 @@ export default {
             this.izin.current = response.data.data.jam;
             this.table51.destroy();
             this.$nextTick(() => {
-              this.table51 = $("#dt-izin").DataTable();
+              this.table51 = $("#dt-izin").DataTable({
+        "columnDefs": [
+          { "width": "3%", "targets": 0 }
+        ]
+      });
             });
           }
         })
@@ -1075,7 +1107,11 @@ export default {
         });
     },
     async checkCuti() {
-      this.table52 = $("#dt-cuti").DataTable();
+      this.table52 = $("#dt-cuti").DataTable({
+        "columnDefs": [
+          { "width": "3%", "targets": 0 }
+        ]
+      });
       this.$Progress.start();
       await axios
         .get(env.VITE_API_URL + "checkCuti")
@@ -1085,7 +1121,11 @@ export default {
             this.cuti = response.data.data;
             this.table52.destroy();
             this.$nextTick(() => {
-              this.table52 = $("#dt-cuti").DataTable();
+              this.table52 = $("#dt-cuti").DataTable({
+        "columnDefs": [
+          { "width": "3%", "targets": 0 }
+        ]
+      });
             });
           }
         })
@@ -1102,7 +1142,11 @@ export default {
       }
       this.table51.destroy();
       this.$nextTick(() => {
-        this.table51 = $("#dt-izin").DataTable();
+        this.table51 = $("#dt-izin").DataTable({
+        "columnDefs": [
+          { "width": "3%", "targets": 0 }
+        ]
+      })
       });
     },
     async loadChart() {

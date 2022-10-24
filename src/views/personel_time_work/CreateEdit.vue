@@ -118,7 +118,11 @@ export default {
                         Api.messageError(e)
                     })
             } else {
-                this.personel_time_work.id_m_work_patern = this.id
+                console.log(this.$route.params)
+                if (this.$route.params != null && this.$route.params.create) {
+
+                    this.personel_time_work.id_m_work_patern = this.$route.params.create
+                }
             }
         },
         createPersonelTimeWork() {
@@ -130,7 +134,7 @@ export default {
                 personel_time_work: this.personel_time_work
             }).then(response => {
                 if (Api.response(response.data) === Api.STATUS_SUCCESS) {
-                    this.$router.push("/index-personel-time-work")
+                    this.$router.push("/detail-work-pattern/" + this.$route.params.create)
                 }
                 $('#submit').prop('disabled', false);
                 $('#submit').html('Submit');
