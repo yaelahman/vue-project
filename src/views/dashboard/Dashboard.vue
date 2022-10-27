@@ -385,7 +385,7 @@
               <table id="dt-dashboard" class="display" style="width: 100%">
                 <thead class="text-left text-nowrap">
                   <tr>
-                    <th style="width: 5%">No</th>
+                    <th class="nomer" style="width: 20px">No</th>
                     <th>Nama</th>
                     <th class="text-start">Departemen</th>
                   </tr>
@@ -440,7 +440,7 @@
               <table id="dt2" class="display" style="width: 100%">
                 <thead class="text-left text-nowrap">
                   <tr>
-                    <th style="width: 5%">No</th>
+                    <th class="nomer" style="width: 20px">No</th>
                     <th style="width: 200px !important">Nama</th>
                     <th style="width: 60px !important">Departemen</th>
                     <th style="width: 60px !important">Jam Absen</th>
@@ -511,7 +511,7 @@
               <table id="dt-wfh" class="display" style="width: 100%">
                 <thead class="text-left text-nowrap">
                   <tr>
-                    <th style="width: 5%">No</th>
+                    <th class="nomer" style="width: 20px">No</th>
                     <th>Nama</th>
                     <th>Departemen</th>
                     <th>Jam Absen</th>
@@ -572,7 +572,7 @@
               <table id="dt-kunjungan" class="display" style="width: 100%">
                 <thead class="text-left text-nowrap">
                   <tr>
-                    <th style="width: 5%">No</th>
+                    <th class="nomer" style="width: 20px">No</th>
                     <th>Nama</th>
                     <th>Departemen</th>
                     <th>Jam Kunjungan</th>
@@ -649,7 +649,7 @@
               <table id="dt-izin" class="display" style="width: 100%">
                 <thead class="text-left text-nowrap">
                   <tr>
-                    <th style="width: 5%">No</th>
+                    <th class="nomer" style="width: 20px">No</th>
                     <th>Nama</th>
                     <th>Departemen</th>
                     <th>Keperluan</th>
@@ -713,7 +713,7 @@
               <table id="dt-cuti" class="display" style="width: 100%">
                 <thead class="text-left text-nowrap">
                   <tr>
-                    <th style="width: 5%">No</th>
+                    <th class="nomer" style="width: 20px">No</th>
                     <th>Nama</th>
                     <th>Departemen</th>
                     <th>Keperluan</th>
@@ -976,9 +976,7 @@ export default {
     async checkPersonelBelumAbsen() {
       setTimeout(() => {
         this.table = $("#dt-dashboard").DataTable({
-          "columnDefs": [
-            { "width": "3%", "targets": 0 }
-          ]
+          "autoWidth": false
         });
       }, 1000);
       this.$Progress.start();
@@ -991,10 +989,12 @@ export default {
             this.table.destroy();
             this.$nextTick(() => {
               this.table = $("#dt-dashboard").DataTable({
-                "columnDefs": [
-                  { "width": "3%", "targets": 0 }
-                ]
+                "autoWidth": false
               });
+              setTimeout(() => {
+                $('.nomer').css('width', '20px')
+                this.table.columns.adjust().draw();
+              }, 500)
             });
           }
         })
@@ -1018,6 +1018,8 @@ export default {
             this.table2.destroy();
             this.$nextTick(() => {
               this.table2 = $("#dt2").DataTable({ autoWidth: false });
+              $('.nomer').css('width', '20px')
+              this.table2.columns.adjust().draw();
             });
           }
         })
@@ -1028,9 +1030,7 @@ export default {
     },
     async checkPersonelWFH() {
       this.table3 = $("#dt-wfh").DataTable({
-        "columnDefs": [
-          { "width": "3%", "targets": 0 }
-        ]
+        "autoWidth": false
       });
       this.$Progress.start();
       await axios
@@ -1042,10 +1042,10 @@ export default {
             this.table3.destroy();
             this.$nextTick(() => {
               this.table3 = $("#dt-wfh").DataTable({
-                "columnDefs": [
-                  { "width": "3%", "targets": 0 }
-                ]
+                "autoWidth": false
               });
+              $('.nomer').css('width', '20px')
+              this.table3.columns.adjust().draw();
             });
           }
         })
@@ -1056,9 +1056,7 @@ export default {
     },
     async checkPersonelKunjungan() {
       this.table4 = $("#dt-kunjungan").DataTable({
-        "columnDefs": [
-          { "width": "3%", "targets": 0 }
-        ]
+        "autoWidth": false
       });
       this.$Progress.start();
       await axios
@@ -1070,10 +1068,10 @@ export default {
             this.table4.destroy();
             this.$nextTick(() => {
               this.table4 = $("#dt-kunjungan").DataTable({
-                "columnDefs": [
-                  { "width": "3%", "targets": 0 }
-                ]
+                "autoWidth": false
               });
+              $('.nomer').css('width', '20px')
+              this.table4.columns.adjust().draw();
             });
           }
         })
@@ -1084,9 +1082,7 @@ export default {
     },
     async checkIzin() {
       this.table51 = $("#dt-izin").DataTable({
-        "columnDefs": [
-          { "width": "3%", "targets": 0 }
-        ]
+        "autoWidth": false
       });
       this.$Progress.start();
       await axios
@@ -1099,10 +1095,10 @@ export default {
             this.table51.destroy();
             this.$nextTick(() => {
               this.table51 = $("#dt-izin").DataTable({
-                "columnDefs": [
-                  { "width": "3%", "targets": 0 }
-                ]
+                "autoWidth": false
               });
+              $('.nomer').css('width', '20px')
+              this.table51.columns.adjust().draw();
             });
           }
         })
@@ -1113,9 +1109,7 @@ export default {
     },
     async checkCuti() {
       this.table52 = $("#dt-cuti").DataTable({
-        "columnDefs": [
-          { "width": "3%", "targets": 0 }
-        ]
+        "autoWidth": false
       });
       this.$Progress.start();
       await axios
@@ -1127,10 +1121,10 @@ export default {
             this.table52.destroy();
             this.$nextTick(() => {
               this.table52 = $("#dt-cuti").DataTable({
-                "columnDefs": [
-                  { "width": "3%", "targets": 0 }
-                ]
+                "autoWidth": false
               });
+              $('.nomer').css('width', '20px')
+              this.table52.columns.adjust().draw();
             });
           }
         })
@@ -1151,7 +1145,7 @@ export default {
       this.$nextTick(() => {
         this.table51 = $("#dt-izin").DataTable({
           "columnDefs": [
-            { "width": "3%", "targets": 0 }
+            { "width": "20px", "targets": 0 }
           ]
         })
       });
