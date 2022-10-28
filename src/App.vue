@@ -58,7 +58,7 @@
                             </router-link>
                         </li>
                         <!-- <div :class="{'d-none': $can('superadmin')}"> -->
-                        <li class="nav-item has-submenu" :class="{'d-none': $can('superadmin')}">
+                        <li class="nav-item has-submenu" :class="{ 'd-none': $can('superadmin') }">
                             <a class="nav-link" @click="DropdownSidebar(1)" href="#">
                                 <div class="d-flex justify-content-between">
                                     <div>
@@ -71,7 +71,9 @@
                                         <span class="ms-3">History</span> <span class="caret"></span>
                                     </div>
 
-                                    <div class="text-light notif">{{ count_approval.lembur }}</div>
+                                    <div v-if="count_approval.lembur > 0" class="text-light notif">{{
+                                            count_approval.lembur
+                                    }}</div>
                                 </div>
                             </a>
                             <ul class="submenu collapse submenu-1"
@@ -122,7 +124,10 @@
                                                 </i>
                                                 Lembur
                                             </div>
-                                            <div class="text-light notif">{{ count_approval.lembur }}</div>
+                                            <div v-if="count_approval.lembur > 0" class="text-light notif">{{
+                                                    count_approval.lembur
+                                            }}
+                                            </div>
                                         </div>
                                     </router-link>
                                 </li>
@@ -143,7 +148,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item has-submenu" :class="{'d-none': $can('superadmin')}">
+                        <li class="nav-item has-submenu" :class="{ 'd-none': $can('superadmin') }">
                             <a class="nav-link" href="#" @click="DropdownSidebar(2)">
                                 <svg width="23" height="23" viewBox="0 0 28 28" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -174,7 +179,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item has-submenu" :class="{'d-none': $can('superadmin')}">
+                        <li class="nav-item has-submenu" :class="{ 'd-none': $can('superadmin') }">
                             <a class="nav-link" href="#" @click="DropdownSidebar(3)"><svg width="23" height="23"
                                     viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -211,7 +216,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item has-submenu" :class="{'d-none': $can('superadmin')}">
+                        <li class="nav-item has-submenu" :class="{ 'd-none': $can('superadmin') }">
                             <a class="nav-link" href="#" @click="DropdownSidebar(4)"><svg width="23" height="23"
                                     viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -250,7 +255,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item has-submenu" :class="{'d-none': $can('superadmin')}">
+                        <li class="nav-item has-submenu" :class="{ 'd-none': $can('superadmin') }">
                             <a class="nav-link" href="#" @click="DropdownSidebar(5)">
                                 <div class="d-flex justify-content-between">
                                     <div>
@@ -263,8 +268,13 @@
 
                                         <span class="ms-3">Pengajuan Izin</span> <span class="caret"></span>
                                     </div>
-                                    <div class="text-light notif">{{ count_approval.jam + count_approval.hari
-                                    + count_approval.cuti }}</div>
+                                    <div v-if="(count_approval.jam + count_approval.hari
+                                    + count_approval.cuti) > 0" class="text-light notif">
+                                        {{ count_approval.jam +
+                                                count_approval.hari
+                                                + count_approval.cuti
+                                        }}
+                                    </div>
                                 </div>
                             </a>
                             <ul class="submenu collapse submenu-5"
@@ -293,7 +303,9 @@
                                                 </i>
                                                 Izin Jam
                                             </div>
-                                            <div class="text-light notif">{{ count_approval.jam }}</div>
+                                            <div v-if="count_approval.jam > 0" class="text-light notif">{{
+                                                    count_approval.jam
+                                            }}</div>
                                         </div>
                                     </router-link>
                                 </li>
@@ -314,7 +326,9 @@
                                                 Izin Hari
                                             </div>
 
-                                            <div class="text-light notif">{{ count_approval.hari }}</div>
+                                            <div v-if="count_approval.hari > 0" class="text-light notif">{{
+                                                    count_approval.hari
+                                            }}</div>
                                         </div>
                                     </router-link>
                                 </li>
@@ -333,13 +347,15 @@
                                                 </i>
                                                 Cuti
                                             </div>
-                                            <div class="text-light notif">{{ count_approval.cuti }}</div>
+                                            <div v-if="count_approval.cuti > 0" class="text-light notif">{{
+                                                    count_approval.cuti
+                                            }}</div>
                                         </div>
                                     </router-link>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item has-submenu" :class="{'d-none': $can('superadmin')}">
+                        <li class="nav-item has-submenu" :class="{ 'd-none': $can('superadmin') }">
                             <a class="nav-link" href="#" @click="DropdownSidebar(6)"><svg width="24" height="24"
                                     viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
