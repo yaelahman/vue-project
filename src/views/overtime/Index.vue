@@ -198,7 +198,7 @@
           <form @submit.prevent="updateAbsensi()">
             <div class="modal-header">
               <h5 class="modal-title">{{ modal.title }}</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <input type="hidden" v-model="modal.startDate" />
             <input type="hidden" v-model="modal.endDate" />
@@ -250,10 +250,10 @@
             </div>
             <div class="modal-footer">
               <button type="submit" id="submit" class="btn btn-primary">
-                Save
+                Simpan
               </button>
               <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                Close
+                Tutup
               </button>
             </div>
           </form>
@@ -267,7 +267,7 @@
             <h5 class="modal-title">
               Lokasi Personel Absensi {{ modal.title }}
             </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -284,7 +284,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Close
+              Tutup
             </button>
           </div>
         </div>
@@ -295,14 +295,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Catatan Lembur</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body">
             <textarea class="form-control" v-model="modal.catatan" cols="30" rows="10" readonly></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Close
+              Tutup
             </button>
           </div>
         </div>
@@ -314,7 +314,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Foto</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -330,7 +330,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Close
+              Tutup
             </button>
           </div>
         </div>
