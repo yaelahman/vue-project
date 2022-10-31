@@ -71,7 +71,7 @@
                                         <span class="ms-3">History</span> <span class="caret"></span>
                                     </div>
 
-                                    <div v-if="count_approval.lembur > 0" class="text-light notif">{{
+                                    <div v-if="count_approval.lembur > 0" class="text-light notif me-1">{{
                                             count_approval.lembur
                                     }}</div>
                                 </div>
@@ -269,7 +269,7 @@
                                         <span class="ms-3">Pengajuan Izin</span> <span class="caret"></span>
                                     </div>
                                     <div v-if="(count_approval.jam + count_approval.hari
-                                    + count_approval.cuti) > 0" class="text-light notif">
+                                    + count_approval.cuti) > 0" class="text-light notif me-1">
                                         {{ count_approval.jam +
                                                 count_approval.hari
                                                 + count_approval.cuti
@@ -463,10 +463,6 @@
 import moment from "moment";
 import { mapGetters } from "vuex";
 import * as Api from "./helper/Api.js";
-// import 'https://momentjs.com/downloads/moment-with-locales.js'
-// import "datatables.net";
-// import "datatables.net-bs5";
-// import "datatables.net-responsive";
 
 
 export default {
