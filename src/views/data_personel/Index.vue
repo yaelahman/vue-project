@@ -29,6 +29,7 @@
                           <th>Username</th>
                           <th>Email</th>
                           <th>DeviceID</th>
+                          <th>Status</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -40,6 +41,7 @@
                           <td>{{ personel.username }}</td>
                           <td>{{ personel.m_personel_email }}</td>
                           <td>{{ personel.device_id }}</td>
+                          <td><span :class="personel.m_personel_status == 1 ? 'text-success' : 'text-danger'">{{ personel.m_personel_status == 1 ? 'On' : 'Off' }}</span></td>
                           <td class="text-center">
                             <div class="btn-group">
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right" title="Generate Password" @click="confirmGenerate(

@@ -39,7 +39,7 @@
                       <div class="form-group">
                         <label class="form-label">Tanggal Pengajuan</label>
                         <input type="text" class="form-control"
-                          :value="convertDate(permit.created_at, 'DD-MM-YYYY','-', true)" required disabled />
+                          :value="convertDate(permit.created_at, 'DD-MM-YYYY', '-', true)" required disabled />
                       </div>
                     </div>
                     <div class="col">
@@ -101,12 +101,12 @@
                           <td v-for="(val, index) in permit.permit_image" :key="index">
                             <img data-bs-toggle="modal" data-bs-target="#ModalImage" @click="
                               url =
-                                url_photo +
-                                val.permit_photo
-                            " :src="
                               url_photo +
                               val.permit_photo
-                            " alt="" class="me-1" style="width: 143px; height: 193px" />
+                            " :src="
+  url_photo +
+  val.permit_photo
+" alt="" class="me-1" style="width: 143px; height: 193px" />
                           </td>
                           <td v-if="permit.permit_image.length < 1">
                             <h6 class="text-muted">
@@ -269,7 +269,8 @@ export default {
         if (result.toFixed(1).toString().split(".")[1] == "0") {
           return result.toString().split(".")[0] + " Jam";
         }
-        return result.toFixed(1) + " Jam";
+        let result_fix = result.toFixed(1).split('.')
+        return result_fix[0] + " Jam " + ((result_fix[1] / 10) * 60) + " Menit";
       }
       return 0 + " Jam";
     },

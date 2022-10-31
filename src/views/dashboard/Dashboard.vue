@@ -387,6 +387,7 @@
                   <tr>
                     <th class="nomer" style="width: 20px">No</th>
                     <th>Nama</th>
+                    <th class="text-start">Jadwal Kerja</th>
                     <th class="text-start">Departemen</th>
                   </tr>
                 </thead>
@@ -396,6 +397,12 @@
                     <td>
                       {{ val.m_personel_names }} (
                       {{ val.m_personel_personID }} )
+                    </td>
+                    <td>
+                      {{
+                      val.work_personel != null && val.work_personel.get_work_pattern != null ?
+                      val.work_personel.get_work_pattern.m_work_patern_name : '-'
+                      }}
                     </td>
                     <td class="text-start">{{ val.departemen.m_departemen_name }}</td>
                   </tr>
@@ -442,6 +449,7 @@
                   <tr>
                     <th class="nomer" style="width: 20px">No</th>
                     <th style="width: 200px !important">Nama</th>
+                    <th style="width: 60px !important">Jadwal Kerja</th>
                     <th style="width: 60px !important">Departemen</th>
                     <th style="width: 60px !important">Jam Absen</th>
                     <th style="width: 220px !important">Keterangan</th>
@@ -453,6 +461,12 @@
                     <td>
                       {{ val.m_personel_names }} (
                       {{ val.m_personel_personID }} )
+                    </td>
+                    <td>
+                      {{
+                      val.work_personel != null && val.work_personel.get_work_pattern != null ?
+                      val.work_personel.get_work_pattern.m_work_patern_name : '-'
+                      }}
                     </td>
                     <td>{{ val.m_departemen_name }}</td>
                     <td class="text-nowrap text-danger" v-if="val.isLate">
@@ -513,6 +527,7 @@
                   <tr>
                     <th class="nomer" style="width: 20px">No</th>
                     <th>Nama</th>
+                    <th>Jadwal Kerja</th>
                     <th>Departemen</th>
                     <th>Jam Absen</th>
                   </tr>
@@ -523,6 +538,12 @@
                     <td>
                       {{ val.m_personel_names }} (
                       {{ val.m_personel_personID }} )
+                    </td>
+                    <td>
+                      {{
+                      val.work_personel != null && val.work_personel.get_work_pattern != null ?
+                      val.work_personel.get_work_pattern.m_work_patern_name : '-'
+                      }}
                     </td>
                     <td>{{ val.departemen.m_departemen_name }}</td>
                     <td class="text-nowrap" v-bind:class="{
@@ -590,7 +611,7 @@
                     <td class="text-nowrap">
                       {{ convertDate(val.t_absensi_startClock) }} WIB
                     </td>
-                    <td class="text-nowrap">
+                    <td>
                       {{
                       val.t_absensi_catatan
                       ? val.t_absensi_catatan
@@ -663,7 +684,7 @@
                       {{ val.m_personel_personID }} )
                     </td>
                     <td>{{ val.departemen.m_departemen_name }}</td>
-                    <td class="text-nowrap">
+                    <td>
                       {{
                       val.permit.permit_description
                       ? val.permit.permit_description
@@ -727,7 +748,7 @@
                       {{ val.m_personel_personID }} )
                     </td>
                     <td>{{ val.departemen.m_departemen_name }}</td>
-                    <td class="text-nowrap">
+                    <td>
                       {{
                       val.permit.permit_description
                       ? val.permit.permit_description

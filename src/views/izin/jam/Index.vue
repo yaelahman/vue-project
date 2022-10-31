@@ -228,7 +228,8 @@ export default {
         if (result.toFixed(1).toString().split(".")[1] == "0") {
           return result.toString().split(".")[0] + " Jam";
         }
-        return result.toFixed(1) + " Jam";
+        let result_fix = result.toFixed(1).split('.')
+        return result_fix[0] + " Jam " + ((result_fix[1] / 10) * 60) + " Menit";
       }
       return 0 + " Jam";
     },

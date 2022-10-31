@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col">
               <div class="page-description">
-                <h1>Ringkasan Kehadiran</h1>
+                <h1>Ringkasan Absensi</h1>
               </div>
             </div>
           </div>
@@ -65,6 +65,7 @@
                           <th>Tidak Terlambat</th>
                           <th>WFH</th>
                           <th>Tidak Absen</th>
+                          <th>Cuti</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -93,6 +94,7 @@
                               {{ val.tidak_hadir ?? 0 }}
                             </div>
                           </td>
+                          <td class="text-center">{{ val.total_cuti ?? 0 }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -126,8 +128,9 @@
                 <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ?  'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
-                  'hh:mm:ss') }}</td>
+                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
+                      'hh:mm:ss')
+                  }}</td>
                   <td>{{ val.t_absensi_catatan }}</td>
                   <td>{{ val.t_absensi_status == 1 ? 'WFO' : 'WFH' }}</td>
                 </tr>
@@ -164,8 +167,9 @@
                 <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ?  'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
-                  'hh:mm:ss') }}</td>
+                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
+                      'hh:mm:ss')
+                  }}</td>
                   <td>{{ val.t_absensi_status == 1 ? 'WFO' : 'WFH' }}</td>
                 </tr>
               </tbody>
@@ -200,8 +204,9 @@
                 <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ?  'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
-                  'hh:mm:ss') }}</td>
+                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
+                      'hh:mm:ss')
+                  }}</td>
                   <td>{{ val.t_absensi_catatan }}</td>
                 </tr>
               </tbody>
@@ -364,9 +369,9 @@ export default {
         // }
       } else {
         Swal.fire({
-          title: "Ekspor Ringkasan Kehadiran",
+          title: "Ekspor Ringkasan Absensi",
           text:
-            "Ingin Ekspor Ringkasan Kehadiran Dengan Tanggal " +
+            "Ingin Ekspor Ringkasan Absensi Dengan Tanggal " +
             this.search.startDate +
             " Sampai " +
             this.search.endDate +
