@@ -15,6 +15,11 @@
               <div class="card">
                 <div class="card-body">
                   <form class="mt-3" @submit.prevent="createDataPersonel()">
+                    <div class="mb-3">
+                      <router-link to="/index-data-personel" class="btn btn-light">
+                            <i class="material-icons">arrow_back</i>Kembali
+                      </router-link>
+                    </div>
                     <div class="form-group">
                       <label class="form-label">Nama Personel</label>
                       <input type="text" class="form-control" v-model="data_personel.m_personel_names"
@@ -94,9 +99,6 @@
                         <button type="submit" id="submit" class="btn btn-primary">
                           <i class="material-icons">save</i>{{ title }}
                         </button>
-                        <router-link to="/index-data-personel" class="btn btn-light">
-                          <i class="material-icons">arrow_back</i>Kembali
-                        </router-link>
                       </div>
                     </div>
                   </form>

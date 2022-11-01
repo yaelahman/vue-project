@@ -14,13 +14,16 @@
             <div class="col">
               <div class="card">
                 <div class="card-header">
+                  <router-link to="/index-work-pattern" class="btn btn-light">
+                      <i class="material-icons">arrow_back</i>Kembali
+                    </router-link>
 
                   <router-link :to="{
                     name: 'createPersonelTimeWork',
                     params: {
                       create: id,
                     },
-                  }" class="btn btn-primary">
+                  }" class="btn btn-primary float-end">
                     <i class="material-icons">add</i> Tambah
                   </router-link>
                 </div>
@@ -97,9 +100,6 @@
                     </table>
                   </div>
                   <div class="mt-5">
-                    <router-link to="/index-work-pattern" class="btn btn-light">
-                      <i class="material-icons">arrow_back</i>Kembali
-                    </router-link>
                   </div>
                 </div>
               </div>
