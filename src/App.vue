@@ -174,7 +174,7 @@
                                                     fill="black" />
                                             </svg>
                                         </i>
-                                        Ringkasan Kehadiran
+                                        Ringkasan Absensi
                                     </router-link>
                                 </li>
                             </ul>
