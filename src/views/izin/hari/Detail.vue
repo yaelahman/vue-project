@@ -26,27 +26,54 @@
                 <div class="card-body py-3">
                   <div class="form-group">
                     <label class="form-label">Nama</label>
-                    <input type="text" class="form-control" v-model="permit.personel.m_personel_names" required
-                      disabled />
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="permit.personel.m_personel_names"
+                      required
+                      disabled
+                    />
                   </div>
                   <div class="form-group">
                     <label class="form-label">Departemen</label>
-                    <input type="text" class="form-control" v-model="permit.personel.departemen.m_departemen_name"
-                      required disabled />
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="permit.personel.departemen.m_departemen_name"
+                      required
+                      disabled
+                    />
                   </div>
                   <div class="row row-cols-2">
                     <div class="col">
                       <div class="form-group">
                         <label class="form-label">Tanggal Pengajuan</label>
-                        <input type="text" class="form-control"
-                          :value="convertDate(permit.created_at, 'DD-MM-YYYY','-', true)" required disabled />
+                        <input
+                          type="text"
+                          class="form-control"
+                          :value="
+                            convertDate(
+                              permit.created_at,
+                              'DD-MM-YYYY',
+                              '-',
+                              true
+                            )
+                          "
+                          required
+                          disabled
+                        />
                       </div>
                     </div>
                     <div class="col">
                       <div class="form-group">
                         <label class="form-label">Jam Pengajuan</label>
-                        <input type="text" class="form-control" :value="convertDate(permit.created_at, 'HH:mm')"
-                          required disabled />
+                        <input
+                          type="text"
+                          class="form-control"
+                          :value="convertDate(permit.created_at, 'HH:mm')"
+                          required
+                          disabled
+                        />
                       </div>
                     </div>
                   </div>
@@ -55,8 +82,15 @@
                     <div class="table-responsive" style="border-radius: 8px">
                       <table class="table table-secondary table-tanggal-izin">
                         <tbody>
-                          <tr class="p-0" v-for="(val, index) in permit.permit_date" :key="index">
-                            <td class="py-0" style="width: 5%; padding: 5px 10px !important">
+                          <tr
+                            class="p-0"
+                            v-for="(val, index) in permit.permit_date"
+                            :key="index"
+                          >
+                            <td
+                              class="py-0"
+                              style="width: 5%; padding: 5px 10px !important"
+                            >
                               {{ index + 1 }}
                             </td>
                             <td style="padding: 5px 10px !important">
@@ -70,27 +104,49 @@
 
                   <div class="form-group">
                     <label class="form-label">Lama Izin</label>
-                    <input type="text" class="form-control" :value="jumlahHari(permit)" required disabled />
+                    <input
+                      type="text"
+                      class="form-control"
+                      :value="jumlahHari(permit)"
+                      required
+                      disabled
+                    />
                   </div>
                   <div class="form-group">
                     <label class="form-label">Keperluan</label>
-                    <textarea type="text" class="form-control" v-model="permit.permit_description" required
-                      disabled></textarea>
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      v-model="permit.permit_description"
+                      required
+                      disabled
+                    ></textarea>
                   </div>
                   <div class="form-group">
                     <label class="form-label">File Kelengkapan</label>
                     <div class="table-responsive">
                       <table class="table-files">
                         <tr>
-                          <td v-for="(val, index) in permit.permit_image" :key="index">
-                            <img data-bs-toggle="modal" data-bs-target="#ModalImage" @click="
-                              url =
-                                'http://divisihr-backend.mamorasoft.com/storage/photo_permit/' +
+                          <td
+                            v-for="(val, index) in permit.permit_image"
+                            :key="index"
+                          >
+                            <img
+                              data-bs-toggle="modal"
+                              data-bs-target="#ModalImage"
+                              @click="
+                                url =
+                                  'https://divisihr.com/storage/photo_permit/' +
+                                  val.permit_photo
+                              "
+                              :src="
+                                'https://divisihr.com/storage/photo_permit/' +
                                 val.permit_photo
-                            " :src="
-                              'http://divisihr-backend.mamorasoft.com/storage/photo_permit/' +
-                              val.permit_photo
-                            " alt="" class="me-1" style="width: 143px; height: 193px" />
+                              "
+                              alt=""
+                              class="me-1"
+                              style="width: 143px; height: 193px"
+                            />
                           </td>
                           <td v-if="permit.permit_image.length < 1">
                             <h6 class="text-muted">
@@ -103,24 +159,42 @@
                   </div>
                   <div class="form-group" v-if="permit.permit_status != 0">
                     <label class="form-label">Catatan</label>
-                    <textarea type="text" class="form-control" v-model="data.catatan" required disabled></textarea>
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      v-model="data.catatan"
+                      required
+                      disabled
+                    ></textarea>
                   </div>
                 </div>
                 <div class="card-footer">
                   <div class="btn-group">
                     <div v-if="permit.permit_status == 0">
-                      <button class="btn btn-warning rounded-pill me-2" data-bs-toggle="modal"
-                        data-bs-target="#ModalCatatan" @click="Modal('tolak')">
+                      <button
+                        class="btn btn-warning rounded-pill me-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#ModalCatatan"
+                        @click="Modal('tolak')"
+                      >
                         <i class="material-icons">close</i> Tolak
                       </button>
-                      <button class="btn btn-primary rounded-pill me-2" data-bs-toggle="modal"
-                        data-bs-target="#ModalCatatan" @click="Modal('setuju')">
+                      <button
+                        class="btn btn-primary rounded-pill me-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#ModalCatatan"
+                        @click="Modal('setuju')"
+                      >
                         <i class="material-icons">check</i> Setuju
                       </button>
                     </div>
                     <div v-else>
-                      <button class="btn btn-primary rounded-pill me-2" data-bs-toggle="modal"
-                        data-bs-target="#ModalEditPersetujuan" @click="Modal('')">
+                      <button
+                        class="btn btn-primary rounded-pill me-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#ModalEditPersetujuan"
+                        @click="Modal('')"
+                      >
                         <i class="material-icons">edit</i> Edit Persetujuan
                       </button>
                     </div>
@@ -132,7 +206,13 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="ModalCatatan" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="ModalCatatan"
+      tabindex="-1"
+      aria-labelledby="ModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header text-center">
@@ -141,15 +221,28 @@
             </p>
           </div>
           <div class="mx-5">
-            <textarea class="form-control" v-model="data.catatan" cols="30" rows="10"
-              placeholder="Catatan dari admin"></textarea>
+            <textarea
+              class="form-control"
+              v-model="data.catatan"
+              cols="30"
+              rows="10"
+              placeholder="Catatan dari admin"
+            ></textarea>
           </div>
           <div class="modal-footer text-center">
             <div class="mx-auto">
-              <button type="button" class="btn rounded-pill btn-light me-2 btn-cancel" data-bs-dismiss="modal">
+              <button
+                type="button"
+                class="btn rounded-pill btn-light me-2 btn-cancel"
+                data-bs-dismiss="modal"
+              >
                 Kembali
               </button>
-              <button type="button" @click="permitApprove()" class="btn rounded-pill btn-primary btn-submit">
+              <button
+                type="button"
+                @click="permitApprove()"
+                class="btn rounded-pill btn-primary btn-submit"
+              >
                 Submit
               </button>
             </div>
@@ -158,7 +251,13 @@
       </div>
     </div>
 
-    <div class="modal fade" id="ModalImage" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="ModalImage"
+      tabindex="-1"
+      aria-labelledby="ModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header text-center">
@@ -169,7 +268,11 @@
           </div>
           <div class="modal-footer text-center">
             <div class="mx-auto">
-              <button type="button" class="btn rounded-pill btn-light me-2 btn-cancel" data-bs-dismiss="modal">
+              <button
+                type="button"
+                class="btn rounded-pill btn-light me-2 btn-cancel"
+                data-bs-dismiss="modal"
+              >
                 Kembali
               </button>
             </div>
@@ -177,7 +280,13 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="ModalEditPersetujuan" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="ModalEditPersetujuan"
+      tabindex="-1"
+      aria-labelledby="ModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header" style="display: block">
@@ -185,18 +294,33 @@
             <p>Silahkan input catatan dari admin pada kolom di bawah ini:</p>
           </div>
           <div class="mx-5">
-            <textarea class="form-control" v-model="data.catatan" cols="30" rows="10"
-              placeholder="Catatan dari admin"></textarea>
+            <textarea
+              class="form-control"
+              v-model="data.catatan"
+              cols="30"
+              rows="10"
+              placeholder="Catatan dari admin"
+            ></textarea>
           </div>
           <div class="modal-footer text-center">
             <div class="mx-auto">
-              <button type="button" class="btn rounded-pill btn-light me-2 btn-cancel" data-bs-dismiss="modal">
+              <button
+                type="button"
+                class="btn rounded-pill btn-light me-2 btn-cancel"
+                data-bs-dismiss="modal"
+              >
                 Kembali
               </button>
-              <button class="btn btn-warning rounded-pill me-2 btn-submit" @click="permitApprove('tolak')">
+              <button
+                class="btn btn-warning rounded-pill me-2 btn-submit"
+                @click="permitApprove('tolak')"
+              >
                 <i class="material-icons">close</i> Tolak
               </button>
-              <button class="btn btn-primary rounded-pill me-2 btn-submit" @click="permitApprove('setuju')">
+              <button
+                class="btn btn-primary rounded-pill me-2 btn-submit"
+                @click="permitApprove('setuju')"
+              >
                 <i class="material-icons">check</i> Setuju
               </button>
             </div>
