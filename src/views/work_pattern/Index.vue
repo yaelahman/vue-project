@@ -29,6 +29,7 @@
                           <th>Jumlah Bekerja</th>
                           <th>Jumlah Libur</th>
                           <th>Toleransi Terlambat</th>
+                          <th>Total Anggota</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -45,6 +46,9 @@
                           <td>{{ work_pattern.w_p_d_libur_count }} Hari</td>
                           <td>
                             {{ work_pattern.m_work_patern_tolerance }} Menit
+                          </td>
+                          <td>
+                            {{ work_pattern.work_personel_count }}
                           </td>
                           <td class="text-center">
                             <div class="btn-group">
@@ -72,10 +76,10 @@
                               </router-link>
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Hapus" @click="
-                                  confirmDelete(
-                                    work_pattern.id_m_work_patern,
-                                    work_pattern.m_work_patern_name
-                                  )
+  confirmDelete(
+    work_pattern.id_m_work_patern,
+    work_pattern.m_work_patern_name
+  )
                                 ">
                                 <i class="material-icons">delete</i>
                               </button>

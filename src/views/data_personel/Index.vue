@@ -41,7 +41,7 @@
                           <td>{{ personel.username }}</td>
                           <td>{{ personel.m_personel_email }}</td>
                           <td>{{ personel.device_id }}</td>
-                          <td><span :class="personel.m_personel_status == 1 ? 'text-success' : 'text-danger'">{{ personel.m_personel_status == 1 ? 'On' : 'Off' }}</span></td>
+                          <td><button style="cursor: pointer;" @click="changeStatus(personel)" :class="personel.m_personel_status == 1 ? 'btn btn-success btn-sm' : 'btn btn-danger btn-sm'">{{ personel.m_personel_status == 1 ? 'On' : 'Off' }}</button></td>
                           <td class="text-center">
                             <div class="btn-group">
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right" title="Generate Password" @click="confirmGenerate(
@@ -281,6 +281,37 @@ export default {
         .catch((e) => {
           Api.messageError(e);
         });
+    },
+    changeStatus(val) {
+      return Api.confirmGenerate(
+        "Apakah anda yakin?",
+        "Data Personel ID " +
+        val.m_personel_personID +
+        " dan nama " +
+        val.m_personel_names +
+        " akan " + (val.m_personel_status == 1 ? 'dinonaktifkan' : 'diaktifkan'),
+        'warning',
+        'Iya'
+      ).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .get(env.VITE_API_URL + "change-status-data-personel/" + val.id_m_personel)
+            .then((response) => {
+              this.loadPersonel();
+              let status = response.data.status;
+              let message = response.data.message;
+              let status_message =
+                status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+              Toast.fire({
+                icon: status_message,
+                title: message,
+              });
+            })
+            .catch((e) => {
+              Api.messageError(e);
+            });
+        }
+      });
     },
     convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
       return Api.convertDate(date, format, empty, subtract);

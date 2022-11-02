@@ -22,7 +22,7 @@
                     <div class="widget-stats-content flex-fill">
                       <span class="widget-stats-title">Company Terdaftar</span>
                       <span class="widget-stats-amount">{{
-                      dataSuperadmin.companyTerdaftar
+                          dataSuperadmin.companyTerdaftar
                       }}</span>
                     </div>
                   </div>
@@ -400,8 +400,8 @@
                     </td>
                     <td>
                       {{
-                      val.work_personel != null && val.work_personel.get_work_pattern != null ?
-                      val.work_personel.get_work_pattern.m_work_patern_name : '-'
+                          val.work_personel != null && val.work_personel.get_work_pattern != null ?
+                            val.work_personel.get_work_pattern.m_work_patern_name : '-'
                       }}
                     </td>
                     <td class="text-start">{{ val.departemen.m_departemen_name }}</td>
@@ -464,8 +464,8 @@
                     </td>
                     <td>
                       {{
-                      val.work_personel != null && val.work_personel.get_work_pattern != null ?
-                      val.work_personel.get_work_pattern.m_work_patern_name : '-'
+                          val.work_personel != null && val.work_personel.get_work_pattern != null ?
+                            val.work_personel.get_work_pattern.m_work_patern_name : '-'
                       }}
                     </td>
                     <td>{{ val.m_departemen_name }}</td>
@@ -477,9 +477,9 @@
                     </td>
                     <td>
                       {{
-                      val.t_absensi_isLate != 1
-                      ? val.t_absensi_catatan_telat_masuk
-                      : "-"
+                          val.t_absensi_isLate != 1
+                            ? val.t_absensi_catatan_telat_masuk
+                            : "-"
                       }}
                     </td>
                   </tr>
@@ -541,8 +541,8 @@
                     </td>
                     <td>
                       {{
-                      val.work_personel != null && val.work_personel.get_work_pattern != null ?
-                      val.work_personel.get_work_pattern.m_work_patern_name : '-'
+                          val.work_personel != null && val.work_personel.get_work_pattern != null ?
+                            val.work_personel.get_work_pattern.m_work_patern_name : '-'
                       }}
                     </td>
                     <td>{{ val.departemen.m_departemen_name }}</td>
@@ -613,9 +613,9 @@
                     </td>
                     <td>
                       {{
-                      val.t_absensi_catatan
-                      ? val.t_absensi_catatan
-                      : "-"
+                          val.t_absensi_catatan
+                            ? val.t_absensi_catatan
+                            : "-"
                       }}
                     </td>
                   </tr>
@@ -671,7 +671,7 @@
                 <thead class="text-left text-nowrap">
                   <tr>
                     <th class="nomer" style="width: 20px">No</th>
-                    <th>Nama</th>
+                    <th style="width: 30%">Nama</th>
                     <th>Departemen</th>
                     <th>Keperluan</th>
                   </tr>
@@ -686,9 +686,9 @@
                     <td>{{ val.departemen.m_departemen_name }}</td>
                     <td>
                       {{
-                      val.permit.permit_description
-                      ? val.permit.permit_description
-                      : "-"
+                          val.permit.permit_description
+                            ? val.permit.permit_description
+                            : "-"
                       }}
                     </td>
                   </tr>
@@ -735,7 +735,7 @@
                 <thead class="text-left text-nowrap">
                   <tr>
                     <th class="nomer" style="width: 20px">No</th>
-                    <th>Nama</th>
+                    <th style="width: 30%">Nama</th>
                     <th>Departemen</th>
                     <th>Keperluan</th>
                   </tr>
@@ -750,9 +750,9 @@
                     <td>{{ val.departemen.m_departemen_name }}</td>
                     <td>
                       {{
-                      val.permit.permit_description
-                      ? val.permit.permit_description
-                      : "-"
+    val.permit.permit_description
+      ? val.permit.permit_description
+      : "-"
                       }}
                     </td>
                   </tr>
