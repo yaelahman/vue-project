@@ -21,10 +21,11 @@
                 <div class="card-body">
                   <div class="table-responsive">
                     <table id="dt-1" class="display w-100" style="width:100%">
-                      <thead class="text-center">
+                      <thead class="text-start">
                         <tr>
-                          <th>No</th>
+                          <th style="width: 20px">No</th>
                           <th>Nama</th>
+                          <th>Total Anggota</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -32,7 +33,8 @@
                         <tr v-for="(departemen, index) in departemens" :key="index">
                           <td class="text-center">{{index + 1}}</td>
                           <td>{{departemen.m_departemen_name}}</td>
-                          <td class="text-center">
+                          <td>{{departemen.personels_count}}</td>
+                          <td class="text-start">
                             <div class="btn-group">
                               <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right" title="Edit">
                                 <router-link :to="{ name: 'editDepartemen', params: { id: departemen.id_m_departemen }}">

@@ -17,7 +17,7 @@
                   <form class="mt-3" @submit.prevent="createDataPersonel()">
                     <div class="mb-3">
                       <router-link to="/index-data-personel" class="btn btn-light">
-                            <i class="material-icons">arrow_back</i>Kembali
+                        <i class="material-icons">arrow_back</i>Kembali
                       </router-link>
                     </div>
                     <div class="form-group">
@@ -82,7 +82,7 @@
                         oninvalid="this.setCustomValidity('Tanggal Kadaluarsa Cuti harus diisi')"
                         oninput="setCustomValidity('')" />
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label class="form-label">Status</label>
                       <select class="form-select" v-model="data_personel.m_personel_status" required
                         placeholder="Status" oninvalid="this.setCustomValidity('Status harus diisi')"
@@ -93,7 +93,7 @@
                         <option value="1">On</option>
                         <option value="2">Off</option>
                       </select>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                       <div class="mt-3">
                         <button type="submit" id="submit" class="btn btn-primary">
