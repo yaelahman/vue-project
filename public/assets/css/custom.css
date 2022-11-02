@@ -25,6 +25,16 @@
     text-decoration: none !important;
 }
 
+.notif {
+    background-color: #FF9500;
+    padding: 2px 0px 2px 0px;
+    border-radius: 5px;
+    height: 22px;
+    width: 22px;
+    font-size: 12px;
+    text-align: center;
+}
+
 .user-info-text ::-webkit-scrollbar {
     display: none;
 }

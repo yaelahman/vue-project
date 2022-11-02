@@ -22,19 +22,24 @@
                   </div>
                   <form @submit.prevent="filterRangeDate()">
                     <div class="row">
-                      <div class="col-sm-3">
-                        <label>Start Date</label>
-                        <input type="date" class="form-control start-date" placeholder="Start Date"
+                      <div class="col-lg-3 col-md-4 col-sm-4 col-6">
+                        <label>Tanggal Mulai</label>
+                        <input type="date" class="form-control start-date" placeholder="Tanggal Mulai"
                           v-model="search.startDate" @click="search.endDate = ''" required />
                       </div>
-                      <div class="col-sm-1">
-                        <label></label>
-                        <p class="text-center mt-2">s/d</p>
-                      </div>
-                      <div class="col-sm-3">
-                        <label>End Date</label>
-                        <input type="date" class="form-control" placeholder="End Date" :min="search.startDate"
+                      <div class="col-lg-3 col-md-4 col-sm-4 col-6">
+                        <label>Tanggal Selesai</label>
+                        <input type="date" class="form-control" placeholder="Tanggal Selesai" :min="search.startDate"
                           v-model="search.endDate" :disabled="search.startDate == ''" required />
+                      </div>
+                      <div class="col-lg-3 col-md-4 col-sm-4 col-12">
+                        <label>Status</label>
+                        <select v-model="search.status" class="form-control">
+                          <option value="">Semua</option>
+                          <option value="0">Menunggu Persetujuan</option>
+                          <option value="1">Disetujui</option>
+                          <option value="2">Ditolak</option>
+                        </select>
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">
                         <button class="btn btn-sm text-nowrap btn-primary mb-2 me-2" style="width: 120px"
@@ -66,8 +71,8 @@
                           <th>Jam Mulai</th>
                           <th>Tanggal Selesai</th>
                           <th>Jam Selesai</th>
-                          <th>Menit Lembur</th>
-                          <th>Status</th>
+                          <th class="text-end">Menit Lembur</th>
+                          <th class="text-center">Status</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -93,10 +98,10 @@
                             {{ val.t_absensi_endClock }} WIB
                           </td>
                           <td v-else class="text-center">-</td>
-                          <td>
+                          <td class="text-end">
                             {{ menitLembur(val) }}
                           </td>
-                          <td>
+                          <td class="text-center">
                             <div v-html="mapStatus(val.t_absensi_status_admin)"></div>
                           </td>
                           <td class="text-start">
@@ -167,6 +172,10 @@
             </p>
           </div>
           <div class="mx-5">
+            <div class="form-group my-3">
+              <label>Catatan Lembur</label>
+              <textarea class="form-control" v-model="data.catatan_lembur" readonly step="any"></textarea>
+            </div>
             <textarea class="form-control" v-model="data.catatan" cols="30" rows="10"
               placeholder="Catatan dari admin"></textarea>
           </div>
@@ -189,7 +198,7 @@
           <form @submit.prevent="updateAbsensi()">
             <div class="modal-header">
               <h5 class="modal-title">{{ modal.title }}</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <input type="hidden" v-model="modal.startDate" />
             <input type="hidden" v-model="modal.endDate" />
@@ -209,7 +218,7 @@
               </div>
               <div class="form-group mt-2">
                 <label>Jam Mulai</label>
-                <input type="time" class="form-control" v-model="modal.startClock" step="any" required />
+                <input type="time" name="time" class="form-control" v-model="modal.startClock" step="any" required />
               </div>
               <div class="form-group mt-2">
                 <label>Tanggal Selesai</label>
@@ -218,7 +227,7 @@
               </div>
               <div class="form-group mt-2">
                 <label>Jam Selesai</label>
-                <input type="time" class="form-control" v-model="modal.endClock" step="any"
+                <input type="time" name="time" class="form-control" v-model="modal.endClock" step="any"
                   :disabled="modal.endClock === null" required />
               </div>
               <div class="form-group mt-2">
@@ -241,10 +250,10 @@
             </div>
             <div class="modal-footer">
               <button type="submit" id="submit" class="btn btn-primary">
-                Save
+                Simpan
               </button>
               <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                Close
+                Tutup
               </button>
             </div>
           </form>
@@ -258,7 +267,7 @@
             <h5 class="modal-title">
               Lokasi Personel Absensi {{ modal.title }}
             </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -275,7 +284,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Close
+              Tutup
             </button>
           </div>
         </div>
@@ -286,14 +295,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Catatan Lembur</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body">
             <textarea class="form-control" v-model="modal.catatan" cols="30" rows="10" readonly></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Close
+              Tutup
             </button>
           </div>
         </div>
@@ -305,7 +314,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Foto</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -321,7 +330,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Close
+              Tutup
             </button>
           </div>
         </div>
@@ -345,6 +354,7 @@ export default {
       search: {
         t_absensi_Dates: "",
         startDate: "",
+        status: ""
       },
       modal: {
         id: "",
@@ -358,6 +368,7 @@ export default {
         photo2: "",
         status_admin: "",
         catatan_admin: "",
+
       },
       data: {
         catatan: "",
@@ -372,6 +383,9 @@ export default {
         lat: -6.93,
         lng: 107.6,
       },
+
+      markerOptions: { position: { lat: 0, lng: 0 }, label: "O" },
+      locations: [{ lat: -31.56391, lng: 147.154312 }],
       currentPlace: null,
       markers: [],
       markers2: [],
@@ -444,10 +458,14 @@ export default {
     menitLembur(val) {
       var start = val.t_absensi_startDate + " " + val.t_absensi_startClock;
       var end = val.t_absensi_endDate + " " + val.t_absensi_endClock;
+      if (val.t_absensi_endDate == null) {
+        end = moment().format('YYYY-MM-DD HH:mm:ss')
+      }
+      console.log(end)
       var a = moment(moment(start).toArray());
       var b = moment(moment(end).toArray());
       var result = b.diff(a, "minutes");
-      return (result < 0 ? 0 : result) + " Menit";
+      return (result < 0 ? 0 : result);
     },
     filterRangeDate() {
       if (this.filterType == "show") {
@@ -483,7 +501,7 @@ export default {
           if (resp.isConfirmed) {
             axios
               .get(
-                `${env.VITE_API_URL}/exports/lembur?start_date=${this.search.startDate}&end_date=${this.search.endDate}`
+                `${env.VITE_API_URL}/exports/lembur?start_date=${this.search.startDate}&end_date=${this.search.endDate}&status=${this.search.status}`
               )
               .then((resp) => {
                 if (resp.status == 200) {
@@ -561,6 +579,7 @@ export default {
       this.data = {
         id: val.id_t_absensi,
         type: type,
+        catatan_lembur: val.t_absensi_catatan
       };
     },
     ModalReset() {
@@ -578,9 +597,9 @@ export default {
     Maps(val, status) {
       this.locations = [];
       var latLong = val.t_absensi_latLong.split(",");
-      modal.title = "Mulai";
+      this.modal.title = "Mulai";
       if (status == "end") {
-        modal.title = "Selesai";
+        this.modal.title = "Selesai";
         latLong = val.t_absensi_latLongEnd.split(",");
       }
       this.center = {
@@ -588,6 +607,7 @@ export default {
         lng: parseFloat(latLong[1]),
       };
       this.locations.push(this.center);
+      console.log(this.locations)
     },
     resetEndDate() {
       this.search.endDate = "";

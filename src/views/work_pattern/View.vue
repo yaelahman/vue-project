@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col">
               <div class="page-description">
-                <h1>{{ title }} Daftar Jadwal</h1>
+                <h1>Detail Personel</h1>
               </div>
             </div>
           </div>
@@ -14,13 +14,16 @@
             <div class="col">
               <div class="card">
                 <div class="card-header">
+                  <router-link to="/index-work-pattern" class="btn btn-light">
+                      <i class="material-icons">arrow_back</i>Kembali
+                    </router-link>
 
                   <router-link :to="{
                     name: 'createPersonelTimeWork',
                     params: {
-                      id: id,
+                      create: id,
                     },
-                  }" class="btn btn-primary">
+                  }" class="btn btn-primary float-end">
                     <i class="material-icons">add</i> Tambah
                   </router-link>
                 </div>
@@ -44,48 +47,49 @@
                           <td>{{ index + 1 }}</td>
                           <td style="width: 10px; text-align: start">
                             {{
-                            personel_time_work.get_personel.m_personel_names
+                                personel_time_work.get_personel.m_personel_names
                             }}
                           </td>
                           <td>
                             {{
-                            personel_time_work.get_personel.departemen != null
-                            ? personel_time_work.get_personel.departemen
-                            .m_departemen_name
-                            : "-"
+                                personel_time_work.get_personel.departemen != null
+                                  ? personel_time_work.get_personel.departemen
+                                    .m_departemen_name
+                                  : "-"
                             }}
                           </td>
                           <td>
                             {{ personel_time_work.get_work_pattern
-                            .m_work_patern_name }}
+                                .m_work_patern_name
+                            }}
                           </td>
                           <td>
                             {{ convertDate(personel_time_work.m_work_personel_time) }}
                           </td>
                           <td class="text-center">
                             <div class="btn-group">
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Edit">
-                                <router-link :to="{
-                                  name: 'editPersonelTimeWork',
-                                  params: {
-                                    id: personel_time_work.id_m_work_personel,
-                                    update: true,
-                                  },
-                                  query: {
-                                    update:true
-                                  },
-                                }" class="btn-light">
+                              <!-- <router-link :to="{
+                                name: 'editPersonelTimeWork',
+                                params: {
+                                  id: personel_time_work.id_m_work_personel,
+                                  update: true,
+                                },
+                                query: {
+                                  update:true
+                                },
+                              }" class="btn-light">
+                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                  data-placement="right" title="Edit">
                                   <i class="material-icons">edit</i>
-                                </router-link>
-                              </button>
+                                </button>
+                              </router-link> -->
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Hapus" @click="
-                                  confirmDelete(
-                                    personel_time_work.id_m_work_personel,
-                                    personel_time_work.get_work_pattern
-                                      .m_work_patern_name
-                                  )
+  confirmDelete(
+    personel_time_work.id_m_work_personel,
+    personel_time_work.get_work_pattern
+      .m_work_patern_name
+  )
                                 ">
                                 <i class="material-icons">delete</i>
                               </button>
@@ -96,9 +100,6 @@
                     </table>
                   </div>
                   <div class="mt-5">
-                    <router-link to="/index-work-pattern" class="btn btn-light">
-                      <i class="material-icons">arrow_back</i>Kembali
-                    </router-link>
                   </div>
                 </div>
               </div>
@@ -182,6 +183,24 @@ export default {
           this.deleteCompany(id);
         }
       });
+    },
+    deleteCompany(id) {
+      axios
+        .delete(env.VITE_API_URL + "delete-personel-time-work/" + id)
+        .then((response) => {
+          this.loadPersonelTimeWork();
+          let status = response.data.status;
+          let message = response.data.message;
+          let status_message =
+            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+          Toast.fire({
+            icon: status_message,
+            title: message,
+          });
+        })
+        .catch((e) => {
+          Api.messageError(e);
+        });
     },
   }
 };

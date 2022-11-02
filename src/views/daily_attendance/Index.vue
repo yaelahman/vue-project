@@ -23,8 +23,8 @@
                   <form @submit.prevent="filterRangeDate()">
                     <div class="row">
                       <div class="col-sm-3">
-                        <label>Start Date</label>
-                        <input type="date" class="form-control start-date" placeholder="Start Date"
+                        <label>Tanggal Mulai</label>
+                        <input type="date" class="form-control start-date" placeholder="Tanggal Mulai"
                           v-model="search.startDate" @click="search.endDate = ''" required />
                       </div>
                       <div class="col-sm-1">
@@ -32,8 +32,8 @@
                         <p class="text-center mt-2">s/d</p>
                       </div>
                       <div class="col-sm-3">
-                        <label>End Date</label>
-                        <input type="date" class="form-control" placeholder="End Date" :min="search.startDate"
+                        <label>Tanggal Selesai</label>
+                        <input type="date" class="form-control" placeholder="Tanggal Selesai" :min="search.startDate"
                           v-model="search.endDate" :disabled="search.startDate == ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">
@@ -66,9 +66,9 @@
                           <th>Jam Masuk</th>
                           <th>Tanggal Pulang</th>
                           <th>Jam Pulang</th>
-                          <th>Jadwal Kerja</th>
-                          <th>Menit Terlambat</th>
-                          <th>Denda</th>
+                          <th class="text-start">Jadwal Kerja</th>
+                          <th class="text-end">Menit Terlambat</th>
+                          <th class="text-end">Denda</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -102,14 +102,14 @@
                             {{ val.t_absensi_endClock }} WIB
                           </td>
                           <td v-else class="text-center">-</td>
-                          <td>
+                          <td class="text-start">
                             {{ val.work_personel.get_work_pattern.m_work_patern_name }}
                           </td>
-                          <td>
-                            {{ menitTerlambat(val) }}
+                          <td class="text-end">
+                            {{ val.t_absensi_isLate == 1 ? '0' : menitTerlambat(val) }}
                           </td>
-                          <td>
-                            {{ hitungDenda(val) }}
+                          <td class="text-end">
+                            {{ val.t_absensi_isLate == 1 ? '0' : hitungDenda(val) }}
                           </td>
                           <td class="text-start">
                             <div class="btn-group">
@@ -166,7 +166,7 @@
           <form @submit.prevent="updateAbsensi()">
             <div class="modal-header">
               <h5 class="modal-title">Perbarui Kehadiran Harian</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <input type="hidden" v-model="modal.startDate" />
             <input type="hidden" v-model="modal.endDate" />
@@ -241,7 +241,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Lokasi Personel Absensi</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -258,7 +258,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Close
+              Tutup
             </button>
           </div>
         </div>
@@ -269,7 +269,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Catatan</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -286,7 +286,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Close
+              Tutup
             </button>
           </div>
         </div>
@@ -297,7 +297,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Foto</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -313,7 +313,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Close
+              Tutup
             </button>
           </div>
         </div>
@@ -324,14 +324,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Catatan Absensi</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body">
             <textarea class="form-control" v-model="modal.catatan" cols="30" rows="10" readonly></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Close
+              Tutup
             </button>
           </div>
         </div>
@@ -402,7 +402,7 @@ export default {
     },
     hitungDenda(val) {
       let denda = localStorage.getItem("denda") != undefined ? localStorage.getItem("denda") : 0
-      let menit = parseInt(this.menitTerlambat(val).replace(' Menit', ''))
+      let menit = this.menitTerlambat(val)
       console.log(denda, menit)
       return this.formatRupiah((denda * menit).toString())
     },
@@ -437,11 +437,12 @@ export default {
           : 0;
       var a = moment(moment(start).toArray());
       var b = moment(moment(now).toArray());
+      console.log(a, b, val.work_personel.get_work_schedule.m_work_schedule_clockIn)
       var result =
         a.diff(b, "minutes") - tolerance < 0
           ? 0
           : a.diff(b, "minutes") - tolerance;
-      return result + " Menit";
+      return result;
     },
     filterRangeDate() {
       if (this.filterType == "show") {

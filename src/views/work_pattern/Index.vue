@@ -24,11 +24,12 @@
                       <thead class="text-center">
                         <tr>
                           <th>No</th>
-                          <th>Nama Daftar Jadwal</th>
+                          <th class="text-start">Nama Daftar Jadwal</th>
                           <th>Jumlah Hari</th>
                           <th>Jumlah Bekerja</th>
                           <th>Jumlah Libur</th>
                           <th>Toleransi Terlambat</th>
+                          <th>Total Anggota</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -37,7 +38,7 @@
                           <td class="text-center">
                             {{ ++index }}
                           </td>
-                          <td>{{ work_pattern.m_work_patern_name }}</td>
+                          <td class="text-start">{{ work_pattern.m_work_patern_name }}</td>
                           <td>
                             {{ work_pattern.m_work_patern_numberCycle }} Hari
                           </td>
@@ -46,36 +47,39 @@
                           <td>
                             {{ work_pattern.m_work_patern_tolerance }} Menit
                           </td>
+                          <td>
+                            {{ work_pattern.work_personel_count }}
+                          </td>
                           <td class="text-center">
                             <div class="btn-group">
-                              <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
-                                title="Detail">
-                                <router-link :to="{
-                                  name: 'detailWorkPattern',
-                                  params: {
-                                    id: work_pattern.id_m_work_patern,
-                                  },
-                                }" class="btn-light">
+                              <router-link :to="{
+                                name: 'detailWorkPattern',
+                                params: {
+                                  id: work_pattern.id_m_work_patern,
+                                },
+                              }" class="btn-light">
+                                <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
+                                  title="Detail">
                                   <i class="material-icons">group</i>
-                                </router-link>
-                              </button>
-                              <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
-                                title="Edit">
-                                <router-link :to="{
-                                  name: 'editWorkPattern',
-                                  params: {
-                                    id: work_pattern.id_m_work_patern,
-                                  },
-                                }" class="btn-light">
+                                </button>
+                              </router-link>
+                              <router-link :to="{
+                                name: 'editWorkPattern',
+                                params: {
+                                  id: work_pattern.id_m_work_patern,
+                                },
+                              }" class="btn-light">
+                                <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
+                                  title="Edit">
                                   <i class="material-icons">edit</i>
-                                </router-link>
-                              </button>
+                                </button>
+                              </router-link>
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Hapus" @click="
-                                  confirmDelete(
-                                    work_pattern.id_m_work_patern,
-                                    work_pattern.m_work_patern_name
-                                  )
+  confirmDelete(
+    work_pattern.id_m_work_patern,
+    work_pattern.m_work_patern_name
+  )
                                 ">
                                 <i class="material-icons">delete</i>
                               </button>

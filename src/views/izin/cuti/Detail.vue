@@ -131,15 +131,8 @@
                             <img
                               data-bs-toggle="modal"
                               data-bs-target="#ModalImage"
-                              @click="
-                                url =
-                                  'https://divisihr.com/storage/photo_permit/' +
-                                  val.permit_photo
-                              "
-                              :src="
-                                'https://divisihr.com/storage/photo_permit/' +
-                                val.permit_photo
-                              "
+                              @click="url = url_photo + val.permit_photo"
+                              :src="url_photo + val.permit_photo"
                               alt=""
                               class="me-1"
                               style="width: 143px; height: 193px"
@@ -332,6 +325,7 @@ import moment from "moment";
 export default {
   data() {
     return {
+      url_photo: env.VITE_URL_PHOTO + "storage/photo_permit/",
       permit: {
         personel: {
           m_personel_names: "",

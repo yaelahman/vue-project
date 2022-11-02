@@ -21,7 +21,7 @@
                 <div class="card-body">
                   <div class="table-responsive">
                     <table id="dt-attendancespot" class="display" style="width: 100%">
-                      <thead class="text-center">
+                      <thead class="text-start">
                         <tr>
                           <th>No</th>
                           <th class="text-nowrap">Nama Lokasi</th>
@@ -31,11 +31,11 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr style="text-align: center" v-for="(val, index) in attendance_spot" :key="index">
+                        <tr style="text-align: start" v-for="(val, index) in attendance_spot" :key="index">
                           <td class="text-center">{{ ++index }}</td>
                           <td>{{ val.m_attendance_spots_name }}</td>
                           <td class="text-center">{{ val.count_personel }}</td>
-                          <td>{{ val.m_attendance_spots_address }}</td>
+                          <td >{{ val.m_attendance_spots_address }}</td>
                           <td class="text-center">
                             <div class="btn-group">
                               <router-link :to="{

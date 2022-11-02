@@ -28,8 +28,8 @@
                         <tr>
                           <th>No</th>
                           <th style="text-align: start">Nama</th>
-                          <th>Departemen</th>
-                          <th>Daftar Jadwal</th>
+                          <th class="text-start">Departemen</th>
+                          <th class="text-start">Daftar Jadwal</th>
                           <th>Mulai</th>
                           <th>Aksi</th>
                         </tr>
@@ -44,7 +44,7 @@
                             personel_time_work.get_personel.m_personel_names
                             }}
                           </td>
-                          <td>
+                          <td class="text-start">
                             {{
                             personel_time_work.get_personel.departemen != null
                             ? personel_time_work.get_personel.departemen
@@ -52,7 +52,7 @@
                             : "-"
                             }}
                           </td>
-                          <td>
+                          <td class="text-start">
                             {{
                             personel_time_work.get_work_pattern
                             .m_work_patern_name
@@ -67,18 +67,18 @@
                           </td>
                           <td class="text-center">
                             <div class="btn-group">
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Edit">
-                                <router-link :to="{
-                                  name: 'editPersonelTimeWork',
-                                  params: {
-                                    id: personel_time_work.id_m_work_personel,
-                                    update: true,
-                                  },
-                                }" class="btn-light">
+                              <router-link :to="{
+                                name: 'editPersonelTimeWork',
+                                params: {
+                                  id: personel_time_work.id_m_work_personel,
+                                  update: true,
+                                },
+                              }" class="btn-light">
+                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
+                                  data-placement="right" title="Edit">
                                   <i class="material-icons">edit</i>
-                                </router-link>
-                              </button>
+                                </button>
+                              </router-link>
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
                                 data-placement="right" title="Hapus" @click="
                                   confirmDelete(

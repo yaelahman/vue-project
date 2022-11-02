@@ -17,13 +17,13 @@
                   <form @submit.prevent="filterRangeDate()">
                     <div class="row">
                       <div class="col-lg-3 col-md-4 col-sm-4 col-6">
-                        <label>Start Date</label>
-                        <input type="date" class="form-control start-date" placeholder="Start Date"
+                        <label>Tanggal Mulai</label>
+                        <input type="date" class="form-control start-date" placeholder="Tanggal Mulai"
                           v-model="search.startDate" @click="search.endDate = ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-6">
-                        <label>End Date</label>
-                        <input type="date" class="form-control" placeholder="End Date" :min="search.startDate"
+                        <label>Tanggal Selesai</label>
+                        <input type="date" class="form-control" placeholder="Tanggal Selesai" :min="search.startDate"
                           v-model="search.endDate" :disabled="search.startDate == ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12">
@@ -33,6 +33,7 @@
                           <option value="0">Menunggu Persetujuan</option>
                           <option value="1">Disetujui</option>
                           <option value="2">Ditolak</option>
+                          <option value="3">Kadaluarsa</option>
                         </select>
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">

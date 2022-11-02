@@ -164,15 +164,8 @@
                             <img
                               data-bs-toggle="modal"
                               data-bs-target="#ModalImage"
-                              @click="
-                                url =
-                                  'https://divisihr.com/storage/photo_permit/' +
-                                  val.permit_photo
-                              "
-                              :src="
-                                'https://divisihr.com/storage/photo_permit/' +
-                                val.permit_photo
-                              "
+                              @click="url = url_photo + val.permit_photo"
+                              :src="url_photo + val.permit_photo"
                               alt=""
                               class="me-1"
                               style="width: 143px; height: 193px"
@@ -362,9 +355,11 @@
 <script>
 import * as Api from "../../../helper/Api.js";
 import moment from "moment";
+// import { env } from "process";
 export default {
   data() {
     return {
+      url_photo: env.VITE_URL_PHOTO + "storage/photo_permit/",
       permit: {
         personel: {
           m_personel_names: "",
@@ -400,8 +395,13 @@ export default {
       if (start != null) {
         var a = moment(moment(start).toArray());
         var b = moment(moment(end).toArray());
-        var result = b.diff(a, "h");
-        return (result < 0 ? 0 : result) + " Jam";
+        var result = b.diff(a, "m");
+        result = result < 0 ? 0 : result / 60;
+        if (result.toFixed(1).toString().split(".")[1] == "0") {
+          return result.toString().split(".")[0] + " Jam";
+        }
+        let result_fix = result.toFixed(1).split(".");
+        return result_fix[0] + " Jam " + (result_fix[1] / 10) * 60 + " Menit";
       }
       return 0 + " Jam";
     },

@@ -29,6 +29,7 @@
                           <th>Username</th>
                           <th>Email</th>
                           <th>DeviceID</th>
+                          <th>Status</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -40,6 +41,7 @@
                           <td>{{ personel.username }}</td>
                           <td>{{ personel.m_personel_email }}</td>
                           <td>{{ personel.device_id }}</td>
+                          <td><button style="cursor: pointer;" @click="changeStatus(personel)" :class="personel.m_personel_status == 1 ? 'btn btn-success btn-sm' : 'btn btn-danger btn-sm'">{{ personel.m_personel_status == 1 ? 'On' : 'Off' }}</button></td>
                           <td class="text-center">
                             <div class="btn-group">
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right" title="Generate Password" @click="confirmGenerate(
@@ -98,7 +100,7 @@
 </template>
 <script>
 import * as Api from "../../helper/Api.js";
-
+import Swal from "sweetalert2"
 export default {
   data() {
     return {
@@ -112,6 +114,24 @@ export default {
       this.table = $("#dt-personel").DataTable({ autoWidth: false });
     }, 1000);
     this.loadPersonel();
+
+    $(document).on('click', '.btn-copy-text', function () {
+      var value = $('.copy-text').val(); //Upto this I am getting value
+
+      var $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val(value).select();
+      document.execCommand("copy");
+      $temp.remove();
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Password berhasil disalin',
+        text: value,
+        showConfirmButton: false,
+        timer: 3000
+      });
+    })
   },
   methods: {
     loadPersonel() {
@@ -163,6 +183,31 @@ export default {
           Toast.fire({
             icon: status_message,
             title: message,
+          });
+          Swal.fire({
+            title: '<h5 class="text-success">Berhasil</h5>',
+            text: message,
+            icon: 'success',
+            html: `
+            <div class="input-group mb-3">
+              <input type="text" class="form-control copy-text" value="${response.data.data.m_personel_password_show}" disabled required>
+              <span class="input-group-text btn-copy-text" style="cursor: pointer">Salin</span>
+            </div>
+            `,
+            // input: 'text',
+            // inputValue: response.data.data.m_personel_password_show,
+            // inputAttributes: {
+            //   autocapitalize: 'off',
+            //   disabled: true,
+            // },
+            confirmButtonColor: '#3085d6',
+            // onBeforeOpen: function (ele) {
+            //   $(ele).find('button.swal2-confirm.swal2-styled')
+            //     .toggleClass('swal2-confirm swal2-styled swal2-confirm btn btn-success')
+            // },
+            customClass: {
+              confirmButton: 'w-100'
+            },
           });
         })
         .catch((e) => {
@@ -236,6 +281,37 @@ export default {
         .catch((e) => {
           Api.messageError(e);
         });
+    },
+    changeStatus(val) {
+      return Api.confirmGenerate(
+        "Apakah anda yakin?",
+        "Data Personel ID " +
+        val.m_personel_personID +
+        " dan nama " +
+        val.m_personel_names +
+        " akan " + (val.m_personel_status == 1 ? 'dinonaktifkan' : 'diaktifkan'),
+        'warning',
+        'Iya'
+      ).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .get(env.VITE_API_URL + "change-status-data-personel/" + val.id_m_personel)
+            .then((response) => {
+              this.loadPersonel();
+              let status = response.data.status;
+              let message = response.data.message;
+              let status_message =
+                status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
+              Toast.fire({
+                icon: status_message,
+                title: message,
+              });
+            })
+            .catch((e) => {
+              Api.messageError(e);
+            });
+        }
+      });
     },
     convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
       return Api.convertDate(date, format, empty, subtract);

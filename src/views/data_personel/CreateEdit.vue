@@ -15,52 +15,34 @@
               <div class="card">
                 <div class="card-body">
                   <form class="mt-3" @submit.prevent="createDataPersonel()">
+                    <div class="mb-3">
+                      <router-link to="/index-data-personel" class="btn btn-light">
+                        <i class="material-icons">arrow_back</i>Kembali
+                      </router-link>
+                    </div>
                     <div class="form-group">
                       <label class="form-label">Nama Personel</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="data_personel.m_personel_names"
-                        placeholder="Nama Personel"
-                        required
+                      <input type="text" class="form-control" v-model="data_personel.m_personel_names"
+                        placeholder="Nama Personel" required
                         oninvalid="this.setCustomValidity('Nama Personel harus diisi')"
-                        oninput="setCustomValidity('')"
-                      />
+                        oninput="setCustomValidity('')" />
                     </div>
                     <div class="form-group">
                       <label class="form-label">Personel ID</label>
-                      <input
-                        type="number"
-                        pattern="[a-zA-Z0-9 ]+"
-                        class="form-control"
-                        v-model="data_personel.m_personel_personID"
-                        placeholder="Personel ID"
-                        required
-                        oninvalid="this.setCustomValidity('Personel ID harus diisi')"
-                        oninput="setCustomValidity('')"
-                      />
+                      <input type="number" pattern="[a-zA-Z0-9 ]+" class="form-control"
+                        v-model="data_personel.m_personel_personID" placeholder="Personel ID" required
+                        oninvalid="this.setCustomValidity('Personel ID harus diisi')" oninput="setCustomValidity('')" />
                     </div>
                     <div class="form-group">
                       <label class="form-label">Username</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="data_personel.username"
-                        placeholder="Username"
-                        required
-                        oninvalid="this.setCustomValidity('Username harus diisi')"
-                        oninput="setCustomValidity('')"
-                      />
+                      <input type="text" class="form-control" v-model="data_personel.username" placeholder="Username"
+                        required oninvalid="this.setCustomValidity('Username harus diisi')"
+                        oninput="setCustomValidity('')" />
                     </div>
                     <div class="form-group">
                       <label class="form-label">Jenis Kelamin</label>
-                      <select
-                        class="form-select"
-                        v-model="data_personel.m_personel_gender"
-                        required
-                        oninvalid="this.setCustomValidity('Jenis Kelamin harus diisi')"
-                        oninput="setCustomValidity('')"
-                      >
+                      <select class="form-select" v-model="data_personel.m_personel_gender" required
+                        oninvalid="this.setCustomValidity('Jenis Kelamin harus diisi')" oninput="setCustomValidity('')">
                         <option value="" disabled>
                           -- Pilih Jenis Kelamin --
                         </option>
@@ -70,78 +52,53 @@
                     </div>
                     <div class="form-group">
                       <label class="form-label">Email</label>
-                      <input
-                        type="email"
-                        class="form-control"
-                        v-model="data_personel.m_personel_email"
-                        placeholder="Email"
-                        required
-                        oninvalid="this.setCustomValidity('Email harus diisi')"
-                        oninput="setCustomValidity('')"
-                      />
+                      <input type="email" class="form-control" v-model="data_personel.m_personel_email"
+                        placeholder="Email" required oninvalid="this.setCustomValidity('Email harus diisi')"
+                        oninput="setCustomValidity('')" />
                     </div>
                     <div class="form-group">
                       <label class="form-label">Departemen</label>
-                      <select
-                        class="form-select"
-                        v-model="data_personel.id_m_departemen"
-                        required
-                        placeholder="Departemen"
-                        oninvalid="this.setCustomValidity('Departemen harus diisi')"
-                        oninput="setCustomValidity('')"
-                      >
+                      <select class="form-select" v-model="data_personel.id_m_departemen" required
+                        placeholder="Departemen" oninvalid="this.setCustomValidity('Departemen harus diisi')"
+                        oninput="setCustomValidity('')">
                         <option value="" disabled>
                           -- Pilih Departemen --
                         </option>
-                        <option
-                          v-for="val in departemens"
-                          :key="val.id"
-                          v-bind:value="val.id_m_departemen"
-                        >
+                        <option v-for="val in departemens" :key="val.id" v-bind:value="val.id_m_departemen">
                           {{ val.m_departemen_name }}
                         </option>
                       </select>
                     </div>
                     <div class="form-group">
                       <label class="form-label">Jumlah Cuti</label>
-                      <input
-                        type="number"
-                        min="0"
-                        class="form-control"
-                        v-model="data_personel.total_leave"
-                        placeholder="Jumlah Cuti"
-                        required
-                        oninvalid="this.setCustomValidity('Jumlah Cuti harus diisi')"
-                        oninput="setCustomValidity('')"
-                      />
+                      <input type="number" min="0" class="form-control" v-model="data_personel.total_leave"
+                        placeholder="Jumlah Cuti" required oninvalid="this.setCustomValidity('Jumlah Cuti harus diisi')"
+                        oninput="setCustomValidity('')" />
                     </div>
                     <div class="form-group">
                       <label class="form-label">Tanggal Kadaluarsa Cuti</label>
-                      <input
-                        type="date"
-                        class="form-control"
-                        v-model="data_personel.effective_date_leave"
-                        placeholder="Tanggal Kadaluarsa Cuti"
-                        required
+                      <input type="date" class="form-control" v-model="data_personel.effective_date_leave"
+                        placeholder="Tanggal Kadaluarsa Cuti" required
                         oninvalid="this.setCustomValidity('Tanggal Kadaluarsa Cuti harus diisi')"
-                        oninput="setCustomValidity('')"
-                      />
+                        oninput="setCustomValidity('')" />
                     </div>
+                    <!-- <div class="form-group">
+                      <label class="form-label">Status</label>
+                      <select class="form-select" v-model="data_personel.m_personel_status" required
+                        placeholder="Status" oninvalid="this.setCustomValidity('Status harus diisi')"
+                        oninput="setCustomValidity('')">
+                        <option value="" disabled>
+                          -- Pilih Status --
+                        </option>
+                        <option value="1">On</option>
+                        <option value="2">Off</option>
+                      </select>
+                    </div> -->
                     <div class="form-group">
                       <div class="mt-3">
-                        <button
-                          type="submit"
-                          id="submit"
-                          class="btn btn-primary"
-                        >
+                        <button type="submit" id="submit" class="btn btn-primary">
                           <i class="material-icons">save</i>{{ title }}
                         </button>
-                        <router-link
-                          to="/index-data-personel"
-                          class="btn btn-light"
-                        >
-                          <i class="material-icons">arrow_back</i>Kembali
-                        </router-link>
                       </div>
                     </div>
                   </form>
@@ -162,6 +119,7 @@ export default {
       data_personel: {
         m_personel_gender: "",
         id_m_departemen: "",
+        m_personel_status: ""
       },
       departemens: [],
       attendance_spot: {},

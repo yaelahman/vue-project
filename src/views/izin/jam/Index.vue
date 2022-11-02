@@ -17,13 +17,13 @@
                   <form @submit.prevent="filterRangeDate()">
                     <div class="row">
                       <div class="col-lg-3 col-md-4 col-sm-4 col-6">
-                        <label>Start Date</label>
-                        <input type="date" class="form-control start-date" placeholder="Start Date"
+                        <label>Tanggal Mulai</label>
+                        <input type="date" class="form-control start-date" placeholder="Tanggal Mulai"
                           v-model="search.startDate" @click="search.endDate = ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-6">
-                        <label>End Date</label>
-                        <input type="date" class="form-control" placeholder="End Date" :min="search.startDate"
+                        <label>Tanggal Selesai</label>
+                        <input type="date" class="form-control" placeholder="Tanggal Selesai" :min="search.startDate"
                           v-model="search.endDate" :disabled="search.startDate == ''" required />
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12">
@@ -33,6 +33,7 @@
                           <option value="0">Menunggu Persetujuan</option>
                           <option value="1">Disetujui</option>
                           <option value="2">Ditolak</option>
+                          <option value="3">Kadaluarsa</option>
                         </select>
                       </div>
                       <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">
@@ -59,14 +60,14 @@
                         <tr>
                           <th>No</th>
                           <th style="text-align: start">Nama</th>
-                          <th>Departemen</th>
+                          <th class="text-start">Departemen</th>
                           <th>Tanggal Pengajuan</th>
                           <th>Tanggal Mulai Izin</th>
                           <th>Jam Mulai Izin</th>
                           <!-- <th>Tanggal Selesai Izin</th> -->
                           <th>Jam Selesai Izin</th>
                           <th>Jumlah Jam</th>
-                          <th>Status</th>
+                          <th class="text-start">Status</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -76,7 +77,7 @@
                           <td style="width: 10px; text-align: start">
                             {{ val.personel.m_personel_names }}
                           </td>
-                          <td>
+                          <td class="text-start">
                             {{ val.personel.departemen.m_departemen_name }}
                           </td>
                           <td>
@@ -89,12 +90,12 @@
                             {{ convertDate(val.permit_startclock, "HH:mm") }}
                           </td>
                           <!-- <td>
-                                                        {{ convertDate(val.permit_endclock) }}
-                                                    </td> -->
+                          {{ convertDate(val.permit_endclock) }}
+                          </td> -->
                           <td>
                             {{ convertDate(val.permit_endclock, "HH:mm") }}
                           </td>
-                          <td>
+                          <td class="text-end">
                             {{ jumlahJam(val) }}
                           </td>
                           <td class="text-nowrap">
@@ -227,7 +228,8 @@ export default {
         if (result.toFixed(1).toString().split(".")[1] == "0") {
           return result.toString().split(".")[0] + " Jam";
         }
-        return result.toFixed(1) + " Jam";
+        let result_fix = result.toFixed(1).split('.')
+        return result_fix[0] + " Jam " + ((result_fix[1] / 10) * 60) + " Menit";
       }
       return 0 + " Jam";
     },

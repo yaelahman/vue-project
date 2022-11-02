@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="page-description">
-                                <h1>{{ title }} Jadwal Karyawan</h1>
+                                <h1>{{ title }} Personel</h1>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,8 @@
                                             <button type="submit" class="btn btn-primary" id="submit">
                                                 <i class="material-icons">save</i>Simpan
                                             </button>
-                                            <router-link to="/index-work-pattern" type="button" class="btn btn-light">
+                                            <router-link to="/index-personel-time-work" type="button"
+                                                class="btn btn-light">
                                                 <i class="material-icons">arrow_back</i>Kembali
                                             </router-link>
                                         </div>
@@ -102,8 +103,7 @@ export default {
         async loadPersonelTimeWork() {
             this.id = this.$route.params.id
             this.id = this.id != null ? this.id : ''
-            console.log(this.$route.params.update)
-            if (this.id != '' && this.$route.query.update) {
+            if (this.id != '') {
                 this.$Progress.start()
                 this.title = 'Update'
                 await axios.get(env.VITE_API_URL + 'detail-personel-time-work/' + this.id).then(response => {
@@ -118,7 +118,11 @@ export default {
                         Api.messageError(e)
                     })
             } else {
-                this.personel_time_work.id_m_work_patern = this.id
+                console.log(this.$route.params)
+                if (this.$route.params != null && this.$route.params.create) {
+
+                    this.personel_time_work.id_m_work_patern = this.$route.params.create
+                }
             }
         },
         createPersonelTimeWork() {
@@ -130,7 +134,7 @@ export default {
                 personel_time_work: this.personel_time_work
             }).then(response => {
                 if (Api.response(response.data) === Api.STATUS_SUCCESS) {
-                    this.$router.push("/index-personel-time-work")
+                    this.$router.push("/detail-work-pattern/" + this.$route.params.create)
                 }
                 $('#submit').prop('disabled', false);
                 $('#submit').html('Submit');

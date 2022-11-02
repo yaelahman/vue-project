@@ -19,9 +19,11 @@ export default {
         },
         convertDate(date, format = 'DD-MM-YYYY', empty = '-', subtract = false) {
 
-            if (subtract || date.includes('T')) {
+            if (date != null) {
+                if (subtract || date.includes('T')) {
 
-                return date != null ? moment(date).subtract(7, 'h').format(format) : empty;
+                    return date != null ? moment(date).subtract(7, 'h').format(format) : empty;
+                }
             }
             return date != null ? moment(date).format(format) : empty;
         },
