@@ -277,7 +277,7 @@
               <tbody>
                 <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
-                  <td>{{ convertDate(val.permit_date ?? val) }}</td>
+                  <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
                 </tr>
               </tbody>
             </table>
