@@ -7,6 +7,7 @@
             <div class="col">
               <div class="page-description">
                 <h1>Ringkasan Absensi</h1>
+
               </div>
             </div>
           </div>
@@ -94,7 +95,11 @@
                               {{ val.tidak_hadir ?? 0 }}
                             </div>
                           </td>
-                          <td class="text-center">{{ val.total_cuti ?? 0 }}</td>
+                          <td class="text-center">
+                            <div class="detail-as" @click="Detail(val, 'Cuti')">
+                              {{ val.total_cuti ?? 0 }}
+                            </div>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -114,7 +119,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table id="tableTerlambat" class="display text-center" style="width: 100%;">
+            <div v-if="isLoading" v-html="loader"></div>
+            <table v-else id="tableTerlambat" class="display text-center" style="width: 100%;">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
@@ -128,10 +134,10 @@
                 <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
-                      'hh:mm:ss')
+                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_startClock,
+                      'HH:mm:ss')
                   }}</td>
-                  <td>{{ val.t_absensi_catatan }}</td>
+                  <td class="text-start">{{ val.t_absensi_catatan_telat_masuk }}</td>
                   <td>{{ val.t_absensi_status == 1 ? 'WFO' : 'WFH' }}</td>
                 </tr>
               </tbody>
@@ -154,7 +160,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table id="tableTidakTerlambat" class="display text-center" style="width: 100%">
+            <div v-if="isLoading" v-html="loader"></div>
+            <table v-else id="tableTidakTerlambat" class="display text-center" style="width: 100%">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
@@ -167,8 +174,8 @@
                 <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
-                      'hh:mm:ss')
+                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_startClock,
+                      'HH:mm:ss')
                   }}</td>
                   <td>{{ val.t_absensi_status == 1 ? 'WFO' : 'WFH' }}</td>
                 </tr>
@@ -191,23 +198,22 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table id="tableWFH" class="display text-center" style="width: 100%">
+            <div v-if="isLoading" v-html="loader"></div>
+            <table v-else id="tableWFH" class="display text-center" style="width: 100%">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
                   <th>Tanggal</th>
                   <th>Jam Masuk</th>
-                  <th>Keterangan WFH</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_endClock,
-                      'hh:mm:ss')
+                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_startClock,
+                      'HH:mm:ss')
                   }}</td>
-                  <td>{{ val.t_absensi_catatan }}</td>
                 </tr>
               </tbody>
             </table>
@@ -228,7 +234,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body table-responsive">
-            <table id="tableTidakAbsen" class="display text-center" style="width: 100%">
+            <div v-if="isLoading" v-html="loader"></div>
+            <table v-else id="tableTidakAbsen" class="display text-center" style="width: 100%">
               <thead class="text-center">
                 <tr>
                   <th>No</th>
@@ -239,6 +246,38 @@
                 <tr v-for="(val, index) in detail_attendance_summary" :key="index">
                   <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+              Tutup
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="ModalDetailCuti" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ modal.title }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+          </div>
+          <div class="modal-body table-responsive">
+            <div v-if="isLoading" v-html="loader"></div>
+            <table v-else id="tableCuti" class="display text-center" style="width: 100%">
+              <thead class="text-center">
+                <tr>
+                  <th>No</th>
+                  <th>Tanggal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(val, index) in detail_attendance_summary" :key="index">
+                  <td>{{ parseInt(index) + 1 }}</td>
+                  <td>{{ convertDate(val.permit_date ?? val) }}</td>
                 </tr>
               </tbody>
             </table>
@@ -278,6 +317,19 @@ export default {
         endDate: "",
         departemen: ""
       },
+      isLoading: false,
+      loader: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                  style="margin:auto;background:transparent;display:block;" width="100px" height="100px"
+                  viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                  <circle cx="50" cy="50" r="30" stroke="#34b1e8" stroke-width="10" fill="none"></circle>
+                  <circle cx="50" cy="50" r="30" stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none">
+                    <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s"
+                      values="0 50 50;180 50 50;720 50 50" keyTimes="0;0.5;1"></animateTransform>
+                    <animate attributeName="stroke-dasharray" repeatCount="indefinite" dur="1s"
+                      values="18.84955592153876 169.64600329384882;94.2477796076938 94.24777960769377;18.84955592153876 169.64600329384882"
+                      keyTimes="0;0.5;1"></animate>
+                  </circle>
+                </svg>`,
       modal: {
         id_m_personel: "",
         title: "",
@@ -300,6 +352,7 @@ export default {
   },
   methods: {
     async Detail(val, type) {
+      this.isLoading = true;
       this.modal = {
         title: "Data " + this.capitalizeFirstLetter(type) + ' ' + val.m_personel_names,
         id_m_personel: val.id_m_personel,
@@ -308,6 +361,7 @@ export default {
         data: null,
         type: type,
       }
+
       $('#ModalDetail' + this.modal.type.replace(' ', '')).modal('show')
       this.detail_attendance_summary = []
       if (this.table2 != null) {
@@ -318,6 +372,7 @@ export default {
       await axios
         .get(env.VITE_API_URL + "detail-attendance-summary", { params: this.modal })
         .then((response) => {
+          this.isLoading = !this.isLoading;
           this.$Progress.finish();
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
             // setTimeout(() => {
@@ -330,21 +385,25 @@ export default {
           }
         })
         .catch((e) => {
+          this.isLoading = !this.isLoading;
           this.$Progress.fail();
           Api.messageError(e);
         });
     },
     loadDepartemen() {
+      this.isLoading = !this.isLoading;
       this.$Progress.start();
       axios
         .get(env.VITE_API_URL + "index-departemen")
         .then((response) => {
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
+            this.isLoading = !this.isLoading;
             this.$Progress.finish();
             this.departemens = response.data.data;
           }
         })
         .catch((e) => {
+          this.isLoading = !this.isLoading;
           this.$Progress.fail();
           Api.messageError(e);
         });
@@ -421,6 +480,10 @@ export default {
     resetEndDate() {
       this.search.endDate = "";
     },
+  },
+  convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
+    console.log(date)
+    return Api.convertDate(date, format, empty, subtract);
   },
 };
 </script>

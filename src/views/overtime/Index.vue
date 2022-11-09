@@ -67,6 +67,7 @@
                         <tr>
                           <th>No</th>
                           <th style="text-align: start">Nama</th>
+                          <th>Tanggal Pengajuan</th>
                           <th>Tanggal Mulai</th>
                           <th>Jam Mulai</th>
                           <th>Tanggal Selesai</th>
@@ -81,6 +82,9 @@
                           <td>{{ index + 1 }}</td>
                           <td style="width: 10px; text-align: start">
                             {{ val.personel.m_personel_names }}
+                          </td>
+                          <td>
+                            {{ convertDate(val.created_at) }}
                           </td>
                           <td v-if="val.t_absensi_startDate != null">
                             {{ convertDate(val.t_absensi_startDate) }}

@@ -570,6 +570,7 @@ export default {
             }
         },
         activate: function (el) {
+            this.countApproval();
             if (el == 1) {
                 $('.submenu').removeClass('show')
             }
@@ -579,10 +580,12 @@ export default {
             this.active_el = el;
         },
         DropdownSidebar(number) {
+            this.countApproval();
             $('.submenu').removeClass('show')
             $('.submenu-' + number).addClass('show')
         },
         Dropdown() {
+            this.countApproval();
             if (this.dropdown) {
                 $('.dd-parent').removeClass('show')
                 $('.dd-menu').removeClass('show')
