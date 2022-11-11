@@ -17,6 +17,36 @@
                   <router-link to="/create-data-personel" class="btn btn-primary">
                     <i class="material-icons">add</i>Tambah
                   </router-link>
+                  <br>
+                  <div class="mt-2">
+                    <form @submit.prevent="loadPersonel()">
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <label>Filter Departemen:</label>
+                            <select v-model="departemen"  class="form-control">
+                              <option value="" selected>Semua</option>
+                              <option v-for="(val, index) in departemens" :key="index" :value="val.id_m_departemen">{{ val.m_departemen_name }}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <label>Filter Jadwal Kerja:</label>
+                            <select v-model="work_patern"  class="form-control">
+                              <option value="" selected>Semua</option>
+                              <option v-for="(val, index) in work_paterns" :key="index" :value="val.id_m_work_patern">{{ val.m_work_patern_name }}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-12 d-flex" style="margin-top: 1.8rem">
+                          <button class="btn btn-sm text-nowrap btn-primary mb-2 me-2" style="width: 120px">
+                            Tampilkan
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -106,6 +136,10 @@ export default {
     return {
       personels: {},
       table: null,
+      departemen: "",
+      departemends: [],
+      work_paterns: [],
+      work_patern: ""
     };
   },
   mounted() {
@@ -114,6 +148,8 @@ export default {
       this.table = $("#dt-personel").DataTable({ autoWidth: false });
     }, 1000);
     this.loadPersonel();
+    this.loadDepartemen()
+    this.loadWorkPattern()
 
     $(document).on('click', '.btn-copy-text', function () {
       var value = $('.copy-text').val(); //Upto this I am getting value
@@ -134,10 +170,40 @@ export default {
     })
   },
   methods: {
+    loadWorkPattern() {
+      axios.get(env.VITE_API_URL + 'index-work-pattern').then(response => {
+        if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
+          this.work_paterns = response.data.data
+        }
+      })
+        .catch(e => {
+          Api.messageError(e)
+        })
+    },
+    loadDepartemen() {
+      this.$Progress.start();
+      axios
+        .get(env.VITE_API_URL + "index-departemen")
+        .then((response) => {
+          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
+            this.$Progress.finish();
+            this.departemens = response.data.data;
+          }
+        })
+        .catch((e) => {
+          this.$Progress.fail();
+          Api.messageError(e);
+        });
+    },
     loadPersonel() {
       this.$Progress.start();
       axios
-        .get(env.VITE_API_URL + "index-data-personel")
+        .get(env.VITE_API_URL + "index-data-personel", {
+          params: {
+            departemen: this.departemen,
+            work_patern: this.work_patern,
+          }
+        })
         .then((response) => {
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
             this.$Progress.finish();
