@@ -482,11 +482,20 @@ export default {
                 hari: 0,
                 cuti: 0,
                 lembur: 0,
-            }
+            },
+            routeNow: null
         };
     },
     created() {
         moment.locale('id')
+        if (this.routeNow == null) {
+            this.routeNow = this.$router.currentRoute.value;
+        } else {
+            if (this.routeNow != this.$router.currentRoute.value) {
+                this.countApproval();
+                this.routeNow = this.$router.currentRoute.value
+            }
+        }
         console.log(this.$router.currentRoute.value)
         this.tanggal_sekarang = this.tanggalIndo(moment().format('d D M YYYY'))
         this.isLoggedIn = this.$store.getters.isLoggedIn

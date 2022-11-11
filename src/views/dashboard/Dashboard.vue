@@ -750,7 +750,7 @@
                     <td>{{ val.departemen.m_departemen_name }}</td>
                     <td>
                       {{
-    val.permit.permit_description
+    val.permit != null
       ? val.permit.permit_description
       : "-"
                       }}
