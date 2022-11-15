@@ -160,12 +160,12 @@ export default {
             this.$router.push("/index-data-personel");
           }
           $("#submit").prop("disabled", false);
-          $("#submit").html("Save");
+          $("#submit").html("Simpan");
         })
         .catch((e) => {
           Api.messageError(e);
           $("#submit").prop("disabled", false);
-          $("#submit").html("Save");
+          $("#submit").html("Simpan");
         });
     },
     loadDataPersonel() {

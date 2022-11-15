@@ -226,10 +226,10 @@
             </div>
             <div class="modal-footer">
               <button type="submit" id="submit" class="btn btn-primary">
-                Save
+                Simpan
               </button>
               <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                Close
+                Tutup
               </button>
             </div>
           </form>
