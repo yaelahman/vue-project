@@ -101,11 +101,11 @@
 </svg>
                                 </router-link>
                               </button>
-                              <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right" title="Edit">
+                              <!-- <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right" title="Edit">
                                 <router-link :to="{ name: 'editDataPersonel', params: { id: personel.id_m_personel }}">
                                   <i class="material-icons" style="color: #4d546b;">edit</i>
                                 </router-link>
-                              </button>
+                              </button> -->
                               <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right" title="Hapus" @click="confirmDelete(
                                 personel.id_m_personel,
                                 personel.m_personel_names,

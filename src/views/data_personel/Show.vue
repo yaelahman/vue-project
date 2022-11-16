@@ -13,6 +13,13 @@
           <div class="row">
             <div class="col">
               <div class="card">
+                <div class="card-header">
+                  <div class="mt-0">
+                    <router-link to="/index-data-personel" class="btn btn-light border rounded-pill">
+                      <i class="material-icons">arrow_back</i>Kembali
+                    </router-link>
+                  </div>
+                </div>
                 <div class="card-body">
                   <form class="mt-3" @submit.prevent="createDataPersonel()">
                     <div class="form-group">
@@ -87,14 +94,13 @@
                         placeholder="Password" required disabled oninvalid="this.setCustomValidity('Email harus diisi')"
                         oninput="setCustomValidity('')">
                     </div>
-                    <div class="form-group">
-                      <div class="mt-3">
-                        <router-link to="/index-data-personel" class="btn btn-light">
-                          <i class="material-icons">arrow_back</i>Kembali
-                        </router-link>
-                      </div>
-                    </div>
                   </form>
+                  <div class="mt-3">
+                    <router-link :to="{ name: 'editDataPersonel', params: { id: data_personel.id_m_personel } }"
+                      class="btn btn-warning border rounded-pill">
+                      <i class="material-icons">edit</i>Edit
+                    </router-link>
+                  </div>
                 </div>
               </div>
             </div>

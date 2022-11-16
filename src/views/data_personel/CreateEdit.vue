@@ -16,9 +16,12 @@
                 <div class="card-body">
                   <form class="mt-3" @submit.prevent="createDataPersonel()">
                     <div class="mb-3">
-                      <router-link to="/index-data-personel" class="btn btn-light">
-                        <i class="material-icons">arrow_back</i>Kembali
-                      </router-link>
+                      <div class="mt-0">
+                        <router-link :to="{ name: 'showDataPersonel', params: { id: data_personel.id_m_personel } }"
+                          class="btn btn-light border rounded-pill">
+                          <i class="material-icons">arrow_back</i>Kembali
+                        </router-link>
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="form-label">Nama Personel</label>
@@ -173,7 +176,7 @@ export default {
       this.id = this.id != null ? this.id : "";
       if (this.id != "") {
         this.$Progress.start();
-        this.title = "Update";
+        this.title = "Simpan";
         axios
           .get(env.VITE_API_URL + "show-data-personel/" + this.id)
           .then((response) => {
