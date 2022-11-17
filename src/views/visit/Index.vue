@@ -178,7 +178,7 @@
                   :disabled="modal.endClock === null" required />
               </div>
               <div class="form-group mt-2">
-                <label>Catatan</label>
+                <label>Catatan Kunjungan</label>
                 <textarea class="form-control" v-model="modal.catatan" step="any" required></textarea>
               </div>
             </div>

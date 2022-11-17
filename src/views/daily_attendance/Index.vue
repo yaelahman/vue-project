@@ -165,7 +165,7 @@
         <div class="modal-content">
           <form @submit.prevent="updateAbsensi()">
             <div class="modal-header">
-              <h5 class="modal-title">Perbarui Kehadiran Harian</h5>
+              <h5 class="modal-title">{{ modal.title }} Kehadiran Harian</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <input type="hidden" v-model="modal.startDate" />
@@ -216,6 +216,15 @@
                 <label>Catatan Terlambat Pulang <small class="text-danger">*Isi jika ada</small></label>
                 <textarea class="form-control" v-model="modal.catatan_pulang"></textarea>
 
+              </div>
+              <div class="form-group mt-2">
+                <label>Lokasi Kehadiran <small class="text-danger">*Opsional</small></label>
+                <select v-model="modal.attendance_spot" class="form-control">
+                  <option value="" disabled>-- Pilih Lokasi Kehadiran --</option>
+                  <option v-for="(val, index) in attendance_spot" :key="index" :value="val.id_m_attendance_spots">
+                    {{ val.m_attendance_spots_name }}
+                  </option>
+                </select>
               </div>
               <div class="form-group mt-2 ml-5">
                 <div class="form-check form-switch">
@@ -370,6 +379,7 @@ export default {
         photo2: "",
         catatan_masuk: "",
         catatan_pulang: "",
+        attendance_spot: ""
       },
       center: { lat: 0, lng: 0 },
       markerOptions: { position: { lat: 0, lng: 0 }, label: "O" },
@@ -377,6 +387,7 @@ export default {
       markers: [],
       markers2: [],
       filterType: null,
+      attendance_spot: [],
     };
   },
   components: { GoogleMap, Marker },
@@ -384,6 +395,7 @@ export default {
     this.loadDailyAttendance();
     this.getDateNow();
     this.loadPersonel()
+    this.getAttendanceSpot()
   },
   mounted() {
     $("#pac-card").addClass("d-none");
@@ -399,6 +411,18 @@ export default {
     },
     getMapData(place) {
       this.place = place;
+    },
+    getAttendanceSpot() {
+      this.$Progress.start();
+      axios
+        .get(env.VITE_API_URL + "attendance-spot")
+        .then((response) => {
+          this.$Progress.finish();
+          this.attendance_spot = response.data.data;
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+        });
     },
     hitungDenda(val) {
       let denda = localStorage.getItem("denda") != undefined ? localStorage.getItem("denda") : 0
@@ -533,6 +557,7 @@ export default {
     },
     Modal(val, type = "start") {
       this.modal = {
+        title: "Perbarui",
         id: val.id_t_absensi,
         nama: val.personel.m_personel_names,
         personel: val.personel.id_m_personel,
@@ -565,7 +590,7 @@ export default {
     },
     ModalReset() {
       this.modal = {
-        title: "Tambah Kunjungan",
+        title: "Tambah",
         id: "",
         nama: "",
         isLate: '',

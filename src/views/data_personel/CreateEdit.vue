@@ -17,8 +17,8 @@
                   <form class="mt-3" @submit.prevent="createDataPersonel()">
                     <div class="mb-3">
                       <div class="mt-0">
-                        <router-link :to="{ name: 'showDataPersonel', params: { id: data_personel.id_m_personel } }"
-                          class="btn btn-light border rounded-pill">
+                        <router-link :to="{ name: 'showDataPersonel', params: { id: id } }"
+                          class="btn btn-light border rounded-pill btn-back">
                           <i class="material-icons">arrow_back</i>Kembali
                         </router-link>
                       </div>
@@ -160,7 +160,7 @@ export default {
         })
         .then((response) => {
           if (Api.response(response.data) === Api.STATUS_SUCCESS) {
-            this.$router.push("/index-data-personel");
+            this.$router.push({ name: 'showDataPersonel', params: { id: this.id } });
           }
           $("#submit").prop("disabled", false);
           $("#submit").html("Simpan");

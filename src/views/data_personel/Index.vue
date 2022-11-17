@@ -23,7 +23,7 @@
                       <div class="row">
                         <div class="col-sm-3">
                           <div class="form-group">
-                            <label>Filter Departemen:</label>
+                            <label>Departemen:</label>
                             <select v-model="departemen"  class="form-control">
                               <option value="" selected>Semua</option>
                               <option v-for="(val, index) in departemens" :key="index" :value="val.id_m_departemen">{{ val.m_departemen_name }}</option>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-sm-3">
                           <div class="form-group">
-                            <label>Filter Jadwal Kerja:</label>
+                            <label>Jadwal Kerja:</label>
                             <select v-model="work_patern"  class="form-control">
                               <option value="" selected>Semua</option>
                               <option v-for="(val, index) in work_paterns" :key="index" :value="val.id_m_work_patern">{{ val.m_work_patern_name }}</option>
@@ -202,6 +202,7 @@ export default {
           params: {
             departemen: this.departemen,
             work_patern: this.work_patern,
+            isIndex: 1,
           }
         })
         .then((response) => {

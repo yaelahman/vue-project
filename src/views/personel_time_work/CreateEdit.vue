@@ -54,7 +54,15 @@
                                             <button type="submit" class="btn btn-primary" id="submit">
                                                 <i class="material-icons">save</i>Simpan
                                             </button>
-                                            <router-link to="/index-personel-time-work" type="button"
+                                            <router-link v-if="create != null" :to="{
+                                                name: 'detailWorkPattern',
+                                                params: {
+                                                    id: create,
+                                                },
+                                            }" type="button" class="btn btn-light">
+                                                <i class="material-icons">arrow_back</i>Kembali
+                                            </router-link>
+                                            <router-link v-else to="/index-personel-time-work" type="button"
                                                 class="btn btn-light">
                                                 <i class="material-icons">arrow_back</i>Kembali
                                             </router-link>
@@ -82,7 +90,8 @@ export default {
                 id_m_work_patern: ''
             },
             personels: {},
-            work_patterns: {}
+            work_patterns: {},
+            create: null,
         };
     },
     mounted() {
@@ -95,6 +104,7 @@ export default {
         this.update = this.$route.params.update
     },
     async created() {
+        this.create = this.$route.params.create != null ? this.$route.params.create : null
         this.loadPersonel();
         this.loadWorkPattern();
         await this.loadPersonelTimeWork();
