@@ -37,14 +37,15 @@
                             <th>Email</th>
                             <th>DeviceID</th>
                             <th>Status</th>
+                            <th>Mulai Bekerja</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody v-if="!isLoading">
                         <tr v-for="(val, index) in data.data" :key="index" class="odd">
                             <td class="text-center">{{ (current_page == 1 ? 0 : ((current_page - 1) * 10)) +
-                                    (index
-                                        + 1)
+                            (index
+                            + 1)
                             }}</td>
                             <td style="width: 10px; text-align: start;">{{ val.m_personel_names }}</td>
                             <td>{{ val.m_personel_personID }}</td>
@@ -54,9 +55,11 @@
                             <td>
                                 <button style="cursor: pointer;" @click="changeStatus(val)"
                                     :class="val.m_personel_status == 1 ? 'btn btn-success btn-sm' : 'btn btn-danger btn-sm'">{{
-                                            val.m_personel_status == 1 ? 'On' : 'Off'
+                                    val.m_personel_status == 1 ? 'On' : 'Off'
                                     }}</button>
                             </td>
+                            <td>{{ val.work_personel != null ? convertDate(val.work_personel.m_work_personel_time) : '-'
+                            }}</td>
                             <td class="text-center">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
@@ -247,6 +250,7 @@ export default {
                         show: this.show,
                         search: search,
                         isIndex: 1,
+                        ...this.$route.query
                     }
                 })
                 .then((response) => {

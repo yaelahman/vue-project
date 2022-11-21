@@ -50,7 +50,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <Table />
+                    <Table v-if="renderComponent" />
                   </div>
                 </div>
               </div>
@@ -73,7 +73,8 @@ export default {
       departemen: "",
       departemends: [],
       work_paterns: [],
-      work_patern: ""
+      work_patern: "",
+      renderComponent: true
     };
   },
   components: { Table },
@@ -137,6 +138,12 @@ export default {
           work_patern: this.work_patern,
         }
       })
+      setTimeout(async () => {
+        this.renderComponent = false;
+        // alert("KE")
+        await this.$nextTick();
+        this.renderComponent = true;
+      }, 500)
     },
     convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
       return Api.convertDate(date, format, empty, subtract);
