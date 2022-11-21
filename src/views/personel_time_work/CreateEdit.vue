@@ -62,8 +62,10 @@
                                             }" type="button" class="btn btn-light">
                                                 <i class="material-icons">arrow_back</i>Kembali
                                             </router-link>
-                                            <router-link v-else to="/index-personel-time-work" type="button"
-                                                class="btn btn-light">
+                                            <router-link v-else :to="{
+                                                path: '/index-personel-time-work',
+                                                query: $route.query
+                                            }" type="button" class="btn btn-light">
                                                 <i class="material-icons">arrow_back</i>Kembali
                                             </router-link>
                                         </div>
@@ -181,9 +183,9 @@ export default {
             }
         },
         loadWorkPattern() {
-            axios.get(env.VITE_API_URL + 'index-work-pattern').then(response => {
+            axios.get(env.VITE_API_URL + 'index-work-pattern?show=1000').then(response => {
                 if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-                    this.work_patterns = response.data.data
+                    this.work_patterns = response.data.data.data
                 }
             })
                 .catch(e => {

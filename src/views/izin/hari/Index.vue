@@ -55,75 +55,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table id="dt-hari" class="display nowrap w-100">
-                      <thead class="text-center text-nowrap">
-                        <tr>
-                          <th>No</th>
-                          <th style="text-align: start">Nama</th>
-                          <th>Departemen</th>
-                          <th>Tanggal Pengajuan</th>
-                          <th>Jumlah Hari</th>
-                          <th>Status</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr style="text-align: center" v-for="(val, index) in permits" :key="index">
-                          <td>{{ index + 1 }}</td>
-                          <td style="text-align: start">
-                            {{ val.personel.m_personel_names }}
-                          </td>
-                          <td>
-                            {{ val.personel.departemen.m_departemen_name }}
-                          </td>
-                          <td v-if="val.created_at != null">
-                            {{ convertDate(val.created_at, "DD-MM-YYYY", '-', true) }}
-                          </td>
-                          <td v-else class="text-center">-</td>
-                          <td>
-                            {{ jumlahHari(val) }}
-                          </td>
-                          <td class="text-nowrap">
-                            <div v-html="mapStatus(val.permit_status)"></div>
-                          </td>
-                          <td class="w-100 d-flex justify-content-start">
-                            <div class="btn-group">
-                              <router-link :to="{
-                                name: 'detailIzin',
-                                params: {
-                                  id: val.id_permit_application,
-                                },
-                              }" class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
-                                title="Detail">
-                                <i class="material-icons">remove_red_eye</i>
-                              </router-link>
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Hapus" @click="
-                                  confirmDelete(val.id_permit_application)
-                                ">
-                                <i class="material-icons">delete</i>
-                              </button>
-                              <div v-if="val.permit_status == 0" style="display: contents">
-                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                  data-placement="right" title="Setuju" data-bs-toggle="modal"
-                                  data-bs-target="#ModalCatatan" @click="
-                                    Modal(val.id_permit_application, 'setuju')
-                                  ">
-                                  <i class="material-icons">check</i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                  data-placement="right" title="Tolak" data-bs-toggle="modal"
-                                  data-bs-target="#ModalCatatan" @click="
-                                    Modal(val.id_permit_application, 'tolak')
-                                  ">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <TableVue v-if="renderComponent" />
                   </div>
                 </div>
               </div>
@@ -132,167 +64,54 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="ModalCatatan" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <p class="text-center">
-              Silahkan input catatan dari admin pada kolom di bawah ini:
-            </p>
-          </div>
-          <div class="mx-5">
-            <textarea class="form-control" v-model="data.catatan" cols="30" rows="10"
-              placeholder="Catatan dari admin"></textarea>
-          </div>
-          <div class="modal-footer text-center">
-            <div class="mx-auto">
-              <button type="button" class="btn rounded-pill btn-light me-2 btn-cancel" data-bs-dismiss="modal">
-                Kembali
-              </button>
-              <button type="button" @click="permitApprove()" class="btn rounded-pill btn-primary btn-submit">
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="ModalImage" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header text-center">
-            <h5 class="modal-title">Foto Izin:</h5>
-          </div>
-          <div class="modal-body">
-            <img :src="url" alt="" style="width: 100%" />
-          </div>
-          <div class="modal-footer text-center">
-            <div class="mx-auto">
-              <button type="button" class="btn rounded-pill btn-light me-2 btn-cancel" data-bs-dismiss="modal">
-                Kembali
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </div>
 </template>
 <script>
 import moment from "moment";
 import * as Api from "../../../helper/Api.js";
 import Swal from "sweetalert2";
+import TableVue from "./Table.vue";
 export default {
   data() {
     return {
-      permits: [],
-      personels: {},
-      table: null,
-      edit: null,
       search: {
         t_absensi_Dates: "",
         startDate: "",
         status: "",
       },
-      data: {
-        catatan: "",
-        type: "",
-        id: "",
-      },
-      url: "",
       filterType: null,
+      renderComponent: true
       // table: null
     };
   },
-  async created() {
-    this.$Progress.start();
-    // this.getDateNow();
-  },
-  mounted() {
-    setTimeout(() => {
-      this.table = $("#dt-hari").DataTable({
-        autoWidth: false,
-        destroy: true,
-      });
-    }, 1000);
-    this.loadPermits();
+  components: { TableVue },
+  created() {
+    this.search = {
+      t_absensi_Dates: this.$route.query.t_absensi_Dates ?? '',
+      startDate: this.$route.query.startDate ?? '',
+      endDate: this.$route.query.endDate ?? '',
+      status: this.$route.query.status ?? '',
+    }
   },
   methods: {
-    getDateNow() {
-      const today = new Date();
-      this.search.t_absensi_Dates = moment(today).format("YYYY-MM-DD");
-    },
-    jumlahHari(val) {
-      var start = val.permit_startclock;
-      var end = val.permit_endclock;
-      if (start != null) {
-        var a = moment(moment(start).toArray());
-        var b = moment(moment(end).toArray());
-        var result = b.diff(a, "d");
-        return (result < 0 ? 0 : result + 1) + " Hari";
-      }
-      return val.permit_date.length + " Hari";
-    },
-    mapStatus(status) {
-      switch (status) {
-        case 0:
-          return '<span class="text-muted">Menunggu Persetujuan</span>';
-          break;
-        case 1:
-          return '<span class="text-success">Disetujui</span>';
-          break;
-        case 2:
-          return '<span class="text-danger">Ditolak</span>';
-          break;
-        case 3:
-          return '<span class="text-warning">Kadaluarsa</span>';
-          break;
-        default:
-          break;
-      }
-    },
-    Modal(id, type = "") {
-      this.data = {
-        id: id,
-        type: type,
-      };
-    },
-    ModalImage(url) {
-      this.url = url;
-    },
-    permitApprove(type = null) {
-      if (type != null) {
-        this.data.id = this.id;
-        this.data.type = type;
-      }
-      $(".btn-submit").attr("disabled", true);
-      // $('.btn-submit').attr('disabled', true)
-      axios
-        .post(env.VITE_API_URL + "izin/approve", this.data)
-        .then((response) => {
-          this.loadPermits();
-          let status = response.data.status;
-          let message = response.data.message;
-          let status_message =
-            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-          Toast.fire({
-            icon: status_message,
-            title: message,
-          });
-          $(".btn-submit").attr("disabled", false);
-          $(".btn-cancel").trigger("click");
-        })
-        .catch((e) => {
-          Api.messageError(e);
-          $(".btn-submit").attr("disabled", false);
-        });
-    },
+
     filterRangeDate() {
       if (this.filterType == "show") {
         var a = moment(moment(this.search.startDate).toArray());
         var b = moment(moment(this.search.endDate).toArray());
         if (b.diff(a, "days") + 1 < 32) {
-          this.loadPermits();
+
+          this.$router.push({
+            path: '/izin-hari',
+            query: this.search
+          })
+          setTimeout(async () => {
+            this.renderComponent = false;
+
+            await this.$nextTick();
+            this.renderComponent = true;
+          }, 100)
         } else {
           Swal.fire({
             title: "Perhatian",
@@ -333,56 +152,6 @@ export default {
           }
         });
       }
-    },
-    loadPermits() {
-      this.$Progress.start();
-      axios
-        .get(env.VITE_API_URL + "izin/get/2", { params: this.search })
-        .then((response) => {
-          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-            this.$Progress.finish();
-            this.permits = response.data.data;
-            this.table.destroy();
-            this.$nextTick(() => {
-              this.table = $("#dt-hari").DataTable({ autoWidth: false });
-            });
-          }
-        })
-        .catch((e) => {
-          this.$Progress.fail();
-          Api.messageError(e);
-        });
-    },
-    confirmDelete(id) {
-      return Api.confirmDelete(
-        "Apakah anda yakin?",
-        "Data izin akan dihapus!"
-      ).then((result) => {
-        if (result.isConfirmed) {
-          this.deletePermit(id);
-        }
-      });
-    },
-    deletePermit(id) {
-      axios
-        .delete(env.VITE_API_URL + "izin/2/" + id)
-        .then((response) => {
-          this.loadPermits();
-          let status = response.data.status;
-          let message = response.data.message;
-          let status_message =
-            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-          Toast.fire({
-            icon: status_message,
-            title: message,
-          });
-        })
-        .catch((e) => {
-          Api.messageError(e);
-        });
-    },
-    convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
-      return Api.convertDate(date, format, empty, subtract);
     },
   },
 };

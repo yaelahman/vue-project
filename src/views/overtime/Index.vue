@@ -62,103 +62,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table id="dt-overtime" class="display nowrap w-100">
-                      <thead class="text-center text-nowrap">
-                        <tr>
-                          <th>No</th>
-                          <th style="text-align: start">Nama</th>
-                          <th>Tanggal Pengajuan</th>
-                          <th>Tanggal Mulai</th>
-                          <th>Jam Mulai</th>
-                          <th>Tanggal Selesai</th>
-                          <th>Jam Selesai</th>
-                          <th class="text-end">Menit Lembur</th>
-                          <th class="text-center">Status</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr style="text-align: center" v-for="(val, index) in overtimes" :key="index">
-                          <td>{{ index + 1 }}</td>
-                          <td style="width: 10px; text-align: start">
-                            {{ val.personel.m_personel_names }}
-                          </td>
-                          <td>
-                            {{ convertDate(val.created_at) }}
-                          </td>
-                          <td v-if="val.t_absensi_startDate != null">
-                            {{ convertDate(val.t_absensi_startDate) }}
-                          </td>
-                          <td v-else class="text-center">-</td>
-                          <td class="text-nowrap" v-if="val.t_absensi_startClock != null">
-                            {{ val.t_absensi_startClock }} WIB
-                          </td>
-                          <td v-else class="text-center">-</td>
-                          <td v-if="val.t_absensi_endDate != null">
-                            {{ convertDate(val.t_absensi_endDate) }}
-                          </td>
-                          <td v-else class="text-center">-</td>
-                          <td class="text-nowrap" v-if="val.t_absensi_endClock != null">
-                            {{ val.t_absensi_endClock }} WIB
-                          </td>
-                          <td v-else class="text-center">-</td>
-                          <td class="text-end">
-                            {{ menitLembur(val) }}
-                          </td>
-                          <td class="text-center">
-                            <div v-html="mapStatus(val.t_absensi_status_admin)"></div>
-                          </td>
-                          <td class="text-start">
-                            <div class="btn-group">
-                              <button v-if="val.t_absensi_latLong != null" type="button" class="btn btn-sm btn-light"
-                                data-bs-toggle="modal" data-toggle="tooltip" data-placement="right" title="Lokasi awal"
-                                data-bs-target="#ModalMaps" @click="Maps(val, 'start')">
-                                <i class="material-icons">place</i>
-                              </button>
-                              <button v-if="val.t_absensi_latLongEnd != null" type="button" class="btn btn-sm btn-light"
-                                data-toggle="tooltip" data-placement="right" title="Lokasi akhir" data-bs-toggle="modal"
-                                data-bs-target="#ModalMaps" @click="Maps(val, 'end')">
-                                <i class="material-icons">place</i>
-                              </button>
-                              <button v-if="val.photo_absensi.length > 0" type="button" class="btn btn-sm btn-light"
-                                data-bs-toggle="modal" data-bs-target="#ModalImage" @click="Modal(val)">
-                                <i class="material-icons">image</i>
-                              </button>
-                              <button v-if="val.t_absensi_catatan != null" type="button" class="btn btn-sm btn-light"
-                                data-bs-toggle="modal" data-bs-target="#ModalCatatan" @click="Modal(val, 'end')">
-                                <i class="material-icons">book</i>
-                              </button>
-                              <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal"
-                                data-toggle="tooltip" data-placement="right" title="Edit" data-bs-target="#Modal"
-                                @click="Modal(val)">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Hapus" @click="
-                                  confirmDelete(
-                                    val.id_t_absensi,
-                                    val.personel.m_personel_names
-                                  )
-                                ">
-                                <i class="material-icons">delete</i>
-                              </button>
-                              <div v-if="val.t_absensi_status_admin == 0" style="display: contents">
-                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                  data-placement="right" title="Setuju" data-bs-toggle="modal"
-                                  data-bs-target="#ModalApproval" @click="ModalApprove(val, 'setuju')">
-                                  <i class="material-icons">check</i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                  data-placement="right" title="Tolak" data-bs-toggle="modal"
-                                  data-bs-target="#ModalApproval" @click="ModalApprove(val, 'tolak')">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <Table v-if="renderComponent" />
                   </div>
                 </div>
               </div>
@@ -167,179 +71,7 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="ModalApproval" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <p class="text-center">
-              Silahkan input catatan dari admin pada kolom di bawah ini:
-            </p>
-          </div>
-          <div class="mx-5">
-            <div class="form-group my-3">
-              <label>Catatan Lembur</label>
-              <textarea class="form-control" v-model="data.catatan_lembur" readonly step="any"></textarea>
-            </div>
-            <textarea class="form-control" v-model="data.catatan" cols="30" rows="10"
-              placeholder="Catatan dari admin"></textarea>
-          </div>
-          <div class="modal-footer text-center">
-            <div class="mx-auto">
-              <button type="button" class="btn rounded-pill btn-light me-2 btn-cancel" data-bs-dismiss="modal">
-                Kembali
-              </button>
-              <button type="button" @click="overtimeApprove()" class="btn rounded-pill btn-primary btn-submit">
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form @submit.prevent="updateAbsensi()">
-            <div class="modal-header">
-              <h5 class="modal-title">{{ modal.title }}</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-            </div>
-            <input type="hidden" v-model="modal.startDate" />
-            <input type="hidden" v-model="modal.endDate" />
-            <div class="modal-body">
-              <div class="form-group mt-2">
-                <label>Nama</label>
-                <select class="form-control" required v-model="modal.personel">
-                  <option value="" disabled>-- Pilih Personel --</option>
-                  <option v-for="(row, index) in personels" :key="index" :value="row.id_m_personel">
-                    {{ row.m_personel_names }}
-                  </option>
-                </select>
-              </div>
-              <div class="form-group mt-2">
-                <label>Tanggal Mulai</label>
-                <input type="date" class="form-control" v-model="modal.startDate" step="any" required />
-              </div>
-              <div class="form-group mt-2">
-                <label>Jam Mulai</label>
-                <input type="time" name="time" class="form-control" v-model="modal.startClock" step="any" required />
-              </div>
-              <div class="form-group mt-2">
-                <label>Tanggal Selesai</label>
-                <input type="date" class="form-control" v-model="modal.endDate" step="any"
-                  :disabled="modal.endDate === null" required />
-              </div>
-              <div class="form-group mt-2">
-                <label>Jam Selesai</label>
-                <input type="time" name="time" class="form-control" v-model="modal.endClock" step="any"
-                  :disabled="modal.endClock === null" required />
-              </div>
-              <div class="form-group mt-2">
-                <label>Catatan Lembur</label>
-                <textarea class="form-control" v-model="modal.catatan" step="any"></textarea>
-              </div>
-              <div class="form-group mt-2">
-                <label>Status</label>
-                <select class="form-control" required v-model="modal.status_admin">
-                  <option value="" disabled>-- Pilih Status --</option>
-                  <option value="0">Menunggu Persetujuan</option>
-                  <option value="1">Disetujui</option>
-                  <option value="2">Ditolak</option>
-                </select>
-              </div>
-              <div class="form-group mt-2">
-                <label>Catatan Approval</label>
-                <textarea class="form-control" v-model="modal.catatan_admin" step="any"></textarea>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" id="submit" class="btn btn-primary">
-                Simpan
-              </button>
-              <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                Tutup
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="ModalMaps" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              Lokasi Personel Absensi {{ modal.title }}
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-12">
-                <GoogleMap :api-key="api_key" style="width: 100%; height: 500px" :center="center" :zoom="15">
-                  <!-- <Marker :options="markerOptions" /> -->
 
-                  <MarkerCluster>
-                    <Marker v-for="(location, i) in locations" :options="{ position: location }" :key="i" />
-                  </MarkerCluster>
-                </GoogleMap>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Tutup
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="ModalCatatan" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Catatan Lembur</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-          </div>
-          <div class="modal-body">
-            <textarea class="form-control" v-model="modal.catatan" cols="30" rows="10" readonly></textarea>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Tutup
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="ModalImage" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Foto</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-sm-6">
-                <label class="mb-2">Mulai</label>
-                <img v-bind:src="modal.photo" alt="" style="width: 100%" />
-              </div>
-              <div class="col-sm-6">
-                <label class="mb-2">Selesai</label>
-                <img v-bind:src="modal.photo2" alt="" style="width: 100%" />
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Tutup
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -347,6 +79,7 @@ import moment from "moment";
 import * as Api from "../../helper/Api.js";
 import Swal from "sweetalert2";
 import { GoogleMap, Marker, MarkerCluster } from "vue3-google-map";
+import Table from "./Table.vue";
 export default {
   data() {
     return {
@@ -360,123 +93,39 @@ export default {
         startDate: "",
         status: ""
       },
-      modal: {
-        id: "",
-        nama: "",
-        startDate: "",
-        startClock: "",
-        endDate: "",
-        endClock: "",
-        personel: "",
-        photo: "",
-        photo2: "",
-        status_admin: "",
-        catatan_admin: "",
-
-      },
-      data: {
-        catatan: "",
-        type: "",
-        id: "",
-      },
-      center: {
-        lat: -6.93,
-        lng: 107.6,
-      },
-      center2: {
-        lat: -6.93,
-        lng: 107.6,
-      },
-
-      markerOptions: { position: { lat: 0, lng: 0 }, label: "O" },
-      locations: [{ lat: -31.56391, lng: 147.154312 }],
-      currentPlace: null,
-      markers: [],
-      markers2: [],
-      places: [],
+      renderComponent: true
     };
   },
-  components: { GoogleMap, Marker },
+  components: { GoogleMap, Marker, Table },
   created() {
-    this.loadPersonel();
-    this.loadAbsensiLembur();
+    this.search = {
+      t_absensi_Dates: this.$route.query.t_absensi_Dates ?? '',
+      startDate: this.$route.query.startDate ?? '',
+      endDate: this.$route.query.endDate ?? '',
+      status: this.$route.query.status ?? '',
+    }
     this.getDateNow();
-  },
-  mounted() {
-    // this.geolocate();
-    setTimeout(() => {
-      this.table = $("#dt-overtime").DataTable({ autoWidth: false });
-    }, 1000);
   },
   methods: {
     getDateNow() {
       const today = new Date();
       this.search.t_absensi_Dates = moment(today).format("YYYY-MM-DD");
     },
-    mapStatus(status) {
-      switch (status) {
-        case 0:
-          return '<span class="text-muted">Menunggu Persetujuan</span>';
-          break;
-        case 1:
-          return '<span class="text-success">Disetujui</span>';
-          break;
-        case 2:
-          return '<span class="text-danger">Ditolak</span>';
-          break;
-        case 3:
-          return '<span class="text-warning">Kadaluarsa</span>';
-          break;
-        default:
-          return "-";
-          break;
-      }
-    },
-    overtimeApprove(type = null) {
-      if (type != null) {
-        this.data.id = this.id;
-        this.data.type = type;
-      }
-      $(".btn-submit").attr("disabled", true);
-      // $('.btn-submit').attr('disabled', true)
-      axios
-        .post(env.VITE_API_URL + "overtime/approve", this.data)
-        .then((response) => {
-          this.loadAbsensiLembur();
-          let status = response.data.status;
-          let message = response.data.message;
-          let status_message =
-            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-          Toast.fire({
-            icon: status_message,
-            title: message,
-          });
-          $(".btn-submit").attr("disabled", false);
-          $(".btn-cancel").trigger("click");
-        })
-        .catch((e) => {
-          Api.messageError(e);
-          $(".btn-submit").attr("disabled", false);
-        });
-    },
-    menitLembur(val) {
-      var start = val.t_absensi_startDate + " " + val.t_absensi_startClock;
-      var end = val.t_absensi_endDate + " " + val.t_absensi_endClock;
-      if (val.t_absensi_endDate == null) {
-        end = moment().format('YYYY-MM-DD HH:mm:ss')
-      }
-      console.log(end)
-      var a = moment(moment(start).toArray());
-      var b = moment(moment(end).toArray());
-      var result = b.diff(a, "minutes");
-      return (result < 0 ? 0 : result);
-    },
     filterRangeDate() {
       if (this.filterType == "show") {
         var a = moment(moment(this.search.startDate).toArray());
         var b = moment(moment(this.search.endDate).toArray());
         if (b.diff(a, "days") + 1 < 8) {
-          this.loadAbsensiLembur();
+          this.$router.push({
+            path: '/overtime',
+            query: this.search
+          })
+          setTimeout(async () => {
+            this.renderComponent = false;
+
+            await this.$nextTick();
+            this.renderComponent = true;
+          }, 100)
         } else {
           Swal.fire({
             title: "Perhatian",
@@ -517,180 +166,6 @@ export default {
           }
         });
       }
-    },
-    loadPersonel() {
-      this.$Progress.start();
-      axios
-        .get(env.VITE_API_URL + "index-data-personel")
-        .then((response) => {
-          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-            this.$Progress.finish();
-            this.personels = response.data.data;
-          }
-        })
-        .catch((e) => {
-          this.$Progress.fail();
-          Api.messageError(e);
-        });
-    },
-    loadAbsensiLembur() {
-      this.$Progress.start();
-      axios
-        .get(env.VITE_API_URL + "overtime", { params: this.search })
-        .then((response) => {
-          this.$Progress.finish();
-          // console.log(response);
-          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-            this.overtimes = response.data.data;
-            this.table.destroy();
-            this.$nextTick(() => {
-              this.table = $("#dt-overtime").DataTable({ autoWidth: false });
-            });
-          }
-        })
-        .catch((e) => {
-          this.$Progress.fail();
-          Api.messageError(e);
-        });
-    },
-    Modal(val, type = "start") {
-      this.modal = {
-        title: "Perbarui Lembur",
-        id: val.id_t_absensi,
-        personel: val.personel.id_m_personel,
-        nama: val.personel.m_personel_names,
-        startClock: val.t_absensi_startClock,
-        endClock: val.t_absensi_endClock,
-        startDate: val.t_absensi_startDate,
-        endDate: val.t_absensi_endDate,
-        catatan: val.t_absensi_catatan,
-        status_admin: val.t_absensi_status_admin,
-        catatan_admin: val.t_absensi_catatan_admin,
-      };
-      if (val.t_absensi_status == 2) {
-        this.modal.status = true;
-      }
-      if (val.photo_absensi.length > 0) {
-        if (val.photo_absensi.length > 1) {
-          this.modal.photo2 =
-            Api.URL_PHOTO + val.photo_absensi[1].t_absensi_photofileOri;
-        }
-        this.modal.photo =
-          Api.URL_PHOTO + val.photo_absensi[0].t_absensi_photofileOri;
-      }
-    },
-    ModalApprove(val, type = "start") {
-      this.data = {
-        id: val.id_t_absensi,
-        type: type,
-        catatan_lembur: val.t_absensi_catatan
-      };
-    },
-    ModalReset() {
-      this.modal = {
-        title: "Tambah Lembur",
-        id: "",
-        nama: "",
-        startDate: "",
-        startClock: "",
-        endDate: "",
-        endClock: "",
-        personel: "",
-      };
-    },
-    Maps(val, status) {
-      this.locations = [];
-      var latLong = val.t_absensi_latLong.split(",");
-      this.modal.title = "Mulai";
-      if (status == "end") {
-        this.modal.title = "Selesai";
-        latLong = val.t_absensi_latLongEnd.split(",");
-      }
-      this.center = {
-        lat: parseFloat(latLong[0]),
-        lng: parseFloat(latLong[1]),
-      };
-      this.locations.push(this.center);
-      console.log(this.locations)
-    },
-    resetEndDate() {
-      this.search.endDate = "";
-    },
-    updateAbsensi() {
-      $("#submit").prop("disabled", true);
-      $("#submit").html("Loading...");
-      axios
-        .post(env.VITE_API_URL + "overtime", {
-          id: this.modal.id,
-          absensi: this.modal,
-        })
-        .then((response) => {
-          if (Api.response(response.data) === Api.STATUS_SUCCESS) {
-            $("#Modal").modal("hide");
-            this.loadAbsensiLembur();
-          }
-          $("#submit").prop("disabled", false);
-          $("#submit").html("Submit");
-        })
-        .catch((e) => {
-          Api.messageError(e);
-          $("#submit").prop("disabled", false);
-        });
-    },
-    confirmDelete(id, name) {
-      return Api.confirmDelete(
-        "Apakah anda yakin?",
-        "Absensi " + name + " akan dihapus!"
-      ).then((result) => {
-        if (result.isConfirmed) {
-          this.deleteAbsensiLembur(id);
-        }
-      });
-    },
-    deleteAbsensiLembur(id) {
-      axios
-        .delete(env.VITE_API_URL + "overtime/" + id)
-        .then((response) => {
-          this.loadAbsensiLembur();
-          let status = response.data.status;
-          let message = response.data.message;
-          let status_message =
-            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-          Toast.fire({
-            icon: status_message,
-            title: message,
-          });
-        })
-        .catch((e) => {
-          Api.messageError(e);
-        });
-    },
-    addMarker() {
-      this.markers = [];
-      const marker = {
-        lat: this.center.lat,
-        lng: this.center.lng,
-      };
-      this.markers.push({ position: marker });
-    },
-    addMarker2() {
-      this.markers2 = [];
-      const marker = {
-        lat: this.center2.lat,
-        lng: this.center2.lng,
-      };
-      this.markers2.push({ position: marker });
-    },
-    geolocate: function () {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-      });
-    },
-    convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
-      return Api.convertDate(date, format, empty, subtract);
     },
   },
 };

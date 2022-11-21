@@ -20,65 +20,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table id="dt-attendancespot" class="display" style="width: 100%">
-                      <thead class="text-start">
-                        <tr>
-                          <th>No</th>
-                          <th class="text-nowrap">Nama Lokasi</th>
-                          <th class="text-nowrap">Total Anggota</th>
-                          <th>Alamat</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr style="text-align: start" v-for="(val, index) in attendance_spot" :key="index">
-                          <td class="text-center">{{ ++index }}</td>
-                          <td>{{ val.m_attendance_spots_name }}</td>
-                          <td class="text-center">{{ val.count_personel }}</td>
-                          <td >{{ val.m_attendance_spots_address }}</td>
-                          <td class="text-center">
-                            <div class="btn-group">
-                              <router-link :to="{
-                                name: 'detailPersonelAttendanceSpot',
-                                params: { id: val.id_m_attendance_spots },
-                              }" class="btn-light">
-                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                  data-placement="right" title="Penempatan Personel">
-                                  <i class="material-icons">group</i>
-                                </button>
-                              </router-link>
-                              <!-- <router-link :to="{
-                                name: 'detailPersonelAttendanceSpot',
-                                params: { id: val.id_m_attendance_spots },
-                              }" class="btn-light">
-                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                  data-placement="right" title="Detail">
-                                  <i class="material-icons">visibility</i>
-                                </button>
-                              </router-link> -->
-                              <router-link :to="{
-                                name: 'editAttendanceSpot',
-                                params: { id: val.id_m_attendance_spots },
-                              }" class="btn-light">
-                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                  data-placement="right" title="Edit">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                              </router-link>
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Hapus" @click="
-                                  confirmDelete(
-                                    val.id_m_attendance_spots,
-                                    val.m_attendance_spots_name
-                                  )
-                                ">
-                                <i class="material-icons">delete</i>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <Table />
                   </div>
                 </div>
               </div>
@@ -91,6 +33,7 @@
 </template>
 <script>
 import * as Api from "../../helper/Api.js";
+import Table from "./Table.vue";
 export default {
   data() {
     return {
@@ -98,59 +41,6 @@ export default {
       table: null,
     };
   },
-  created() {
-    this.getAttendanceSpot();
-  },
-  mounted() {
-    setTimeout(() => {
-      this.table = $("#dt-attendancespot").DataTable();
-    }, 1000);
-  },
-  methods: {
-    getAttendanceSpot() {
-      this.$Progress.start();
-      axios
-        .get(env.VITE_API_URL + "attendance-spot")
-        .then((response) => {
-          this.$Progress.finish();
-          this.attendance_spot = response.data.data;
-          this.table.destroy();
-          this.$nextTick(() => {
-            this.table = $("#dt-attendancespot").DataTable();
-          });
-        })
-        .catch((error) => {
-          this.$Progress.fail();
-        });
-    },
-    confirmDelete(id, nama) {
-      return Api.confirmDelete(
-        "Apakah anda yakin?",
-        "Attendance Spot " + nama + " akan dihapus!"
-      ).then((result) => {
-        if (result.isConfirmed) {
-          this.deleteAttendanceSpot(id);
-        }
-      });
-    },
-    deleteAttendanceSpot(id) {
-      axios
-        .delete(env.VITE_API_URL + "attendance-spot/" + id)
-        .then((response) => {
-          this.getAttendanceSpot();
-          let status = response.data.status;
-          let message = response.data.message;
-          let status_message =
-            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-          Toast.fire({
-            icon: status_message,
-            title: message,
-          });
-        })
-        .catch((e) => {
-          Api.messageError(e);
-        });
-    },
-  },
+  components: { Table }
 };
 </script>

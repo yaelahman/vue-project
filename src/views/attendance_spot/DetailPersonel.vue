@@ -49,7 +49,10 @@
                     </tbody>
                   </table>
                   <div class="mt-5">
-                    <router-link to="/attendance-spot" class="btn btn-light">
+                    <router-link :to="{
+                      path: '/attendance-spot',
+                      query: $route.query
+                    }" class="btn btn-light">
                       <i class="material-icons">arrow_back</i>Kembali
                     </router-link>
                   </div>

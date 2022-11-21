@@ -15,7 +15,10 @@
               <div class="card">
                 <div class="card-header">
                   <div class="mt-0">
-                    <router-link to="/index-data-personel" class="btn btn-light border rounded-pill">
+                    <router-link :to="{
+                      path: '/index-data-personel',
+                      query: $route.query
+                    }" class="btn btn-light border rounded-pill">
                       <i class="material-icons">arrow_back</i>Kembali
                     </router-link>
                   </div>
@@ -131,10 +134,10 @@ export default {
   },
   methods: {
     loadDepartemen() {
-      axios.get(env.VITE_API_URL + "index-departemen").then((response) => {
+      axios.get(env.VITE_API_URL + "index-departemen?show=1000").then((response) => {
         if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
           this.$Progress.finish()
-          this.departemens = response.data.data;
+          this.departemens = response.data.data.data;
         }
       })
         .catch((e) => {

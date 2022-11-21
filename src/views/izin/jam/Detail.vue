@@ -16,7 +16,10 @@
                 <div class="card-header d-flex justify-content-between">
                   <div class="form-group">
                     <div class="mt-3">
-                      <router-link to="/izin-jam" class="btn btn-light">
+                      <router-link :to="{
+                        path: '/izin-jam',
+                        query: $route.query
+                      }" class="btn btn-light">
                         <i class="material-icons">arrow_back</i>Kembali
                       </router-link>
                     </div>

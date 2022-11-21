@@ -63,9 +63,9 @@
                     </div>
                     <div class="widget-stats-content flex-fill">
                       <span class="widget-stats-title">Sudah Absen</span>
-                      <span class="widget-stats-amount">{{ personelSudahAbsen.length }}
+                      <span class="widget-stats-amount">{{ personelSudahAbsen.total ?? 0 }}
                         &nbsp;
-                        <button type="button" class="btn btn-primary btn-sm" v-if="personelSudahAbsen.length != 0"
+                        <button type="button" class="btn btn-primary btn-sm" v-if="personelSudahAbsen.total ?? 0 != 0"
                           data-bs-toggle="modal" data-bs-target="#ModalSudahAbsen">
                           Lihat Personel
                         </button>
@@ -90,9 +90,9 @@
                     </div>
                     <div class="widget-stats-content flex-fill">
                       <span class="widget-stats-title">Belum Absen</span>
-                      <span class="widget-stats-amount">{{ data.belumAbsen }}
+                      <span class="widget-stats-amount">{{ personelBelumAbsen.total ?? 0 }}
                         &nbsp;
-                        <button type="button" class="btn btn-primary btn-sm" v-if="data.belumAbsen != 0"
+                        <button type="button" class="btn btn-primary btn-sm" v-if="personelBelumAbsen.total ?? 0 != 0"
                           data-bs-toggle="modal" data-bs-target="#ModalBelumAbsen">
                           Lihat Personel
                         </button>
@@ -125,9 +125,9 @@
                     </div>
                     <div class="widget-stats-content flex-fill">
                       <span class="widget-stats-title">WFH</span>
-                      <span class="widget-stats-amount">{{ personelWFH.length }}
+                      <span class="widget-stats-amount">{{ personelWFH.total ?? 0 }}
                         &nbsp;
-                        <button type="button" class="btn btn-primary btn-sm" v-if="personelWFH.length != 0"
+                        <button type="button" class="btn btn-primary btn-sm" v-if="personelWFH.total ?? 0 != 0"
                           data-bs-toggle="modal" data-bs-target="#ModalAbsenWFH">
                           Lihat Personel
                         </button>
@@ -152,9 +152,9 @@
                     </div>
                     <div class="widget-stats-content flex-fill">
                       <span class="widget-stats-title">Kunjungan</span>
-                      <span class="widget-stats-amount">{{ personelKunjungan.length }}
+                      <span class="widget-stats-amount">{{ personelKunjungan.total ?? 0 }}
                         &nbsp;
-                        <button type="button" class="btn btn-primary btn-sm" v-if="personelKunjungan.length != 0"
+                        <button type="button" class="btn btn-primary btn-sm" v-if="personelKunjungan.total ?? 0 != 0"
                           data-bs-toggle="modal" data-bs-target="#ModalAbsenKunjungan">
                           Lihat Personel
                         </button>
@@ -164,7 +164,7 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="col-xl-6">
+            <div class="col-xl-6">
               <div class="card widget widget-stats">
                 <div class="card-body">
                   <div class="widget-stats-container d-flex">
@@ -179,10 +179,10 @@
                     </div>
                     <div class="widget-stats-content flex-fill">
                       <span class="widget-stats-title">Izin</span>
-                      <span class="widget-stats-amount">{{ izin.hari.length + izin.jam.length }}
+                      <span class="widget-stats-amount">{{ (izin.hari.total ?? 0) + (izin.jam.total ?? 0) }}
                         &nbsp;
                         <button type="button" class="btn btn-primary btn-sm"
-                          v-if="izin.hari.length != 0 || izin.jam.length != 0" data-bs-toggle="modal"
+                          v-if="(izin.hari.total ?? 0) != 0 || (izin.jam.total ?? 0) != 0" data-bs-toggle="modal"
                           data-bs-target="#ModalIzin">
                           Lihat Personel
                         </button>
@@ -207,64 +207,9 @@
                     </div>
                     <div class="widget-stats-content flex-fill">
                       <span class="widget-stats-title">Cuti</span>
-                      <span class="widget-stats-amount">{{ cuti.length }}
+                      <span class="widget-stats-amount">{{ cuti.total ?? 0 }}
                         &nbsp;
-                        <button type="button" class="btn btn-primary btn-sm" v-if="cuti.length != 0"
-                          data-bs-toggle="modal" data-bs-target="#ModalCuti">
-                          Lihat Personel
-                        </button>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-            <div class="col-xl-6">
-              <div class="card widget widget-stats">
-                <div class="card-body">
-                  <div class="widget-stats-container d-flex">
-                    <div class="widget-stats-icon widget-stats-icon-success" style="background-color: #FFECFE;">
-                      <div>
-                        <svg width="30" height="55" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M18.2083 31.6666H8.70834C8.28842 31.6666 7.88569 31.4998 7.58876 31.2029C7.29183 30.906 7.12501 30.5032 7.12501 30.0833V7.91663C7.12501 7.4967 7.29183 7.09397 7.58876 6.79704C7.88569 6.50011 8.28842 6.33329 8.70834 6.33329H16.625V11.0833C16.625 12.3431 17.1255 13.5513 18.0163 14.4421C18.9071 15.3328 20.1152 15.8333 21.375 15.8333H26.125V23.75C26.125 24.1699 26.2918 24.5726 26.5888 24.8695C26.8857 25.1665 27.2884 25.3333 27.7083 25.3333C28.1283 25.3333 28.531 25.1665 28.8279 24.8695C29.1249 24.5726 29.2917 24.1699 29.2917 23.75V14.155C29.2752 14.0095 29.2433 13.8662 29.1967 13.7275V13.585C29.1206 13.4222 29.019 13.2725 28.8958 13.1416L19.3958 3.64163C19.265 3.51847 19.1153 3.41692 18.9525 3.34079C18.9001 3.33162 18.8466 3.33162 18.7942 3.34079C18.6402 3.25846 18.4748 3.19975 18.3033 3.16663H8.70834C7.44857 3.16663 6.24038 3.66707 5.34959 4.55787C4.45879 5.44867 3.95834 6.65685 3.95834 7.91663V30.0833C3.95834 31.3431 4.45879 32.5513 5.34959 33.4421C6.24038 34.3329 7.44857 34.8333 8.70834 34.8333H18.2083C18.6283 34.8333 19.031 34.6665 19.3279 34.3695C19.6249 34.0726 19.7917 33.6699 19.7917 33.25C19.7917 32.83 19.6249 32.4273 19.3279 32.1304C19.031 31.8334 18.6283 31.6666 18.2083 31.6666ZM19.7917 8.56579L23.8925 12.6666H21.375C20.9551 12.6666 20.5524 12.4998 20.2554 12.2029C19.9585 11.9059 19.7917 11.5032 19.7917 11.0833V8.56579ZM11.875 22.1666H21.375C21.7949 22.1666 22.1977 21.9998 22.4946 21.7029C22.7915 21.4059 22.9583 21.0032 22.9583 20.5833C22.9583 20.1634 22.7915 19.7606 22.4946 19.4637C22.1977 19.1668 21.7949 19 21.375 19H11.875C11.4551 19 11.0524 19.1668 10.7554 19.4637C10.4585 19.7606 10.2917 20.1634 10.2917 20.5833C10.2917 21.0032 10.4585 21.4059 10.7554 21.7029C11.0524 21.9998 11.4551 22.1666 11.875 22.1666ZM18.2083 25.3333H11.875C11.4551 25.3333 11.0524 25.5001 10.7554 25.797C10.4585 26.094 10.2917 26.4967 10.2917 26.9166C10.2917 27.3366 10.4585 27.7393 10.7554 28.0362C11.0524 28.3331 11.4551 28.5 11.875 28.5H18.2083C18.6283 28.5 19.031 28.3331 19.3279 28.0362C19.6249 27.7393 19.7917 27.3366 19.7917 26.9166C19.7917 26.4967 19.6249 26.094 19.3279 25.797C19.031 25.5001 18.6283 25.3333 18.2083 25.3333ZM11.875 15.8333H13.4583C13.8783 15.8333 14.281 15.6665 14.5779 15.3695C14.8749 15.0726 15.0417 14.6699 15.0417 14.25C15.0417 13.83 14.8749 13.4273 14.5779 13.1304C14.281 12.8334 13.8783 12.6666 13.4583 12.6666H11.875C11.4551 12.6666 11.0524 12.8334 10.7554 13.1304C10.4585 13.4273 10.2917 13.83 10.2917 14.25C10.2917 14.6699 10.4585 15.0726 10.7554 15.3695C11.0524 15.6665 11.4551 15.8333 11.875 15.8333ZM33.5825 25.7925C33.4353 25.6441 33.2602 25.5263 33.0673 25.4459C32.8743 25.3655 32.6674 25.3241 32.4583 25.3241C32.2493 25.3241 32.0424 25.3655 31.8494 25.4459C31.6565 25.5263 31.4814 25.6441 31.3342 25.7925L26.125 31.0175L24.0825 28.9591C23.9349 28.8115 23.7596 28.6944 23.5667 28.6145C23.3739 28.5346 23.1671 28.4935 22.9583 28.4935C22.7496 28.4935 22.5428 28.5346 22.3499 28.6145C22.1571 28.6944 21.9818 28.8115 21.8342 28.9591C21.6866 29.1068 21.5694 29.282 21.4895 29.4749C21.4097 29.6678 21.3685 29.8745 21.3685 30.0833C21.3685 30.2921 21.4097 30.4988 21.4895 30.6917C21.5694 30.8846 21.6866 31.0598 21.8342 31.2075L25.0008 34.3741C25.148 34.5225 25.3232 34.6403 25.5161 34.7207C25.709 34.8011 25.916 34.8425 26.125 34.8425C26.334 34.8425 26.541 34.8011 26.7339 34.7207C26.9269 34.6403 27.102 34.5225 27.2492 34.3741L33.5825 28.0408C33.7309 27.8936 33.8487 27.7185 33.9291 27.5255C34.0095 27.3326 34.0509 27.1256 34.0509 26.9166C34.0509 26.7076 34.0095 26.5007 33.9291 26.3077C33.8487 26.1148 33.7309 25.9397 33.5825 25.7925Z"
-                            fill="#FF69D5" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="widget-stats-content flex-fill">
-                      <span class="widget-stats-title">Izin</span>
-                      <span class="widget-stats-amount">{{ izin.hari.length + izin.jam.length }}
-                        &nbsp;
-                        <button type="button" class="btn btn-primary btn-sm"
-                          v-if="izin.hari.length != 0 || izin.jam.length != 0" data-bs-toggle="modal"
-                          data-bs-target="#ModalIzin">
-                          Lihat Personel
-                        </button>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-6">
-              <div class="card widget widget-stats">
-                <div class="card-body">
-                  <div class="widget-stats-container d-flex">
-                    <div class="widget-stats-icon widget-stats-icon-success" style="background-color: #F3E9FF;">
-                      <div>
-                        <svg width="32" height="58" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M17.5 3.75C16.1325 3.75 15 4.8825 15 6.25V7.5H11.25V6.25H8.75V7.5H6.25C4.8825 7.5 3.75 8.6325 3.75 10V30C3.75 31.3675 4.8825 32.5 6.25 32.5H33.75C35.1175 32.5 36.25 31.3675 36.25 30V10C36.25 8.6325 35.1175 7.5 33.75 7.5H31.25V6.25H28.75V7.5H25V6.25C25 4.8825 23.8675 3.75 22.5 3.75H17.5ZM17.5 6.25H22.5V7.5H17.5V6.25ZM6.25 10H33.75V30H31.25V11.25H28.75V30H11.25V11.25H8.75V30H6.25V10Z"
-                            fill="#7910B9" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="widget-stats-content flex-fill">
-                      <span class="widget-stats-title">Cuti</span>
-                      <span class="widget-stats-amount">{{ cuti.length }}
-                        &nbsp;
-                        <button type="button" class="btn btn-primary btn-sm" v-if="cuti.length != 0"
+                        <button type="button" class="btn btn-primary btn-sm" v-if="cuti.total ?? 0 != 0"
                           data-bs-toggle="modal" data-bs-target="#ModalCuti">
                           Lihat Personel
                         </button>
@@ -382,32 +327,7 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive">
-              <table id="dt-dashboard" class="display" style="width: 100%">
-                <thead class="text-left text-nowrap">
-                  <tr>
-                    <th class="nomer" style="width: 20px">No</th>
-                    <th>Nama</th>
-                    <th class="text-start">Jadwal Kerja</th>
-                    <th class="text-start">Departemen</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style="text-align: left" v-for="(val, index) in personelBelumAbsen" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td>
-                      {{ val.m_personel_names }} (
-                      {{ val.m_personel_personID }} )
-                    </td>
-                    <td>
-                      {{
-                          val.work_personel != null && val.work_personel.get_work_pattern != null ?
-                            val.work_personel.get_work_pattern.m_work_patern_name : '-'
-                      }}
-                    </td>
-                    <td class="text-start">{{ val.departemen.m_departemen_name }}</td>
-                  </tr>
-                </tbody>
-              </table>
+              <TableBelumAbsen />
             </div>
           </div>
           <div class="modal-footer">
@@ -444,47 +364,7 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive">
-              <table id="dt2" class="display" style="width: 100%">
-                <thead class="text-left text-nowrap">
-                  <tr>
-                    <th class="nomer" style="width: 20px">No</th>
-                    <th style="width: 200px !important">Nama</th>
-                    <th style="width: 60px !important">Jadwal Kerja</th>
-                    <th style="width: 60px !important">Departemen</th>
-                    <th style="width: 60px !important">Jam Absen</th>
-                    <th style="width: 220px !important">Keterangan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style="text-align: left" v-for="(val, index) in personelSudahAbsen" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td>
-                      {{ val.m_personel_names }} (
-                      {{ val.m_personel_personID }} )
-                    </td>
-                    <td>
-                      {{
-                          val.work_personel != null && val.work_personel.get_work_pattern != null ?
-                            val.work_personel.get_work_pattern.m_work_patern_name : '-'
-                      }}
-                    </td>
-                    <td>{{ val.m_departemen_name }}</td>
-                    <td class="text-nowrap text-danger" v-if="val.isLate">
-                      {{ convertDate(val.t_absensi_startClock) }} WIB
-                    </td>
-                    <td class="text-nowrap" v-else>
-                      {{ convertDate(val.t_absensi_startClock) }} WIB
-                    </td>
-                    <td>
-                      {{
-                          val.t_absensi_isLate != 1
-                            ? val.t_absensi_catatan_telat_masuk
-                            : "-"
-                      }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <TableSudahAbsen />
             </div>
           </div>
           <div class="modal-footer">
@@ -522,38 +402,7 @@
 
           <div class="modal-body">
             <div class="table-responsive">
-              <table id="dt-wfh" class="display" style="width: 100%">
-                <thead class="text-left text-nowrap">
-                  <tr>
-                    <th class="nomer" style="width: 20px">No</th>
-                    <th>Nama</th>
-                    <th>Jadwal Kerja</th>
-                    <th>Departemen</th>
-                    <th>Jam Absen</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style="text-align: left" v-for="(val, index) in personelWFH" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td>
-                      {{ val.m_personel_names }} (
-                      {{ val.m_personel_personID }} )
-                    </td>
-                    <td>
-                      {{
-                          val.work_personel != null && val.work_personel.get_work_pattern != null ?
-                            val.work_personel.get_work_pattern.m_work_patern_name : '-'
-                      }}
-                    </td>
-                    <td>{{ val.departemen.m_departemen_name }}</td>
-                    <td class="text-nowrap" v-bind:class="{
-                      'text-danger': val.absensi.t_absensi_isLate != 1,
-                    }">
-                      {{ convertDate(val.absensi.t_absensi_startClock) }} WIB
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <TableWFH />
             </div>
           </div>
           <div class="modal-footer">
@@ -590,37 +439,7 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive">
-              <table id="dt-kunjungan" class="display" style="width: 100%">
-                <thead class="text-left text-nowrap">
-                  <tr>
-                    <th class="nomer" style="width: 20px">No</th>
-                    <th>Nama</th>
-                    <th>Departemen</th>
-                    <th>Jam Kunjungan</th>
-                    <th>Keterangan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style="text-align: left" v-for="(val, index) in personelKunjungan" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td>
-                      {{ val.personel.m_personel_names }} (
-                      {{ val.personel.m_personel_personID }} )
-                    </td>
-                    <td>{{ val.personel.departemen.m_departemen_name }}</td>
-                    <td class="text-nowrap">
-                      {{ convertDate(val.t_absensi_startClock) }} WIB
-                    </td>
-                    <td>
-                      {{
-                          val.t_absensi_catatan
-                            ? val.t_absensi_catatan
-                            : "-"
-                      }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <TableKunjungan />
             </div>
           </div>
           <div class="modal-footer">
@@ -667,33 +486,7 @@
               </div>
             </div>
             <div class="table-responsive">
-              <table id="dt-izin" class="display" style="width: 100%">
-                <thead class="text-left text-nowrap">
-                  <tr>
-                    <th class="nomer" style="width: 20px">No</th>
-                    <th style="width: 30%">Nama</th>
-                    <th>Departemen</th>
-                    <th>Keperluan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style="text-align: left" v-for="(val, index) in izin.current" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td>
-                      {{ val.m_personel_names }} (
-                      {{ val.m_personel_personID }} )
-                    </td>
-                    <td>{{ val.departemen.m_departemen_name }}</td>
-                    <td>
-                      {{
-                          val.permit.permit_description
-                            ? val.permit.permit_description
-                            : "-"
-                      }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <TableIzin :type="modal_izin_now" v-if="renderComponent" />
             </div>
           </div>
           <div class="modal-footer">
@@ -731,33 +524,7 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive">
-              <table id="dt-cuti" class="display" style="width: 100%">
-                <thead class="text-left text-nowrap">
-                  <tr>
-                    <th class="nomer" style="width: 20px">No</th>
-                    <th style="width: 30%">Nama</th>
-                    <th>Departemen</th>
-                    <th>Keperluan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style="text-align: left" v-for="(val, index) in cuti" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td>
-                      {{ val.m_personel_names }} (
-                      {{ val.m_personel_personID }} )
-                    </td>
-                    <td>{{ val.departemen.m_departemen_name }}</td>
-                    <td>
-                      {{
-    val.permit != null
-      ? val.permit.permit_description
-      : "-"
-                      }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <TableCuti />
             </div>
           </div>
           <div class="modal-footer">
@@ -772,6 +539,12 @@
 </template>
 <script>
 import * as Api from "../../helper/Api.js";
+import TableBelumAbsen from "./TableBelumAbsen.vue";
+import TableSudahAbsen from "./TableSudahAbsen.vue";
+import TableWFH from "./TableWFH.vue";
+import TableKunjungan from "./TableKunjungan.vue";
+import TableIzin from "./TableIzin.vue";
+import TableCuti from "./TableCuti.vue";
 export default {
   data() {
     return {
@@ -792,6 +565,7 @@ export default {
       personelSudahAbsen: [],
       personelWFH: [],
       personelKunjungan: [],
+      renderComponent: true,
       izin: {
         jam: [],
         hari: [],
@@ -944,10 +718,6 @@ export default {
     await this.loadChart();
     await this.loadChart2();
     await this.checkAbsensi();
-    await this.checkPersonelSudahAbsen();
-    await this.checkPersonelBelumAbsen();
-    await this.checkPersonelWFH();
-    await this.checkPersonelKunjungan();
     await this.checkIzin();
     await this.checkCuti();
     await this.checkAkumulasiSuperadmin();
@@ -982,118 +752,47 @@ export default {
     async checkAbsensi() {
       this.$Progress.start();
       await axios
-        .get(env.VITE_API_URL + "checkAbsen")
-        .then((response) => {
-          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-            this.$Progress.finish();
-            this.data = response.data.data;
-          }
-        })
-        .catch((e) => {
-          this.$Progress.fail();
-          Api.messageError(e);
-        });
-    },
-    async checkPersonelBelumAbsen() {
-      setTimeout(() => {
-        this.table = $("#dt-dashboard").DataTable({
-          "autoWidth": false
-        });
-      }, 1000);
-      this.$Progress.start();
-      await axios
         .get(env.VITE_API_URL + "checkPersonelBelumAbsen")
         .then((response) => {
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
             this.$Progress.finish();
             this.personelBelumAbsen = response.data.data;
-            this.table.destroy();
-            this.$nextTick(() => {
-              this.table = $("#dt-dashboard").DataTable({
-                "autoWidth": false
-              });
-              setTimeout(() => {
-                $('.nomer').css('width', '20px')
-                this.table.columns.adjust().draw();
-              }, 500)
-            });
           }
         })
         .catch((e) => {
           this.$Progress.fail();
           Api.messageError(e);
         });
-    },
-    async checkPersonelSudahAbsen() {
-      this.table2 = $("#dt2").DataTable({ autoWidth: false });
-      this.$Progress.start();
       await axios
         .get(env.VITE_API_URL + "checkPersonelSudahAbsen")
         .then((response) => {
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
             this.$Progress.finish();
             this.personelSudahAbsen = response.data.data;
-            this.personelSudahAbsen.forEach((item) => {
-              item.isLate = item.t_absensi_isLate == 2;
-            });
-            this.table2.destroy();
-            this.$nextTick(() => {
-              this.table2 = $("#dt2").DataTable({ autoWidth: false });
-              $('.nomer').css('width', '20px')
-              this.table2.columns.adjust().draw();
-            });
           }
         })
         .catch((e) => {
           this.$Progress.fail();
           Api.messageError(e);
         });
-    },
-    async checkPersonelWFH() {
-      this.table3 = $("#dt-wfh").DataTable({
-        "autoWidth": false
-      });
-      this.$Progress.start();
       await axios
         .get(env.VITE_API_URL + "checkPersonelWFH")
         .then((response) => {
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
             this.$Progress.finish();
             this.personelWFH = response.data.data;
-            this.table3.destroy();
-            this.$nextTick(() => {
-              this.table3 = $("#dt-wfh").DataTable({
-                "autoWidth": false
-              });
-              $('.nomer').css('width', '20px')
-              this.table3.columns.adjust().draw();
-            });
           }
         })
         .catch((e) => {
           this.$Progress.fail();
           Api.messageError(e);
         });
-    },
-    async checkPersonelKunjungan() {
-      this.table4 = $("#dt-kunjungan").DataTable({
-        "autoWidth": false
-      });
-      this.$Progress.start();
       await axios
         .get(env.VITE_API_URL + "checkPersonelKunjungan")
         .then((response) => {
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
             this.$Progress.finish();
             this.personelKunjungan = response.data.data;
-            this.table4.destroy();
-            this.$nextTick(() => {
-              this.table4 = $("#dt-kunjungan").DataTable({
-                "autoWidth": false
-              });
-              $('.nomer').css('width', '20px')
-              this.table4.columns.adjust().draw();
-            });
           }
         })
         .catch((e) => {
@@ -1101,10 +800,8 @@ export default {
           Api.messageError(e);
         });
     },
+
     async checkIzin() {
-      this.table51 = $("#dt-izin").DataTable({
-        "autoWidth": false
-      });
       this.$Progress.start();
       await axios
         .get(env.VITE_API_URL + "checkIzin")
@@ -1113,14 +810,6 @@ export default {
             this.$Progress.finish();
             this.izin = response.data.data;
             this.izin.current = response.data.data.jam;
-            this.table51.destroy();
-            this.$nextTick(() => {
-              this.table51 = $("#dt-izin").DataTable({
-                "autoWidth": false
-              });
-              $('.nomer').css('width', '20px')
-              this.table51.columns.adjust().draw();
-            });
           }
         })
         .catch((e) => {
@@ -1129,9 +818,6 @@ export default {
         });
     },
     async checkCuti() {
-      this.table52 = $("#dt-cuti").DataTable({
-        "autoWidth": false
-      });
       this.$Progress.start();
       await axios
         .get(env.VITE_API_URL + "checkCuti")
@@ -1139,14 +825,6 @@ export default {
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
             this.$Progress.finish();
             this.cuti = response.data.data;
-            this.table52.destroy();
-            this.$nextTick(() => {
-              this.table52 = $("#dt-cuti").DataTable({
-                "autoWidth": false
-              });
-              $('.nomer').css('width', '20px')
-              this.table52.columns.adjust().draw();
-            });
           }
         })
         .catch((e) => {
@@ -1154,22 +832,20 @@ export default {
           Api.messageError(e);
         });
     },
-    ModalIzinChange(type) {
+    async ModalIzinChange(type) {
       if (type == "Jam") {
         this.izin.current = this.izin.jam;
-        this.modal_izin_now = "Jam"
-      } else {
-        this.izin.current = this.izin.hari;
-        this.modal_izin_now = "Hari"
+        this.modal_izin_now = "Jam";
       }
-      this.table51.destroy();
-      this.$nextTick(() => {
-        this.table51 = $("#dt-izin").DataTable({
-          "columnDefs": [
-            { "width": "20px", "targets": 0 }
-          ]
-        })
-      });
+      else {
+        this.izin.current = this.izin.hari;
+        this.modal_izin_now = "Hari";
+      }
+
+      this.renderComponent = false;
+
+      await this.$nextTick();
+      this.renderComponent = true;
     },
     async loadChart() {
       this.$Progress.start();
@@ -1243,18 +919,15 @@ export default {
     },
     getNow: function () {
       const today = new Date();
-      const hours =
-        today.getHours().toString().length == 2
-          ? today.getHours()
-          : "0" + today.getHours();
-      const minutes =
-        today.getMinutes().toString().length == 2
-          ? today.getMinutes()
-          : "0" + today.getMinutes();
-      const seconds =
-        today.getSeconds().toString().length == 2
-          ? today.getSeconds()
-          : "0" + today.getSeconds();
+      const hours = today.getHours().toString().length == 2
+        ? today.getHours()
+        : "0" + today.getHours();
+      const minutes = today.getMinutes().toString().length == 2
+        ? today.getMinutes()
+        : "0" + today.getMinutes();
+      const seconds = today.getSeconds().toString().length == 2
+        ? today.getSeconds()
+        : "0" + today.getSeconds();
       const time = hours + ":" + minutes + ":" + seconds;
       // const dateTime = date + " " + time;
       const dateTime = time;
@@ -1264,5 +937,6 @@ export default {
       return Api.convertDate(date, "DD-MM-YYYY hh:mm");
     },
   },
+  components: { TableBelumAbsen, TableSudahAbsen, TableWFH, TableKunjungan, TableIzin, TableCuti }
 };
 </script>

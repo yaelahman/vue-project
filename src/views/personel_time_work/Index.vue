@@ -23,77 +23,7 @@
                 </div> -->
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table id="dt-timework" class="display nowrap w-100">
-                      <thead class="text-center text-nowrap">
-                        <tr>
-                          <th>No</th>
-                          <th style="text-align: start">Nama</th>
-                          <th class="text-start">Departemen</th>
-                          <th class="text-start">Daftar Jadwal</th>
-                          <th>Mulai</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr style="text-align: center" v-for="(
-                            personel_time_work, index
-                          ) in personel_time_works" :key="index">
-                          <td>{{ index + 1 }}</td>
-                          <td style="width: 10px; text-align: start">
-                            {{
-                            personel_time_work.get_personel.m_personel_names
-                            }}
-                          </td>
-                          <td class="text-start">
-                            {{
-                            personel_time_work.get_personel.departemen != null
-                            ? personel_time_work.get_personel.departemen
-                            .m_departemen_name
-                            : "-"
-                            }}
-                          </td>
-                          <td class="text-start">
-                            {{
-                            personel_time_work.get_work_pattern
-                            .m_work_patern_name
-                            }}
-                          </td>
-                          <td>
-                            {{
-                            convertDate(
-                            personel_time_work.m_work_personel_time
-                            )
-                            }}
-                          </td>
-                          <td class="text-center">
-                            <div class="btn-group">
-                              <router-link :to="{
-                                name: 'editPersonelTimeWork',
-                                params: {
-                                  id: personel_time_work.id_m_work_personel,
-                                  update: true,
-                                },
-                              }" class="btn-light">
-                                <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                  data-placement="right" title="Edit">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                              </router-link>
-                              <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
-                                data-placement="right" title="Hapus" @click="
-                                  confirmDelete(
-                                    personel_time_work.id_m_work_personel,
-                                    personel_time_work.get_work_pattern
-                                      .m_work_patern_name
-                                  )
-                                ">
-                                <i class="material-icons">delete</i>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <Table />
                   </div>
                 </div>
               </div>
@@ -106,6 +36,7 @@
 </template>
 <script>
 import * as Api from "../../helper/Api.js";
+import Table from "./Table.vue";
 export default {
   data() {
     return {
@@ -113,65 +44,6 @@ export default {
       table: null,
     };
   },
-  created() {
-    this.loadPersonelTimeWork();
-  },
-  mounted() {
-    setTimeout(() => {
-      this.table = $("#dt-timework").DataTable({ autoWidth: false });
-    }, 1000);
-  },
-  methods: {
-    loadPersonelTimeWork() {
-      this.$Progress.start();
-      axios
-        .get(env.VITE_API_URL + "index-personel-time-work")
-        .then((response) => {
-          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-            this.$Progress.finish();
-            this.personel_time_works = response.data.data;
-            this.table.destroy();
-            this.$nextTick(() => {
-              this.table = $("#dt-timework").DataTable({ autoWidth: false });
-            });
-          }
-        })
-        .catch((e) => {
-          this.$Progress.fail();
-          Api.messageError(e);
-        });
-    },
-    confirmDelete(id, name) {
-      return Api.confirmDelete(
-        "Apakah anda yakin?",
-        "Jadwal Karyawan dengan personel " + name + " akan dihapus!"
-      ).then((result) => {
-        if (result.isConfirmed) {
-          this.deleteCompany(id);
-        }
-      });
-    },
-    deleteCompany(id) {
-      axios
-        .delete(env.VITE_API_URL + "delete-personel-time-work/" + id)
-        .then((response) => {
-          this.loadPersonelTimeWork();
-          let status = response.data.status;
-          let message = response.data.message;
-          let status_message =
-            status == Api.STATUS_SUCCESS ? Api.MES_SUCESS : Api.MES_ERROR;
-          Toast.fire({
-            icon: status_message,
-            title: message,
-          });
-        })
-        .catch((e) => {
-          Api.messageError(e);
-        });
-    },
-    convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
-      return Api.convertDate(date, format, empty, subtract);
-    },
-  },
+  components: { Table }
 };
 </script>

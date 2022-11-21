@@ -16,14 +16,18 @@
                 <div class="card-body">
                   <form class="mt-3" @submit.prevent="createDepartemen()">
                     <div class="mb-3">
-                      <router-link to="/index-departemen" type="button" class="btn btn-light">
+                      <router-link :to="{
+                        path: '/index-departemen',
+                        query: $route.query
+                      }" type="button" class="btn btn-light">
                         <i class="material-icons">arrow_back</i>Kembali
                       </router-link>
                     </div>
                     <div class="example-content">
                       <label class="form-label">Nama Departemen</label>
-                      <input type="text" class="form-control" v-model="departemen.m_departemen_name" placeholder="Nama Departemen"
-                        required oninvalid="this.setCustomValidity('nama harus diisi')" oninput="setCustomValidity('')">
+                      <input type="text" class="form-control" v-model="departemen.m_departemen_name"
+                        placeholder="Nama Departemen" required oninvalid="this.setCustomValidity('nama harus diisi')"
+                        oninput="setCustomValidity('')">
                     </div>
                     <div class="example-content mt-3">
                       <button type="submit" class="btn btn-primary" id="submit">

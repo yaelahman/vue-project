@@ -83,7 +83,10 @@
                         <button type="submit" class="btn btn-primary">
                           <i class="material-icons">save</i> Simpan
                         </button>
-                        <router-link to="/index-work-pattern" class="btn btn-light">
+                        <router-link :to="{
+                          path: '/index-work-pattern',
+                          query: $route.query
+                        }" class="btn btn-light">
                           <i class="material-icons">arrow_back</i> Kembali
                         </router-link>
                       </div>
@@ -125,9 +128,9 @@ export default {
     addArray() {
       this.work_schedule = [];
       for (var index = 0; index < this.m_work_patern_numberCycle; index++) {
-        if(this.work_schedule_saved[index] != null){
+        if (this.work_schedule_saved[index] != null) {
           this.work_schedule.push(this.work_schedule_saved[index]);
-        }else{
+        } else {
           this.work_schedule.push({
             m_work_schedule_type: '',
             m_work_schedule_clockIn: '',

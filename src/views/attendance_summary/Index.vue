@@ -55,54 +55,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table id="dt-attendancesummary" class="display" style="width: 100%">
-                      <thead class="text-center" style="vertical-align: top;">
-                        <tr>
-                          <th class="text-start">Nama</th>
-                          <th class="text-start">Departemen</th>
-                          <th>Kehadiran Hari</th>
-                          <th>Kehadiran Jam</th>
-                          <th>Terlambat</th>
-                          <th>Tidak Terlambat</th>
-                          <th>WFH</th>
-                          <th>Tidak Absen</th>
-                          <th>Cuti</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(val, index) in attendance_summary" :key="index">
-                          <td>{{ val.m_personel_names }}</td>
-                          <td>{{ val.departemen.m_departemen_name }}</td>
-                          <td class="text-center">{{ val.kehadiran ?? 0 }}</td>
-                          <td class="text-center">{{ val.total_jam ?? 0 }}</td>
-                          <td class="text-center">
-                            <div class="detail-as" @click="Detail(val, 'Terlambat')">
-                              {{ val.terlambat ?? 0 }}
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="detail-as" @click="Detail(val, 'Tidak Terlambat')">
-                              {{ val.tidak_terlambat ?? 0 }}
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="detail-as" @click="Detail(val, 'WFH')">
-                              {{ val.wfh ?? 0 }}
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="detail-as" @click="Detail(val, 'Tidak Absen')">
-                              {{ val.tidak_hadir ?? 0 }}
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="detail-as" @click="Detail(val, 'Cuti')">
-                              {{ val.total_cuti ?? 0 }}
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <Table v-if="renderComponent" />
                   </div>
                 </div>
               </div>
@@ -111,185 +64,7 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="ModalDetailTerlambat" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ modal.title }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-          </div>
-          <div class="modal-body table-responsive">
-            <div v-if="isLoading" v-html="loader"></div>
-            <table v-else id="tableTerlambat" class="display text-center" style="width: 100%;">
-              <thead class="text-center">
-                <tr>
-                  <th>No</th>
-                  <th>Tanggal</th>
-                  <th>Jam Masuk</th>
-                  <th>Keterangan Terlambat</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(val, index) in detail_attendance_summary" :key="index">
-                  <td>{{ parseInt(index) + 1 }}</td>
-                  <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_startClock,
-                      'HH:mm:ss')
-                  }}</td>
-                  <td class="text-start">{{ val.t_absensi_catatan_telat_masuk }}</td>
-                  <td>{{ val.t_absensi_status == 1 ? 'WFO' : 'WFH' }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Tutup
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="ModalDetailTidakTerlambat" tabindex="-1" aria-labelledby="ModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ modal.title }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-          </div>
-          <div class="modal-body table-responsive">
-            <div v-if="isLoading" v-html="loader"></div>
-            <table v-else id="tableTidakTerlambat" class="display text-center" style="width: 100%">
-              <thead class="text-center">
-                <tr>
-                  <th>No</th>
-                  <th>Tanggal</th>
-                  <th>Jam Masuk</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(val, index) in detail_attendance_summary" :key="index">
-                  <td>{{ parseInt(index) + 1 }}</td>
-                  <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_startClock,
-                      'HH:mm:ss')
-                  }}</td>
-                  <td>{{ val.t_absensi_status == 1 ? 'WFO' : 'WFH' }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Tutup
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="ModalDetailWFH" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ modal.title }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-          </div>
-          <div class="modal-body table-responsive">
-            <div v-if="isLoading" v-html="loader"></div>
-            <table v-else id="tableWFH" class="display text-center" style="width: 100%">
-              <thead class="text-center">
-                <tr>
-                  <th>No</th>
-                  <th>Tanggal</th>
-                  <th>Jam Masuk</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(val, index) in detail_attendance_summary" :key="index">
-                  <td>{{ parseInt(index) + 1 }}</td>
-                  <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                  <td :class="val.t_absensi_isLate == 2 ? 'text-danger' : ''">{{ convertDate(val.t_absensi_startClock,
-                      'HH:mm:ss')
-                  }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Tutup
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="ModalDetailTidakAbsen" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ modal.title }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-          </div>
-          <div class="modal-body table-responsive">
-            <div v-if="isLoading" v-html="loader"></div>
-            <table v-else id="tableTidakAbsen" class="display text-center" style="width: 100%">
-              <thead class="text-center">
-                <tr>
-                  <th>No</th>
-                  <th>Tanggal</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(val, index) in detail_attendance_summary" :key="index">
-                  <td>{{ parseInt(index) + 1 }}</td>
-                  <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Tutup
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="ModalDetailCuti" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ modal.title }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-          </div>
-          <div class="modal-body table-responsive">
-            <div v-if="isLoading" v-html="loader"></div>
-            <table v-else id="tableCuti" class="display text-center" style="width: 100%">
-              <thead class="text-center">
-                <tr>
-                  <th>No</th>
-                  <th>Tanggal</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(val, index) in detail_attendance_summary" :key="index">
-                  <td>{{ parseInt(index) + 1 }}</td>
-                  <td>{{ convertDate(val.t_absensi_Dates ?? val) }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Tutup
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </div>
 </template>
 <style>
@@ -306,6 +81,7 @@
 import * as Api from "../../helper/Api.js";
 import Swal from "sweetalert2";
 import moment from "moment";
+import Table from "./Table.vue";
 
 export default {
   data() {
@@ -317,89 +93,35 @@ export default {
         endDate: "",
         departemen: ""
       },
-      isLoading: false,
-      loader: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                  style="margin:auto;background:transparent;display:block;" width="100px" height="100px"
-                  viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-                  <circle cx="50" cy="50" r="30" stroke="#34b1e8" stroke-width="10" fill="none"></circle>
-                  <circle cx="50" cy="50" r="30" stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none">
-                    <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s"
-                      values="0 50 50;180 50 50;720 50 50" keyTimes="0;0.5;1"></animateTransform>
-                    <animate attributeName="stroke-dasharray" repeatCount="indefinite" dur="1s"
-                      values="18.84955592153876 169.64600329384882;94.2477796076938 94.24777960769377;18.84955592153876 169.64600329384882"
-                      keyTimes="0;0.5;1"></animate>
-                  </circle>
-                </svg>`,
-      modal: {
-        id_m_personel: "",
-        title: "",
-        nama: "",
-        data: []
-      },
+
       table: null,
       filterType: "",
-      departemens: []
+      departemens: [],
+      renderComponent: true,
     };
   },
+  components: { Table },
   created() {
-    this.loadAttendanceSummary();
     this.loadDepartemen();
-  },
-  mounted() {
-    setTimeout(() => {
-      this.table = $("#dt-attendancesummary").DataTable();
-    }, 1000);
+
+    this.search = {
+      t_absensi_Dates: this.$route.query.t_absensi_Dates ?? '',
+      startDate: this.$route.query.startDate ?? '',
+      endDate: this.$route.query.endDate ?? '',
+      departemen: this.$route.query.departemen ?? '',
+    }
   },
   methods: {
-    async Detail(val, type) {
-      this.isLoading = true;
-      this.modal = {
-        title: "Data " + this.capitalizeFirstLetter(type) + ' ' + val.m_personel_names,
-        id_m_personel: val.id_m_personel,
-        startDate: this.search.startDate,
-        endDate: this.search.endDate,
-        data: null,
-        type: type,
-      }
-
-      $('#ModalDetail' + this.modal.type.replace(' ', '')).modal('show')
-      this.detail_attendance_summary = []
-      if (this.table2 != null) {
-        this.table2.destroy();
-      }
-      // this.table2 = $("#table" + this.modal.type.replace(' ', '')).DataTable();
-      this.$Progress.start();
-      await axios
-        .get(env.VITE_API_URL + "detail-attendance-summary", { params: this.modal })
-        .then((response) => {
-          this.isLoading = !this.isLoading;
-          this.$Progress.finish();
-          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-            // setTimeout(() => {
-            this.detail_attendance_summary = response.data.data;
-            // this.table2.destroy();
-            this.$nextTick(() => {
-              this.table2 = $("#table" + this.modal.type.replace(' ', '')).DataTable();
-            });
-            // }, 1000)
-          }
-        })
-        .catch((e) => {
-          this.isLoading = !this.isLoading;
-          this.$Progress.fail();
-          Api.messageError(e);
-        });
-    },
     loadDepartemen() {
       this.isLoading = !this.isLoading;
       this.$Progress.start();
       axios
-        .get(env.VITE_API_URL + "index-departemen")
+        .get(env.VITE_API_URL + "index-departemen?show=1000")
         .then((response) => {
           if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
             this.isLoading = !this.isLoading;
             this.$Progress.finish();
-            this.departemens = response.data.data;
+            this.departemens = response.data.data.data;
           }
         })
         .catch((e) => {
@@ -408,24 +130,18 @@ export default {
           Api.messageError(e);
         });
     },
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1)
-    },
     filterRangeDate() {
       if (this.filterType == "show") {
-        var a = moment(moment(this.search.startDate).toArray());
-        var b = moment(moment(this.search.endDate).toArray());
-        // if (b.diff(a, "days") + 1 < 8) {
-        this.loadAttendanceSummary();
-        // } else {
-        //   Swal.fire({
-        //     title: "Perhatian",
-        //     text: "Selisih tanggal melebihi dari 7 hari harap gunakan unduh",
-        //     icon: "warning",
-        //     confirmButtonColor: "#3085d6",
-        //     confirmButtonText: "OK",
-        //   });
-        // }
+        this.$router.push({
+          path: '/attendance-summary',
+          query: this.search
+        })
+        setTimeout(async () => {
+          this.renderComponent = false;
+
+          await this.$nextTick();
+          this.renderComponent = true;
+        }, 100)
       } else {
         Swal.fire({
           title: "Ekspor Ringkasan Absensi",
@@ -458,32 +174,7 @@ export default {
         });
       }
     },
-    loadAttendanceSummary() {
-      this.$Progress.start();
-      axios
-        .get(env.VITE_API_URL + "attendance-summary", { params: this.search })
-        .then((response) => {
-          this.$Progress.finish();
-          if (Api.response(response.data, false) === Api.STATUS_SUCCESS) {
-            this.attendance_summary = response.data.data;
-            this.table.destroy();
-            this.$nextTick(() => {
-              this.table = $("#dt-attendancesummary").DataTable();
-            });
-          }
-        })
-        .catch((e) => {
-          this.$Progress.fail();
-          Api.messageError(e);
-        });
-    },
-    resetEndDate() {
-      this.search.endDate = "";
-    },
-  },
-  convertDate(date, format = "DD-MM-YYYY", empty = "-", subtract = false) {
-    console.log(date)
-    return Api.convertDate(date, format, empty, subtract);
+
   },
 };
 </script>

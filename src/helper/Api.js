@@ -17,7 +17,7 @@ let this_progress = null;
 
 export function convertDate(date, format = 'DD-MM-YYYY', empty = '-', subtract = false) {
 
-    if (subtract || date.includes('T')) {
+    if (date != null && (subtract || date.includes('T'))) {
 
         return date != null ? moment(date).subtract(7, 'h').format(format) : empty;
     }
