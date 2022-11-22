@@ -101,7 +101,10 @@ export default {
         if (b.diff(a, "days") + 1 < 32) {
           this.$router.push({
             path: '/izin-jam',
-            query: this.search
+            query: {
+              ...this.$route.query,
+              ...this.search
+            }
           })
           setTimeout(async () => {
             this.renderComponent = false;

@@ -32,10 +32,10 @@
                         <tr>
                             <th>No</th>
                             <th style="text-align: start">Nama</th>
-                            <th>Tanggal Mulai</th>
-                            <th>Jam Mulai</th>
-                            <th>Tanggal Selesai</th>
-                            <th>Jam Selesai</th>
+                            <th class="text-nowrap">Tanggal Mulai</th>
+                            <th class="text-nowrap">Jam Mulai</th>
+                            <th class="text-nowrap">Tanggal Selesai</th>
+                            <th class="text-nowrap">Jam Selesai</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -45,7 +45,7 @@
                                     (index
                                         + 1)
                             }}</td>
-                            <td style="width: 10px; text-align: start">
+                            <td class="text-nowrap" style="width: 10px; text-align: start">
                                 {{ val.personel.m_personel_names }}
                             </td>
                             <td v-if="val.t_absensi_startDate != null">
@@ -361,6 +361,7 @@ export default {
     components: { GoogleMap, Marker },
     watch: {
         search(newSearch, oldSearch) {
+            this.search = newSearch
             this.fetchData(newSearch)
         }
     },
@@ -400,10 +401,10 @@ export default {
             axios
                 .get(env.VITE_API_URL + "visit", {
                     params: {
+                        ...this.$route.query,
                         page: this.current_page,
                         show: this.show,
-                        search: search,
-                        ...this.$route.query
+                        search: this.search,
                     }
                 })
                 .then((response) => {

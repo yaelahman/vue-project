@@ -99,8 +99,10 @@
                     </div>
                   </form>
                   <div class="mt-3">
-                    <router-link :to="{ name: 'editDataPersonel', params: { id: id } }"
-                      class="btn btn-warning border rounded-pill">
+                    <router-link :to="{
+                      name: 'editDataPersonel', params: { id: id },
+                      query: $route.query
+                    }" class="btn btn-warning border rounded-pill">
                       <i class="material-icons">edit</i>Edit
                     </router-link>
                   </div>

@@ -29,7 +29,7 @@
                 <table id="dt-1" class="display w-100 dataTable no-footer" style="width: 100%;"
                     aria-describedby="dt-1_info">
                     <thead class="text-start">
-                        <tr>
+                        <tr class="text-nowrap">
 
                             <th>No</th>
                             <th style="text-align: start">Nama</th>
@@ -45,7 +45,7 @@
                         </tr>
                     </thead>
                     <tbody v-if="!isLoading">
-                        <tr v-for="(val, index) in data.data" :key="index" class="odd">
+                        <tr v-for="(val, index) in data.data" :key="index" class="odd text-nowrap">
                             <td class="text-center">{{ (current_page == 1 ? 0 : ((current_page - 1) * 10)) +
                                     (index
                                         + 1)
@@ -85,8 +85,9 @@
                                             id: val.id_permit_application,
                                         },
                                         query: {
+                                            ...query,
                                             page: current_page,
-                                            ...query
+                                            search: search,
                                         }
                                     }" class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
                                         title="Detail">
@@ -234,6 +235,14 @@ export default {
     },
     watch: {
         search(newSearch, oldSearch) {
+            this.search = newSearch
+            this.$router.push({
+                path: '/izin-jam',
+                query: {
+                    ...this.$route.query,
+                    search: this.search
+                }
+            })
             this.fetchData(newSearch)
         }
     },
@@ -241,6 +250,7 @@ export default {
         if (this.query.page) {
             this.current_page = this.query.page
         }
+        this.search = this.query.search
         this.fetchData()
     },
     methods: {
@@ -273,10 +283,10 @@ export default {
             axios
                 .get(env.VITE_API_URL + "izin/get/1", {
                     params: {
+                        ...this.$route.query,
                         page: this.current_page,
                         show: this.show,
-                        search: search,
-                        ...this.$route.query
+                        search: this.search,
                     }
                 })
                 .then((response) => {

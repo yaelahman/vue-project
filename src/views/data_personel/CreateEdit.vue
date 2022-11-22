@@ -18,8 +18,10 @@
                     <div class="mb-3">
                       <div class="mt-0" v-if="id != ''">
 
-                        <router-link :to="{ name: 'showDataPersonel', params: { id: id } }"
-                          class="btn btn-light border rounded-pill btn-back">
+                        <router-link :to="{
+                          name: 'showDataPersonel', params: { id: id },
+                          query: $route.query
+                        }" class="btn btn-light border rounded-pill btn-back">
                           <i class="material-icons">arrow_back</i>Kembali
                         </router-link>
                       </div>
@@ -170,7 +172,11 @@ export default {
         .then((response) => {
           if (Api.response(response.data) === Api.STATUS_SUCCESS) {
             if (this.id != '') {
-              this.$router.push({ name: 'showDataPersonel', params: { id: this.id } });
+              let query = this.$route.query
+              this.$router.push({
+                name: 'showDataPersonel', params: { id: this.id },
+                query: query
+              });
             } else {
               this.$router.push("/index-data-personel");
             }

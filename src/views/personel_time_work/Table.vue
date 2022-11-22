@@ -79,7 +79,8 @@
                                             update: true,
                                         },
                                         query: {
-                                            page: current_page
+                                            page: current_page,
+                                            search: search
                                         }
                                     }" class="btn-light">
                                         <button type="button" class="btn btn-sm btn-light" data-toggle="tooltip"
@@ -184,6 +185,7 @@ export default {
     },
     watch: {
         search(newSearch, oldSearch) {
+            this.search = newSearch
             this.fetchData(newSearch)
         }
     },
@@ -191,6 +193,7 @@ export default {
         if (this.query.page) {
             this.current_page = this.query.page
         }
+        this.search = this.query.search
         this.fetchData()
     },
     methods: {
@@ -224,7 +227,7 @@ export default {
                     params: {
                         page: this.current_page,
                         show: this.show,
-                        search: search
+                        search: this.search
                     }
                 })
                 .then((response) => {

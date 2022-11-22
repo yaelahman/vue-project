@@ -75,7 +75,10 @@ export default {
       })
         .then((response) => {
           if (Api.response(response.data) === Api.STATUS_SUCCESS) {
-            this.$router.push("/index-departemen");
+            this.$router.push({
+              path: "/index-departemen",
+              query: this.$route.query
+            });
           }
           $("#submit").prop("disabled", false);
           $("#submit").html("Submit");

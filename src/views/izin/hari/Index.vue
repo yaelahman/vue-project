@@ -104,7 +104,10 @@ export default {
 
           this.$router.push({
             path: '/izin-hari',
-            query: this.search
+            query: {
+              ...this.$route.query,
+              ...this.search
+            }
           })
           setTimeout(async () => {
             this.renderComponent = false;

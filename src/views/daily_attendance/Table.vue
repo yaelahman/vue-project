@@ -31,13 +31,13 @@
                     <thead class="text-start">
                         <tr>
                             <th>No</th>
-                            <th style="text-align: start">Nama</th>
-                            <th>Tanggal Masuk</th>
-                            <th>Jam Masuk</th>
-                            <th>Tanggal Pulang</th>
-                            <th>Jam Pulang</th>
-                            <th class="text-start">Jadwal Kerja</th>
-                            <th class="text-end">Menit Terlambat</th>
+                            <th style="text-align: start; width: 300px !important" width="300px">Nama</th>
+                            <th class="text-nowrap">Tanggal Masuk</th>
+                            <th class="text-nowrap">Jam Masuk</th>
+                            <th class="text-nowrap">Tanggal Pulang</th>
+                            <th class="text-nowrap">Jam Pulang</th>
+                            <th class="text-start text-nowrap">Jadwal Kerja</th>
+                            <th class="text-end text-nowrap">Menit Terlambat</th>
                             <th class="text-end">Denda</th>
                             <th>Aksi</th>
                         </tr>
@@ -48,7 +48,7 @@
                                     (index
                                         + 1)
                             }}</td>
-                            <td style="width: 10px; text-align: start">
+                            <td class="text-nowrap" width="100px" style="width: 100px !important; text-align: start">
                                 {{ val.personel.m_personel_names }}
                                 <span style="margin-left: 5px" v-if="val.t_absensi_status == 2" class="
                                 badge
@@ -430,6 +430,7 @@ export default {
     components: { GoogleMap, Marker },
     watch: {
         search(newSearch, oldSearch) {
+            this.search = newSearch
             this.fetchData(newSearch)
         }
     },
@@ -485,14 +486,15 @@ export default {
             }
         },
         fetchData(search = '') {
+            console.log(this.search)
             this.isLoading = true
             axios
                 .get(env.VITE_API_URL + "daily-attendance", {
                     params: {
+                        ...this.$route.query,
                         page: this.current_page,
                         show: this.show,
-                        search: search,
-                        ...this.$route.query
+                        search: this.search,
                     }
                 })
                 .then((response) => {
@@ -532,7 +534,6 @@ export default {
         hitungDenda(val) {
             let denda = localStorage.getItem("denda") != undefined ? localStorage.getItem("denda") : 0
             let menit = this.menitTerlambat(val)
-            console.log(denda, menit)
             return this.formatRupiah((denda * menit).toString())
         },
         formatRupiah(angka, prefix) {

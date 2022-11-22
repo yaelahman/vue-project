@@ -113,7 +113,11 @@ export default {
 
           this.$router.push({
             path: '/izin-cuti',
-            query: this.search
+            query: {
+
+              ...this.$route.query,
+              ...this.search
+            }
           })
           setTimeout(async () => {
             this.renderComponent = false;

@@ -112,7 +112,7 @@ export default {
       if (this.filterType == "show") {
         var a = moment(moment(this.search.startDate).toArray());
         var b = moment(moment(this.search.endDate).toArray());
-        if (b.diff(a, "days") + 1 < 8) {
+        if (b.diff(a, "days") + 1 < 32) {
           this.$router.push({
             path: '/daily-attendance',
             query: this.search

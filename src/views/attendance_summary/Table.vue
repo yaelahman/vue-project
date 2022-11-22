@@ -35,12 +35,12 @@
                             </th>
                             <th class="text-start">Nama</th>
                             <th class="text-start">Departemen</th>
-                            <th>Kehadiran Hari</th>
-                            <th>Kehadiran Jam</th>
+                            <th class="text-nowrap">Kehadiran Hari</th>
+                            <th class="text-nowrap">Kehadiran Jam</th>
                             <th>Terlambat</th>
-                            <th>Tidak Terlambat</th>
+                            <th class="text-nowrap">Tidak Terlambat</th>
                             <th>WFH</th>
-                            <th>Tidak Absen</th>
+                            <th class="text-nowrap">Tidak Absen</th>
                             <th>Cuti</th>
                         </tr>
                     </thead>
@@ -50,8 +50,8 @@
                                     (index
                                         + 1)
                             }}</td>
-                            <td>{{ val.m_personel_names }}</td>
-                            <td>{{ val.departemen.m_departemen_name }}</td>
+                            <td class="text-nowrap">{{ val.m_personel_names }}</td>
+                            <td class="text-nowrap">{{ val.departemen.m_departemen_name }}</td>
                             <td class="text-center">{{ val.kehadiran ?? 0 }}</td>
                             <td class="text-center">{{ val.total_jam ?? 0 }}</td>
                             <td class="text-center">
@@ -157,8 +157,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Tanggal</th>
-                                    <th>Jam Masuk</th>
-                                    <th>Keterangan Terlambat</th>
+                                    <th class="text-nowrap">Jam Masuk</th>
+                                    <th class="text-nowrap">Keterangan Terlambat</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -404,10 +404,10 @@ export default {
             axios
                 .get(env.VITE_API_URL + "attendance-summary", {
                     params: {
+                        ...this.$route.query,
                         page: this.current_page,
                         show: this.show,
                         search: search,
-                        ...this.$route.query
                     }
                 })
                 .then((response) => {

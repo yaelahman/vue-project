@@ -31,12 +31,12 @@
                     <thead class="text-start">
                         <tr>
                             <th>No</th>
-                            <th class="text-start">Nama Daftar Jadwal</th>
-                            <th>Jumlah Hari</th>
-                            <th>Jumlah Bekerja</th>
-                            <th>Jumlah Libur</th>
-                            <th>Toleransi Terlambat</th>
-                            <th>Total Anggota</th>
+                            <th class="text-start text-nowrap">Nama Daftar Jadwal</th>
+                            <th class="text-nowrap">Jumlah Hari</th>
+                            <th class="text-nowrap">Jumlah Bekerja</th>
+                            <th class="text-nowrap">Jumlah Libur</th>
+                            <th class="text-nowrap">Toleransi Terlambat</th>
+                            <th class="text-nowrap">Total Anggota</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -46,7 +46,7 @@
                                     (index
                                         + 1)
                             }}</td>
-                            <td class="text-start">{{ val.m_work_patern_name }}</td>
+                            <td class="text-start text-nowrap">{{ val.m_work_patern_name }}</td>
                             <td>
                                 {{ val.m_work_patern_numberCycle }} Hari
                             </td>
@@ -67,6 +67,7 @@
                                         },
                                         query: {
                                             page: current_page,
+                                            search: search
                                         }
                                     }" class="btn-light">
                                         <button class="btn btn-sm btn-light" data-toggle="tooltip"
@@ -81,6 +82,7 @@
                                         },
                                         query: {
                                             page: current_page,
+                                            search: search
                                         }
                                     }" class="btn-light">
                                         <button class="btn btn-sm btn-light" data-toggle="tooltip"
@@ -184,6 +186,7 @@ export default {
     },
     watch: {
         search(newSearch, oldSearch) {
+            this.search = newSearch
             this.fetchData(newSearch)
         }
     },
@@ -191,6 +194,7 @@ export default {
         if (this.query.page) {
             this.current_page = this.query.page
         }
+        this.search = this.query.search
         this.fetchData()
     },
     methods: {
@@ -224,7 +228,7 @@ export default {
                     params: {
                         page: this.current_page,
                         show: this.show,
-                        search: search
+                        search: this.search
                     }
                 })
                 .then((response) => {

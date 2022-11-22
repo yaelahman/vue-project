@@ -37,17 +37,18 @@
                             <th>Email</th>
                             <th>DeviceID</th>
                             <th>Status</th>
-                            <th>Mulai Bekerja</th>
+                            <th class="text-nowrap">Mulai Bekerja</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody v-if="!isLoading">
                         <tr v-for="(val, index) in data.data" :key="index" class="odd">
                             <td class="text-center">{{ (current_page == 1 ? 0 : ((current_page - 1) * 10)) +
-                            (index
-                            + 1)
+                                    (index
+                                        + 1)
                             }}</td>
-                            <td style="width: 10px; text-align: start;">{{ val.m_personel_names }}</td>
+                            <td class="text-nowrap" style="width: 10px; text-align: start;">{{ val.m_personel_names }}
+                            </td>
                             <td>{{ val.m_personel_personID }}</td>
                             <td>{{ val.username }}</td>
                             <td>{{ val.m_personel_email }}</td>
@@ -55,7 +56,7 @@
                             <td>
                                 <button style="cursor: pointer;" @click="changeStatus(val)"
                                     :class="val.m_personel_status == 1 ? 'btn btn-success btn-sm' : 'btn btn-danger btn-sm'">{{
-                                    val.m_personel_status == 1 ? 'On' : 'Off'
+                                            val.m_personel_status == 1 ? 'On' : 'Off'
                                     }}</button>
                             </td>
                             <td>{{ val.work_personel != null ? convertDate(val.work_personel.m_work_personel_time) : '-'
@@ -97,6 +98,7 @@
                                             params: { id: val.id_m_personel },
                                             query: {
                                                 page: current_page,
+                                                search: search,
                                                 ...$route.query
                                             }
                                         }">
@@ -208,6 +210,9 @@ export default {
     },
     watch: {
         search(newSearch, oldSearch) {
+            this.search = newSearch
+            this.$route.query.search = newSearch
+            this.current_page = 1
             this.fetchData(newSearch)
         }
     },
@@ -215,12 +220,14 @@ export default {
         if (this.query.page) {
             this.current_page = this.query.page
         }
+        this.search = this.query.search
         this.fetchData()
     },
     methods: {
         changePage(page) {
             if (page != this.current_page) {
                 this.current_page = page
+                this.$route.query.page = page
                 this.fetchData()
             }
 
@@ -242,15 +249,16 @@ export default {
             }
         },
         fetchData(search = '') {
+            console.log(this.search)
             this.isLoading = true
             axios
                 .get(env.VITE_API_URL + "index-data-personel", {
                     params: {
-                        page: this.current_page,
                         show: this.show,
-                        search: search,
+                        search: this.search,
                         isIndex: 1,
-                        ...this.$route.query
+                        ...this.$route.query,
+                        page: this.current_page,
                     }
                 })
                 .then((response) => {

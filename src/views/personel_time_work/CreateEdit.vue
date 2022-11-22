@@ -107,6 +107,7 @@ export default {
     },
     async created() {
         this.create = this.$route.params.create != null ? this.$route.params.create : null
+        // alert(this.id)
         this.loadPersonel();
         this.loadWorkPattern();
         await this.loadPersonelTimeWork();
@@ -146,7 +147,17 @@ export default {
                 personel_time_work: this.personel_time_work
             }).then(response => {
                 if (Api.response(response.data) === Api.STATUS_SUCCESS) {
-                    this.$router.push("/detail-work-pattern/" + this.$route.params.create)
+                    // alert(this.id, this.create)
+                    if (this.id != '') {
+
+                        this.$router.push({
+                            path: "/index-personel-time-work/",
+                            query: this.$route.query
+                        })
+                    } else {
+                        this.$router.push("/detail-work-pattern/" + this.$route.params.create)
+
+                    }
                 }
                 $('#submit').prop('disabled', false);
                 $('#submit').html('Submit');

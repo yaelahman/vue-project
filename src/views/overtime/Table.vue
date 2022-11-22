@@ -32,12 +32,12 @@
                         <tr>
                             <th>No</th>
                             <th style="text-align: start">Nama</th>
-                            <th>Tanggal Pengajuan</th>
-                            <th>Tanggal Mulai</th>
-                            <th>Jam Mulai</th>
-                            <th>Tanggal Selesai</th>
-                            <th>Jam Selesai</th>
-                            <th class="text-end">Menit Lembur</th>
+                            <th class="text-nowrap">Tanggal Pengajuan</th>
+                            <th class="text-nowrap">Tanggal Mulai</th>
+                            <th class="text-nowrap">Jam Mulai</th>
+                            <th class="text-nowrap">Tanggal Selesai</th>
+                            <th class="text-nowrap">Jam Selesai</th>
+                            <th class="text-end text-nowrap">Menit Lembur</th>
                             <th class="text-center">Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -48,7 +48,7 @@
                                     (index
                                         + 1)
                             }}</td>
-                            <td style="width: 10px; text-align: start">
+                            <td class="text-nowrap" style="width: 10px; text-align: start">
                                 {{ val.personel.m_personel_names }}
                             </td>
                             <td>
@@ -73,7 +73,7 @@
                             <td class="text-end">
                                 {{ menitLembur(val) }}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center text-nowrap">
                                 <div v-html="mapStatus(val.t_absensi_status_admin)"></div>
                             </td>
                             <td class="text-start">
@@ -433,6 +433,7 @@ export default {
     components: { GoogleMap, Marker },
     watch: {
         search(newSearch, oldSearch) {
+            this.search = newSearch
             this.fetchData(newSearch)
         }
     },
@@ -474,7 +475,7 @@ export default {
                     params: {
                         page: this.current_page,
                         show: this.show,
-                        search: search,
+                        search: this.search,
                         ...this.$route.query
                     }
                 })

@@ -57,7 +57,7 @@
                                     <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right"
                                         title="Edit">
                                         <router-link
-                                            :to="{ name: 'editDepartemen', params: { id: val.id_m_departemen }, query: { page: current_page } }">
+                                            :to="{ name: 'editDepartemen', params: { id: val.id_m_departemen }, query: { page: current_page, search: search } }">
                                             <i class="material-icons" style="color: #4d546b;">edit</i>
                                         </router-link>
                                     </button>
@@ -155,6 +155,7 @@ export default {
     },
     watch: {
         search(newSearch, oldSearch) {
+            this.search = newSearch
             this.fetchData(newSearch)
         }
     },
@@ -162,6 +163,7 @@ export default {
         if (this.query.page) {
             this.current_page = this.query.page
         }
+        this.search = this.query.search
         this.fetchData()
     },
     methods: {
@@ -195,7 +197,7 @@ export default {
                     params: {
                         page: this.current_page,
                         show: this.show,
-                        search: search
+                        search: this.search
                     }
                 })
                 .then((response) => {
